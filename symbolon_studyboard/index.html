@@ -11,7 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
@@ -19,7 +19,6 @@
         .aspect-card { aspect-ratio: 2 / 3.2; }
         .card-glow:hover { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .text-shadow-lg { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
@@ -54,93 +53,93 @@
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14.71 13 2l-2 9h9l-9 12.71 2-9H4z"/></svg>
         );
 
-        // --- 78장 전체 데이터 베이스 ---
+        // --- 78장 전체 데이터 (요청된 리스트 기반 최종 반영) ---
         const INITIAL_CARDS = [
-            // [메이저 카드] 1-12
-            { id: 1, name: "전사", type: "major", combo: "화성 / 양자리", insight: "에너지, 투쟁, 생존 본능, 용기", guide: "적극적인 행동이 필요합니다. 자신의 힘을 신뢰하세요." },
-            { id: 2, name: "연인", type: "major", combo: "금성 / 황소자리", insight: "감각적 가치, 소유, 아름다움, 풍요", guide: "물질과 가치관의 정립이 필요합니다. 아름다움을 즐기세요." },
-            { id: 3, name: "중재자", type: "major", combo: "수성 / 쌍둥이자리", insight: "정보 전달, 소통, 객관성, 지성", guide: "편견 없는 정보 수집과 소통이 해결의 열쇠입니다." },
-            { id: 4, name: "어머니", type: "major", combo: "달 / 게자리", insight: "무의식, 감정, 보호, 안식", guide: "내면의 감정에 솔직해지세요. 보살핌이 필요합니다." },
-            { id: 5, name: "자아", type: "major", combo: "태양 / 사자자리", insight: "창의성, 자존감, 표현, 생명력", guide: "자신을 당당하게 드러낼 때입니다. 존재감을 발휘하세요." },
-            { id: 6, name: "봉사자", type: "major", combo: "수성 / 처녀자리", insight: "질서, 분석, 실용성, 봉사", guide: "주변을 정리하고 작은 일부터 성실히 수행하세요." },
-            { id: 7, name: "파트너", type: "major", combo: "금성 / 천칭자리", insight: "관계, 균형, 조화, 거울", guide: "상대방과의 관계를 통해 자신의 모습을 발견하세요." },
-            { id: 8, name: "유혹자", type: "major", combo: "명왕성 / 전갈자리", insight: "집착, 욕망, 그림자, 변형", guide: "무의식 속 깊은 욕망을 마주하고 변화를 수용하세요." },
-            { id: 9, name: "설교자", type: "major", combo: "목성 / 사수자리", insight: "신념, 비전, 지혜, 철학", guide: "삶의 큰 방향과 가치관을 점검하고 멀리 바라보세요." },
-            { id: 10, name: "마스터", type: "major", combo: "토성 / 염소자리", insight: "책임, 법칙, 구조, 시간", guide: "원칙을 지키고 인내하며 자신의 책임을 완수하세요." },
-            { id: 11, name: "광대", type: "major", combo: "천왕성 / 물병자리", insight: "자유, 혁신, 독창성, 해방", guide: "틀을 깨고 자유로운 시각에서 세상을 바라보세요." },
-            { id: 12, name: "천사", type: "major", combo: "해왕성 / 물고기자리", insight: "영성, 직관, 희생, 구원", guide: "영적인 안내에 귀를 기울이고 모든 것을 내려놓으세요." },
+            // 1. 메이저 카드 (1번~12번)
+            { id: 1, name: "전사", type: "major", combo: "양자리", insight: "행동력, 용기, 에너지", guide: "적극적인 태도로 상황을 돌파하세요." },
+            { id: 2, name: "연인", type: "major", combo: "황소자리", insight: "가치관, 아름다움, 소유", guide: "자신의 가치를 정립하고 감각적 즐거움을 누리세요." },
+            { id: 3, name: "중재자", type: "major", combo: "쌍둥이자리", insight: "소통, 정보, 이성", guide: "객관적인 판단과 정보 교류가 필요합니다." },
+            { id: 4, name: "어머니", type: "major", combo: "게자리", insight: "무의식, 감정, 보호", guide: "내면의 감정을 돌보고 수용하는 자세를 가지세요." },
+            { id: 5, name: "자아", type: "major", combo: "사자자리", insight: "창의성, 자부심, 주인공", guide: "자신의 존재를 당당하게 드러내세요." },
+            { id: 6, name: "봉사자", type: "major", combo: "처녀자리", insight: "질서, 분석, 봉사", guide: "주변을 정리하고 맡은 바 책임을 다하세요." },
+            { id: 7, name: "파트너", type: "major", combo: "천칭자리", insight: "관계, 조화, 거울", guide: "타인과의 관계를 통해 균형을 찾으세요." },
+            { id: 8, name: "유혹자", type: "major", combo: "전갈자리", insight: "집착, 변형, 무의식", guide: "그림자를 마주하고 깊은 변화를 수용하세요." },
+            { id: 9, name: "설교사", type: "major", combo: "사수자리", insight: "신념, 비전, 지혜", guide: "삶의 큰 방향과 철학을 점검하세요." },
+            { id: 10, name: "마스터", type: "major", combo: "염소자리", insight: "책임, 법칙, 구조", guide: "원칙을 지키며 인내의 시간을 견디세요." },
+            { id: 11, name: "광대", type: "major", combo: "물병자리", insight: "자유, 혁신, 독창성", guide: "고정관념을 깨고 새로운 시각을 가지세요." },
+            { id: 12, name: "천사", type: "major", combo: "물고기자리", insight: "영성, 직관, 희생", guide: "보이지 않는 힘에 맡기고 평온을 찾으세요." },
 
-            // [달 카드] 13-23
-            { id: 13, name: "반항", type: "moon", combo: "게자리 + 물병자리", insight: "정서적 자유, 돌발적 행동", guide: "내면의 구속에서 벗어나려는 강력한 의지가 작용합니다." },
-            { id: 14, name: "이브의 두 얼굴", type: "moon", combo: "게자리 + 쌍둥이자리", insight: "감정의 이중성, 변덕, 지적인 감성", guide: "표면의 감정과 이면의 생각이 충돌하고 있습니다." },
-            { id: 15, name: "명확한 표현", type: "moon", combo: "게자리 + 처녀자리", insight: "감정의 언어화, 분석적 표현", guide: "자신의 감정을 논리적으로 설명하려는 노력이 필요합니다." },
-            { id: 16, name: "양립 불가", type: "moon", combo: "게자리 + 양자리", insight: "감정적 불일치, 충돌, 맞지 않는 리듬", guide: "서로 다른 감정의 흐름이 부딪혀 긴장이 유발됩니다." },
-            { id: 17, name: "돌봄 / 보살핌", type: "moon", combo: "게자리 + 황소자리", insight: "물질적 보살핌, 정서적 안정", guide: "현실적인 지지와 따뜻한 안식이 제공되어야 합니다." },
-            { id: 18, name: "가족", type: "moon", combo: "게자리 + 게자리", insight: "뿌리, 소속감, 정서적 유대", guide: "자신의 근원과 가족적 유대감이 강조되는 시기입니다." },
-            { id: 19, name: "낙태", type: "moon", combo: "게자리 + 전갈자리", insight: "감정의 단절, 상실, 포기, 위기", guide: "감당할 수 없는 감정적 고통을 끊어내려는 과정입니다." },
-            { id: 20, name: "므네모시네", type: "moon", combo: "게자리 + 천칭자리", insight: "기억의 조화, 과거의 회상", guide: "과거의 아름다운 기억이 현재의 관계에 영향을 줍니다." },
-            { id: 21, name: "얼음여왕", type: "moon", combo: "게자리 + 염소자리", insight: "정서적 냉담, 고립, 완벽주의", guide: "상처받지 않기 위해 스스로를 차갑게 가둔 상태입니다." },
-            { id: 22, name: "해방", type: "moon", combo: "게자리 + 사수자리", insight: "감정적 구원, 낙관주의", guide: "정서적으로 큰 지지와 희망을 얻어 자유로워집니다." },
-            { id: 23, name: "잠자는 미녀", type: "moon", combo: "게자리 + 물고기자리", insight: "환상, 무의식의 수면", guide: "현실에서 잠시 물러나 내면의 꿈속에 머물러 있습니다." },
+            // 2. 게자리(달) 조합 (13번~23번)
+            { id: 13, name: "반항", type: "moon", combo: "게자리 + 양자리", insight: "정서적 이탈, 독립 의지", guide: "내면의 구속에서 벗어나려는 충동을 이해하세요." },
+            { id: 14, name: "이브의 두 얼굴", type: "moon", combo: "게자리 + 황소자리", insight: "감정의 이중성, 변덕", guide: "표면적 감정과 실제 욕구 사이의 괴리를 살피세요." },
+            { id: 15, name: "명확한 표현", type: "moon", combo: "게자리 + 쌍둥이자리", insight: "감정의 언어화, 소통", guide: "복잡한 내면을 논리적으로 설명하려 노력하세요." },
+            { id: 16, name: "양립불가", type: "moon", combo: "게자리 + 사자자리", insight: "자아와 감정의 충돌", guide: "나를 드러내고 싶은 욕구와 감추고 싶은 감정이 부딪칩니다." },
+            { id: 17, name: "돌봄", type: "moon", combo: "게자리 + 처녀자리", insight: "세심한 배려, 보살핌", guide: "현실적인 도움과 정서적 안정이 모두 필요합니다." },
+            { id: 18, name: "가족", type: "moon", combo: "게자리 + 천칭자리", insight: "소속감, 관계의 유대", guide: "가족적 결속력과 조화를 중시해야 할 때입니다." },
+            { id: 19, name: "낙태", type: "moon", combo: "게자리 + 전갈자리", insight: "감정적 상실, 단절", guide: "감당할 수 없는 고통을 끊어내고 다시 시작하세요." },
+            { id: 20, name: "므네모시네", type: "moon", combo: "게자리 + 사수자리", insight: "과거의 기억, 이상주의", guide: "기억의 파편들을 모아 미래의 비전을 만드세요." },
+            { id: 21, name: "얼음여왕", type: "moon", combo: "게자리 + 염소자리", insight: "정서적 냉담, 완벽주의", guide: "스스로를 차갑게 가두어 보호하고 있지는 않나요?" },
+            { id: 22, name: "해방", type: "moon", combo: "게자리 + 물병자리", insight: "감정적 구원, 희망", guide: "무거운 정서적 굴레를 벗어던지고 자유로워지세요." },
+            { id: 23, name: "잠자는 미녀", type: "moon", combo: "게자리 + 물고기자리", insight: "환상, 무의식적 수면", guide: "현실을 잊고 내면의 세계에 침잠하는 중입니다." },
 
-            // [태양 카드] 24-33
-            { id: 24, name: "전투", type: "sun", combo: "사자자리 + 양자리", insight: "자아의 충돌, 권력 다툼, 폭발적 에너지", guide: "자신의 존재감을 증명하기 위한 투쟁이 일어납니다." },
-            { id: 25, name: "여왕", type: "sun", combo: "사자자리 + 황소자리", insight: "소유의 즐거움, 자부심", guide: "자신의 가치를 물질과 미를 통해 드러내려 합니다." },
-            { id: 26, name: "배우", type: "sun", combo: "사자자리 + 쌍둥이자리", insight: "연출된 자아, 유희", guide: "역할에 충실한 연기를 하고 있습니다." },
-            { id: 27, name: "병든 왕", type: "sun", combo: "사자자리 + 염소자리", insight: "자아의 약화, 무거운 책임", guide: "자존감이 떨어지고 책임에 눌린 상태입니다." },
-            { id: 28, name: "결혼", type: "sun", combo: "사자자리 + 천칭자리", insight: "사회적 통합, 조화로운 자아", guide: "외부와 아름답게 결합하여 새로운 정체성을 만듭니다." },
-            { id: 29, name: "마법사", type: "sun", combo: "사자자리 + 전갈자리", insight: "강력한 의지, 통제, 창조적 변형", guide: "상황을 바꾸려는 욕망입니다." },
-            { id: 30, name: "행운", type: "sun", combo: "사자자리 + 사수자리", insight: "성공, 확장, 기회", guide: "세상이 당신을 돕고 있습니다." },
-            { id: 31, name: "짐", type: "sun", combo: "사자자리 + 처녀자리", insight: "과도한 분석, 자기 비판", guide: "완벽해야 한다는 생각이 무겁게 짓누릅니다." },
-            { id: 32, name: "몰락", type: "sun", combo: "사자자리 + 물병자리", insight: "갑작스러운 실각, 충격", guide: "예상치 못한 변화로 위치가 흔들립니다." },
-            { id: 33, name: "후퇴", type: "sun", combo: "사자자리 + 물고기자리", insight: "은둔, 자아의 상실", guide: "세상의 중심에서 물러나 홀로 침잠해야 하는 시기입니다." },
+            // 3. 사자자리(태양) 조합 (24번~33번)
+            { id: 24, name: "전투", type: "sun", combo: "사자자리 + 양자리", insight: "권력 투쟁, 자아 충돌", guide: "자신의 주도권을 잡기 위해 투쟁하고 있습니다." },
+            { id: 25, name: "여왕", type: "sun", combo: "사자자리 + 황소자리", insight: "소유의 즐거움, 과시", guide: "자신의 가치를 미적, 물질적 풍요로 드러냅니다." },
+            { id: 26, name: "배우", type: "sun", combo: "사자자리 + 쌍둥이자리", insight: "역할 연기, 연출된 자아", guide: "진정한 나보다 보여지는 역할에 집중하고 있습니다." },
+            { id: 27, name: "병든 왕", type: "sun", combo: "사자자리 + 처녀자리", insight: "권위의 위기, 자책", guide: "자존감이 낮아지고 책임의 무게에 힘겨워합니다." },
+            { id: 28, name: "결혼", type: "sun", combo: "사자자리 + 천칭자리", insight: "사회적 합일, 결합", guide: "외부와의 아름다운 결합을 통해 완성을 꿈꿉니다." },
+            { id: 29, name: "마법사", type: "sun", combo: "사자자리 + 전갈자리", insight: "의지의 통제, 창조력", guide: "보이지 않는 힘을 다스려 운명을 바꾸려 합니다." },
+            { id: 30, name: "행운", type: "sun", combo: "사자자리 + 사수자리", insight: "성공, 비전의 실현", guide: "자신감을 가지면 세상이 당신을 도울 것입니다." },
+            { id: 31, name: "짐", type: "sun", combo: "사자자리 + 염소자리", insight: "과도한 업무, 압박", guide: "높은 목표가 당신을 무겁게 짓누르고 있습니다." },
+            { id: 32, name: "몰락", type: "sun", combo: "사자자리 + 물병자리", insight: "자아의 붕괴, 실각", guide: "예상치 못한 변화로 위치가 흔들립니다." },
+            { id: 33, name: "후퇴", type: "sun", combo: "사자자리 + 물고기자리", insight: "은둔, 자아 상실", guide: "모든 것을 내려놓고 잠시 물러나야 할 때입니다." },
 
-            // [마이너 카드] 34-78
-            { id: 34, name: "사랑 / 에로스", type: "minor", group: "양자리", combo: "양자리 + 황소자리", insight: "열정, 성적 매력, 욕망의 결합", guide: "강렬한 에너지가 서로를 끌어당기고 있습니다." },
-            { id: 35, name: "차꼬", type: "minor", group: "양자리", combo: "양자리 + 쌍둥이자리", insight: "구속, 사고의 경직, 처벌", guide: "틀에 박힌 생각과 의무가 당신의 발목을 잡습니다." },
-            { id: 36, name: "죄책감", type: "minor", group: "양자리", combo: "양자리 + 처녀자리", insight: "자기 검열, 과거의 그림자, 강박", guide: "스스로를 용서하지 못하는 마음이 고통을 만듭니다." },
-            { id: 37, name: "불일치", type: "minor", group: "양자리", combo: "양자리 + 천칭자리", insight: "말다툼, 성급함, 신경전", guide: "의사소통의 방식이 거칠어 갈등이 발생하기 쉽습니다." },
-            { id: 38, name: "뱀파이어 / 흡혈귀", type: "minor", group: "양자리", combo: "양자리 + 전갈자리", insight: "에너지 갈취, 집착, 감정적 지배", guide: "누군가 당신의 정서적 에너지를 빨아들이고 있습니다." },
-            { id: 39, name: "십자군", type: "minor", group: "양자리", combo: "양자리 + 사수자리", insight: "신념을 위한 투쟁, 과잉 에너지", guide: "자신의 정의를 실현하기 위해 투쟁합니다." },
-            { id: 40, name: "헛수고", type: "minor", group: "양자리", combo: "양자리 + 염소자리", insight: "방해, 억눌린 행동, 무기력", guide: "노력해도 결과가 나오지 않는 답답한 상황입니다." },
-            { id: 41, name: "골칫덩이", type: "minor", group: "양자리", combo: "양자리 + 물병자리", insight: "방해, 가벼운 도발, 산만함", guide: "사소한 일들이 계획을 어지럽히고 있습니다." },
-            { id: 42, name: "완벽한 바보", type: "minor", group: "양자리", combo: "양자리 + 물고기자리", insight: "엉뚱한 지성, 고정관념 타파, 무지", guide: "아는 것이 오히려 방해가 될 수 있습니다." },
-            { id: 43, name: "황금 소녀", type: "minor", group: "황소자리", combo: "황소자리 + 쌍둥이자리", insight: "물질적 행운, 허영, 풍요로운 삶", guide: "현재의 기쁨을 누리되 과잉을 경계하세요." },
-            { id: 44, name: "집착", type: "minor", group: "황소자리", combo: "황소자리 + 처녀자리", insight: "정서적 속박, 놓지 못하는 마음", guide: "과거의 감정이나 대상에 강하게 매여 있습니다." },
-            { id: 45, name: "황금빛 새장", type: "minor", group: "황소자리", combo: "황소자리 + 천칭자리", insight: "구속된 풍요, 가난한 부자, 책임", guide: "화려해 보이지만 실제로는 자유가 없는 상태입니다." },
-            { id: 46, name: "꼭두각시", type: "minor", group: "황소자리", combo: "황소자리 + 전갈자리", insight: "조종당하는 관계, 가짜 자유", guide: "외부의 압력에 의해 수동적으로 움직이고 있습니다." },
-            { id: 47, name: "물질과 영혼", type: "minor", group: "황소자리", combo: "황소자리 + 사수자리", insight: "현실과 이상의 괴리, 혼란", guide: "보이는 실체와 본질 사이에서 방황합니다." },
-            { id: 48, name: "창조에 대한 의무", type: "minor", group: "황소자리", combo: "황소자리 + 염소자리", insight: "결과의 수용, 엄격한 산고, 무게", guide: "자신의 결과물에 대해 책임을 져야 합니다." },
-            { id: 49, name: "작별", type: "minor", group: "황소자리", combo: "황소자리 + 물병자리", insight: "아름다운 이별, 환상의 종결", guide: "지속될 수 없는 것을 평화롭게 놓아주세요." },
-            { id: 50, name: "영혼의 정원", type: "minor", group: "황소자리", combo: "황소자리 + 물고기자리", insight: "무의식의 평화, 영적 치유", guide: "내면 깊은 곳에서 안식을 찾으세요." },
-            { id: 51, name: "전략가", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 처녀자리", insight: "계산된 행동, 치밀한 계획", guide: "냉철한 전략으로 상황을 타개해야 합니다." },
-            { id: 52, name: "허영의 시장", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 천칭자리", insight: "표면적 가치, 유혹, 즐거움", guide: "겉모습 뒤에 숨겨진 공허함을 살피세요." },
-            { id: 53, name: "피리 부는 사람", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 전갈자리", insight: "현혹, 잘못된 안내, 최면", guide: "달콤한 목소리에 속아 길을 잃지 마세요." },
-            { id: 54, name: "스승과 제자", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 사수자리", insight: "배움, 전수, 지적 성장", guide: "더 높은 가르침을 받아들일 때입니다." },
-            { id: 55, name: "고통 / 고난", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 염소자리", insight: "정서적 결핍, 우울, 시련", guide: "취약한 감정이 시험을 받고 있습니다." },
-            { id: 56, name: "꿈꾸는 조니", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 물병자리", insight: "백일몽, 비현실적 생각, 산만", guide: "현실에 뿌리 내리지 못한 상상을 경계하세요." },
-            { id: 57, name: "침묵", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 물고기자리", insight: "공허, 침묵, 단절된 소통", guide: "정지된 시간을 견뎌야 하는 시기입니다." },
-            { id: 58, name: "일상적인 관계", type: "minor", group: "처녀자리", combo: "처녀자리 + 천칭자리", insight: "무미건조한 관계, 반복되는 일상", guide: "현실적인 역할만이 남은 상태입니다." },
-            { id: 59, name: "자책", type: "minor", group: "처녀자리", combo: "처녀자리 + 전갈자리", insight: "자기 처벌, 가혹함, 좌절", guide: "분노가 자신을 향하고 있습니다." },
-            { id: 60, name: "종교 재판", type: "minor", group: "처녀자리", combo: "처녀자리 + 사수자리", insight: "엄격한 심판, 독단적 신념", guide: "가혹한 잣대가 자유를 억압합니다." },
-            { id: 61, name: "공포", type: "minor", group: "처녀자리", combo: "처녀자리 + 염소자리", insight: "생각의 감옥, 불안, 위축", guide: "두려움이 사고를 마비시킵니다." },
-            { id: 62, name: "분너 / 퓨리스", type: "minor", group: "처녀자리", combo: "처녀자리 + 물병자리", insight: "폭발적 분노, 파괴적 복수심", guide: "제어할 수 없는 힘이 터져 나옵니다." },
-            { id: 63, name: "속임수", type: "minor", group: "처녀자리", combo: "처녀자리 + 물고기자리", insight: "거짓, 조작, 지적 유혹", guide: "정보의 왜곡을 주의하세요." },
-            { id: 64, name: "재앙", type: "minor", group: "천칭자리", combo: "천칭자리 + 전갈자리", insight: "예측 불허의 파멸, 강력한 충격", guide: "불가항력적인 상황에 직면합니다." },
-            { id: 65, name: "결합", type: "minor", group: "천칭자리", combo: "천칭자리 + 사수자리", insight: "온전한 결합, 합일, 믿음", guide: "진정한 해답을 찾는 결합의 시기입니다." },
-            { id: 66, name: "슬픔", type: "minor", group: "천칭자리", combo: "천칭자리 + 염소자리", insight: "비탄, 사별, 관계의 상실", guide: "슬픔을 통해 영혼을 정화하세요." },
-            { id: 67, name: "분리 / 이별", type: "minor", group: "천칭자리", combo: "천칭자리 + 물병자리", insight: "갑작스러운 이별, 독립, 단절", guide: "홀로서기가 필요한 때입니다." },
-            { id: 68, name: "왕의 두 자녀", type: "minor", group: "천칭자리", combo: "천칭자리 + 물고기자리", insight: "닿지 않는 소망, 이룰 수 없는 결합", guide: "현실의 장벽을 인식해야 합니다." },
-            { id: 69, name: "광신도", type: "minor", group: "전갈자리", combo: "전갈자리 + 사수자리", insight: "맹목적 신앙, 권력욕, 타락", guide: "신념이 집착으로 변질됨을 경계하세요." },
-            { id: 70, name: "우울", type: "minor", group: "전갈자리", combo: "전갈자리 + 염소자리", insight: "무력감, 침체, 깊은 우울", guide: "에너지 고갈과 휴식이 절실합니다." },
-            { id: 71, name: "불사조", type: "minor", group: "전갈자리", combo: "전갈자리 + 물병자리", insight: "파괴 후의 재생", guide: "재 위에서 다시 시작할 힘을 얻습니다." },
-            { id: 72, name: "거짓된 후광", type: "minor", group: "전갈자리", combo: "전갈자리 + 물고기자리", insight: "위선, 잘못된 성스러움", guide: "착각에서 벗어나야 합니다." },
-            { id: 73, name: "고해", type: "minor", group: "사수자리", combo: "사수자리 + 염소자리", insight: "비밀의 고백, 진실의 탄로", guide: "드러냄으로써 자유를 얻습니다." },
-            { id: 74, name: "양자 도약", type: "minor", group: "사수자리", combo: "사수자리 + 물병자리", insight: "비약적 성장, 차원 이동", guide: "완전히 다른 단계로 넘어갑니다." },
-            { id: 75, name: "피티아 / 피티야", type: "minor", group: "사수자리", combo: "사수자리 + 물고기자리", insight: "신탁, 직관적 예언", guide: "강력한 예감을 신뢰하세요." },
-            { id: 76, name: "감금", type: "minor", group: "염소자리", combo: "염소자리 + 물병자리", insight: "억압된 욕망, 굴레", guide: "시스템의 굴레에 갇힌 느낌입니다." },
-            { id: 77, name: "운명의 여신", type: "minor", group: "염소자리", combo: "염소자리 + 물고기자리", insight: "숙명, 시간의 법칙", guide: "바꿀 수 없는 흐름을 수용하세요." },
-            { id: 78, name: "성배의 질문", type: "minor", group: "물병자리", combo: "물병자리 + 물고기자리", insight: "궁극의 탐구, 삶의 의미", guide: "본질적인 질문을 던지세요." }
+            // 4. 마이너 카드 조합 (34번~78번)
+            { id: 34, name: "에로스", type: "minor", group: "양자리", combo: "양자리 + 황소자리", insight: "열정적 결합, 욕망", guide: "강렬한 에너지가 서로를 강하게 끌어당깁니다." },
+            { id: 35, name: "차꼬", type: "minor", group: "양자리", combo: "양자리 + 쌍둥이자리", insight: "사고의 구속, 정체", guide: "틀에 박힌 생각에 갇혀 앞으로 나가지 못합니다." },
+            { id: 36, name: "죄책감", type: "minor", group: "양자리", combo: "양자리 + 처녀자리", insight: "자기 검열, 강박", guide: "스스로를 용서하지 못하는 마음이 고통을 만듭니다." },
+            { id: 37, name: "불일치", type: "minor", group: "양자리", combo: "양자리 + 천칭자리", insight: "관계의 갈등, 불화", guide: "의사소통의 미숙함이 관계의 긴장을 만듭니다." },
+            { id: 38, name: "뱀파이어", type: "minor", group: "양자리", combo: "양자리 + 전갈자리", insight: "에너지 갈취, 집착", guide: "감정적으로 소모되는 관계를 경계해야 합니다." },
+            { id: 39, name: "십자군", type: "minor", group: "양자리", combo: "양자리 + 사수자리", insight: "신념을 향한 투쟁", guide: "자신의 정의를 실현하기 위해 에너지를 쏟으세요." },
+            { id: 40, name: "헛수고", type: "minor", group: "양자리", combo: "양자리 + 염소자리", insight: "방해받는 행동, 좌절", guide: "노력해도 결과가 나오지 않는 답답함을 견디세요." },
+            { id: 41, name: "골칫덩이", type: "minor", group: "양자리", combo: "양자리 + 물병자리", insight: "가벼운 방해, 도발", guide: "사소한 변수들이 당신을 산만하게 만듭니다." },
+            { id: 42, name: "완벽한 바보", type: "minor", group: "양자리", combo: "양자리 + 물고기자리", insight: "고정관념 타파, 무지", guide: "아는 것을 모두 버리고 새로운 백지가 되세요." },
+            { id: 43, name: "황금 소녀", type: "minor", group: "황소자리", combo: "황소자리 + 쌍둥이자리", insight: "물질적 허영, 풍요", guide: "겉모습보다 내실을 기하는 것이 중요합니다." },
+            { id: 44, name: "집착", type: "minor", group: "황소자리", combo: "황소자리 + 처녀자리", insight: "정서적 굴레, 고립", guide: "과거의 것이나 대상에 너무 매달리지 마세요." },
+            { id: 45, name: "황금빛 새장", type: "minor", group: "황소자리", combo: "황소자리 + 천칭자리", insight: "구속된 풍요, 가난한 부자", guide: "화려해 보이지만 실제로는 자유가 없는 상태입니다." },
+            { id: 46, name: "꼭두각시", type: "minor", group: "황소자리", combo: "황소자리 + 전갈자리", insight: "조종당하는 관계, 가짜 자유", guide: "자신의 의지대로 행동하고 있는지 점검하세요." },
+            { id: 47, name: "물질과 영혼", type: "minor", group: "황소자리", combo: "황소자리 + 사수자리", insight: "이상의 괴리, 방황", guide: "보이는 세계와 본질 사이에서 답을 찾으세요." },
+            { id: 48, name: "창조에 대한 의무", type: "minor", group: "황소자리", combo: "황소자리 + 염소자리", insight: "결과의 수용, 산고", guide: "자신이 만든 결과물에 대해 책임을 지세요." },
+            { id: 49, name: "작별", type: "minor", group: "황소자리", combo: "황소자리 + 물병자리", insight: "아름다운 이별, 환상 종결", guide: "지속될 수 없는 것을 평화롭게 보내주어야 합니다." },
+            { id: 50, name: "영혼의 정원", type: "minor", group: "황소자리", combo: "황소자리 + 물고기자리", insight: "내면의 평화, 치유", guide: "깊은 무의식에서 진정한 안식을 얻으세요." },
+            { id: 51, name: "전략가", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 처녀자리", insight: "치밀한 계획, 계산", guide: "감정보다 이성에 기반한 전략이 필요합니다." },
+            { id: 52, name: "허영의 시장", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 천칭자리", insight: "표면적 가치, 유혹", guide: "겉모습 뒤에 숨겨진 공허함을 조심하세요." },
+            { id: 53, name: "피리 부는 사람", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 전갈자리", insight: "최면적 현혹, 집단 최면", guide: "달콤한 목소리에 속아 본질을 놓치지 마세요." },
+            { id: 54, name: "스승과 제자", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 사수자리", insight: "배움, 전수, 지적 성장", guide: "더 높은 지혜를 받아들일 준비를 하세요." },
+            { id: 55, name: "고통", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 염소자리", insight: "정서적 결핍, 우울", guide: "가장 아픈 곳이 드러나고 치유가 시작됩니다." },
+            { id: 56, name: "꿈꾸는 조니", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 물병자리", insight: "백일몽, 비현실성", guide: "망상에 빠져 현실의 기회를 놓치지 마세요." },
+            { id: 57, name: "침묵", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 물고기자리", insight: "단절된 소통, 공허", guide: "아무런 답이 없을 때 스스로 침묵을 견디세요." },
+            { id: 58, name: "일상적인 관계", type: "minor", group: "처녀자리", combo: "처녀자리 + 천칭자리", insight: "무미건조한 역할 분담", guide: "설렘보다 현실적 조율이 우선인 시기입니다." },
+            { id: 59, name: "자책", type: "minor", group: "처녀자리", combo: "처녀자리 + 전갈자리", insight: "가혹한 자기 징벌", guide: "자신을 향한 분노를 멈추고 화해하세요." },
+            { id: 60, name: "종교재판", type: "minor", group: "처녀자리", combo: "처녀자리 + 사수자리", insight: "엄격한 심판, 억압", guide: "옳고 그름에 대한 가혹한 잣대를 내려놓으세요." },
+            { id: 61, name: "공포", type: "minor", group: "처녀자리", combo: "처녀자리 + 염소자리", insight: "생각의 감옥, 위축", guide: "두려움이 당신의 행동을 제약하고 있습니다." },
+            { id: 62, name: "분노", type: "minor", group: "처녀자리", combo: "처녀자리 + 물병자리", insight: "폭발적 분노, 복수심", guide: "억눌린 감정이 제어할 수 없이 터져 나옵니다." },
+            { id: 63, name: "속임수", type: "minor", group: "처녀자리", combo: "처녀자리 + 물고기자리", insight: "거짓, 조작, 지적 유혹", guide: "정보가 왜곡되어 있음을 직시해야 합니다." },
+            { id: 64, name: "재앙", type: "minor", group: "천칭자리", combo: "천칭자리 + 전갈자리", insight: "전복, 강력한 충격", guide: "불가항력적인 상황 변화를 받아들이세요." },
+            { id: 65, name: "결합", type: "minor", group: "천칭자리", combo: "천칭자리 + 사수자리", insight: "합일, 믿음의 완성", guide: "의식과 무의식이 하나가 되는 체험을 합니다." },
+            { id: 66, name: "슬픔", type: "minor", group: "천칭자리", combo: "천칭자리 + 염소자리", insight: "이별의 비탄, 정화", guide: "충분히 슬퍼해야 비로소 다음으로 갈 수 있습니다." },
+            { id: 67, name: "분리", type: "minor", group: "천칭자리", combo: "천칭자리 + 물병자리", insight: "홀로서기, 돌발 이별", guide: "익숙한 곳에서 떨어져 나와 독립해야 합니다." },
+            { id: 68, name: "왕의 두 자녀", type: "minor", group: "천칭자리", combo: "천칭자리 + 물고기자리", insight: "닿지 않는 그리움", guide: "서로 원하지만 장벽으로 인해 멀리 있습니다." },
+            { id: 69, name: "광신도", type: "minor", group: "전갈자리", combo: "전갈자리 + 사수자리", insight: "맹목적 집착, 권력욕", guide: "자신의 신념이 타인을 억압하지 않는지 살피세요." },
+            { id: 70, name: "우울", type: "minor", group: "전갈자리", combo: "전갈자리 + 염소자리", insight: "침체, 에너지 고갈", guide: "억지로 하려 하지 말고 충분히 휴식하세요." },
+            { id: 71, name: "불사조", type: "minor", group: "전갈자리", combo: "전갈자리 + 물병자리", insight: "죽음과 부활, 재생", guide: "과거의 나를 죽여야 새로운 내가 태어납니다." },
+            { id: 72, name: "거짓된 후광", type: "minor", group: "전갈자리", combo: "전갈자리 + 물고기자리", insight: "위선, 잘못된 성스러움", guide: "스스로를 특별하다고 믿는 오만을 경계하세요." },
+            { id: 73, name: "고해", type: "minor", group: "사수자리", combo: "사수자리 + 염소자리", insight: "진실 탄로, 심리적 정화", guide: "비밀을 털어놓음으로써 자유를 얻으세요." },
+            { id: 74, name: "양자 도약", type: "minor", group: "사수자리", combo: "사수자리 + 물병자리", insight: "비약적 성장, 차원 이동", guide: "오래된 틀을 깨고 완전히 다른 수준으로 가세요." },
+            { id: 75, name: "피티야", type: "minor", group: "사수자리", combo: "사수자리 + 물고기자리", insight: "직관적 예언, 신탁", guide: "이성을 넘어선 강력한 영감을 신뢰하세요." },
+            { id: 76, name: "감금", type: "minor", group: "염소자리", combo: "염소자리 + 물병자리", insight: "운명의 굴레, 억압", guide: "벗어날 수 없는 상황을 숙명으로 받아들이세요." },
+            { id: 77, name: "운명의 여신", type: "minor", group: "염소자리", combo: "염소자리 + 물고기자리", insight: "인과응보, 시간의 흐름", guide: "바꿀 수 없는 삶의 파도를 타고 순응하세요." },
+            { id: 78, name: "성배의 질문", type: "minor", group: "물병자리", combo: "물병자리 + 물고기자리", insight: "궁극의 질문, 의미 탐구", guide: "당신이 살아가는 본질적인 이유를 물으세요." }
         ];
 
         const App = () => {
@@ -163,269 +162,147 @@
             const getCategoryTitle = (type) => {
                 switch(type) {
                     case 'major': return '메이저 (Pure Archetypes)';
-                    case 'moon': return '달 카드 (Cancer Combination)';
-                    case 'sun': return '태양 카드 (Leo Combination)';
-                    case 'minor': return minorZodiac === 'all' ? '마이너 전체' : `마이너 - ${minorZodiac} 조합`;
+                    case 'moon': return '게자리 조합 (Cancer/Moon)';
+                    case 'sun': return '사자자리 조합 (Leo/Sun)';
+                    case 'minor': return minorZodiac === 'all' ? '마이너 전체' : `마이너 - ${minorZodiac} 기반`;
                     default: return '전체 심볼론 마스터 보드';
                 }
             };
 
             const gridColsClass = useMemo(() => {
                 if (filter === 'major' || filter === 'moon') return "grid-cols-2 sm:grid-cols-3 md:grid-cols-6";
-                if (filter === 'sun') return "grid-cols-2 sm:grid-cols-3 md:grid-cols-5";
-                if (filter === 'minor' && minorZodiac !== 'all') {
-                    // 마이너 세부 그룹은 보통 9장 이하이므로 5~6열이 적당
-                    return "grid-cols-2 sm:grid-cols-3 md:grid-cols-5";
-                }
+                if (filter === 'sun' || (filter === 'minor' && minorZodiac !== 'all')) return "grid-cols-2 sm:grid-cols-3 md:grid-cols-5";
                 return "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8";
+            }, [filter, minorZodiac]);
+
+            const isCompactView = useMemo(() => {
+                return filter === 'sun' || (filter === 'minor' && minorZodiac !== 'all');
             }, [filter, minorZodiac]);
 
             const zodiacGroups = ["양자리", "황소자리", "쌍둥이자리", "처녀자리", "천칭자리", "전갈자리", "사수자리", "염소자리", "물병자리"];
 
             return (
                 <div className="min-h-screen pb-24 md:pb-10 bg-slate-950">
-                    <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-lg border-b border-slate-800 px-4 py-3">
-                        <div className="max-w-7xl mx-auto flex flex-col gap-4">
-                            <div className="flex justify-between items-center">
-                                <h1 className="text-xl font-bold bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent tracking-tight text-shadow-lg">
+                    <header className="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-lg border-b border-slate-800 px-4 py-2">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-3">
+                            <div className="flex items-center shrink-0">
+                                <h1 className="text-base md:text-lg font-black bg-gradient-to-r from-amber-400 to-red-400 bg-clip-text text-transparent tracking-tighter whitespace-nowrap">
                                     Symbolon Master
                                 </h1>
-                                <div className="text-[10px] bg-slate-800 border border-slate-700 px-3 py-1 rounded-full text-amber-500 font-mono font-bold">
-                                    ZODIAC REFINED
-                                </div>
                             </div>
-                            
-                            <div className="flex flex-col gap-3">
-                                {/* Search Bar */}
-                                <div className="relative">
-                                    <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
-                                    <input 
-                                        type="text" 
-                                        placeholder="이름, 번호, 별자리 검색..." 
-                                        className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-2.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-sm transition-all text-slate-200 placeholder:text-slate-600"
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                </div>
-
-                                {/* Primary Filters */}
-                                <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-                                    {[
-                                        {id: 'all', label: '전체', icon: <IconFilter size={14}/>},
-                                        {id: 'major', label: '메이저', icon: <IconZap size={14}/>},
-                                        {id: 'moon', label: '달 (게)', icon: <IconMoon size={14}/>},
-                                        {id: 'sun', label: '태양 (사자)', icon: <IconSun size={14}/>},
-                                        {id: 'minor', label: '마이너', icon: <IconStar size={14}/>}
-                                    ].map(btn => (
-                                        <button
-                                            key={btn.id}
-                                            onClick={() => { setFilter(btn.id); setMinorZodiac('all'); }}
-                                            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
-                                                filter === btn.id ? 'bg-amber-600 text-white shadow-lg shadow-amber-900/40 scale-105' : 'bg-slate-800 text-slate-400 border border-slate-700 hover:border-slate-500'
-                                            }`}
-                                        >
-                                            {btn.icon} {btn.label}
-                                        </button>
-                                    ))}
-                                </div>
-
-                                {/* Secondary Minor Filters (Show only if 'minor' is selected) */}
-                                {filter === 'minor' && (
-                                    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar animate-in slide-in-from-top-2 duration-300">
-                                        <button
-                                            onClick={() => setMinorZodiac('all')}
-                                            className={`px-3 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap border transition-all ${
-                                                minorZodiac === 'all' ? 'bg-purple-600 border-purple-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'
-                                            }`}
-                                        >
-                                            마이너 전체
-                                        </button>
-                                        {zodiacGroups.map(zodiac => (
-                                            <button
-                                                key={zodiac}
-                                                onClick={() => setMinorZodiac(zodiac)}
-                                                className={`px-3 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap border transition-all ${
-                                                    minorZodiac === zodiac ? 'bg-purple-600 border-purple-400 text-white scale-105' : 'bg-slate-900 border-slate-700 text-slate-500 hover:text-slate-300'
-                                                }`}
-                                            >
-                                                {zodiac}
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
+                            <div className="flex gap-1 overflow-x-auto no-scrollbar py-0.5 md:flex-grow md:justify-center">
+                                {[
+                                    {id: 'all', label: '전체', icon: <IconFilter size={12}/>},
+                                    {id: 'major', label: '메이저', icon: <IconZap size={12}/>},
+                                    {id: 'moon', label: '게자리(달)', icon: <IconMoon size={12}/>},
+                                    {id: 'sun', label: '사자자리(태양)', icon: <IconSun size={12}/>},
+                                    {id: 'minor', label: '마이너', icon: <IconStar size={12}/>}
+                                ].map(btn => (
+                                    <button
+                                        key={btn.id}
+                                        onClick={() => { setFilter(btn.id); setMinorZodiac('all'); }}
+                                        className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold whitespace-nowrap transition-all ${
+                                            filter === btn.id ? 'bg-amber-600 text-white shadow-lg' : 'bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:bg-slate-700'
+                                        }`}
+                                    >
+                                        {btn.icon} {btn.label}
+                                    </button>
+                                ))}
+                            </div>
+                            <div className="relative w-full md:w-48 lg:w-64 shrink-0 md:ml-auto">
+                                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={14} />
+                                <input 
+                                    type="text" 
+                                    placeholder="카드 검색..." 
+                                    className="w-full bg-slate-800/50 border border-slate-700 rounded-full py-1.5 pl-9 pr-4 focus:outline-none focus:ring-1 focus:ring-amber-500/50 text-xs text-slate-200"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
                             </div>
                         </div>
+                        {filter === 'minor' && (
+                            <div className="max-w-7xl mx-auto flex gap-1.5 overflow-x-auto no-scrollbar py-2 mt-1 border-t border-slate-800 animate-in fade-in duration-300">
+                                <button onClick={() => setMinorZodiac('all')} className={`px-3 py-1 rounded-lg text-[10px] font-black whitespace-nowrap border transition-all ${minorZodiac === 'all' ? 'bg-purple-600 border-purple-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500'}`}>ALL MINOR</button>
+                                {zodiacGroups.map(zodiac => (<button key={zodiac} onClick={() => setMinorZodiac(zodiac)} className={`px-3 py-1 rounded-lg text-[10px] font-black whitespace-nowrap border transition-all ${minorZodiac === zodiac ? 'bg-purple-600 border-purple-400 text-white' : 'bg-slate-900 border-slate-700 text-slate-500 hover:text-slate-300'}`}>{zodiac.replace('자리','')}</button>))}
+                            </div>
+                        )}
                     </header>
 
                     <main className="max-w-7xl mx-auto p-4">
-                        <div className="mb-6 flex items-center justify-between border-l-4 border-amber-500 pl-3">
-                            <div>
-                                <h2 className="text-lg font-bold text-slate-100">{getCategoryTitle(filter)}</h2>
-                                <p className="text-[10px] text-slate-500 mt-0.5 uppercase tracking-widest font-medium italic">
-                                    {filter === 'minor' ? 'Zodiac Combination Series' : 'Symbolon Archetypes'}
-                                </p>
-                            </div>
+                        <div className="mb-3 flex items-center justify-between border-l-4 border-amber-500 pl-3">
+                            <h2 className="text-sm md:text-base font-bold text-slate-100 uppercase tracking-tight">{getCategoryTitle(filter)}</h2>
                             <div className="flex items-center gap-2">
-                                <span className="text-xs text-slate-500 font-bold uppercase">Total</span>
-                                <span className="text-sm font-mono font-black text-amber-500 bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-500/20 shadow-inner">
-                                    {filteredCards.length}
-                                </span>
+                                <span className="text-[10px] text-slate-500 font-bold uppercase">Total</span>
+                                <span className="text-xs font-mono font-black text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">{filteredCards.length}</span>
                             </div>
                         </div>
-
-                        <div className={`grid ${gridColsClass} gap-4`}>
-                            {filteredCards.map(card => (
-                                <CardItem key={card.id} card={card} onClick={setSelectedCard} />
-                            ))}
+                        <div className={`grid ${gridColsClass} gap-3 md:gap-4`}>
+                            {filteredCards.map(card => (<CardItem key={card.id} card={card} onClick={setSelectedCard} isCompact={isCompactView} />))}
                         </div>
-                        
-                        {filteredCards.length === 0 && (
-                            <div className="py-20 text-center">
-                                <p className="text-slate-500 font-bold">검색 결과가 없습니다.</p>
-                            </div>
-                        )}
                     </main>
 
                     {selectedCard && (
                         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/95 backdrop-blur-md transition-all">
-                            <div className="bg-slate-900 w-full max-w-5xl h-[95vh] sm:h-auto sm:max-h-[90vh] rounded-t-3xl sm:rounded-3xl border-t sm:border border-slate-700 overflow-hidden flex flex-col md:flex-row shadow-2xl ring-1 ring-white/10">
-                                
-                                {/* Image Container */}
-                                <div className="relative w-full md:w-2/5 bg-slate-950 flex flex-shrink-0 items-center justify-center p-6 md:p-10 border-b md:border-b-0 md:border-r border-slate-800 shadow-inner">
-                                    <SymbolonImage cardId={selectedCard.id} className="max-w-full max-h-[40vh] md:max-h-[70vh] object-contain drop-shadow-[0_0_40px_rgba(255,255,255,0.1)] rounded-xl" />
-                                    
-                                    <button 
-                                        onClick={() => setSelectedCard(null)}
-                                        className="absolute top-4 left-4 md:top-6 md:left-6 bg-slate-800/80 backdrop-blur-md p-2.5 rounded-full text-white hover:bg-red-500 transition-all z-10 border border-slate-700 shadow-xl"
-                                    >
-                                        <IconX size={20} />
-                                    </button>
-
-                                    <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 bg-amber-600 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-2xl border border-amber-400/30 tracking-tighter">
-                                        CARD NO. {selectedCard.id}
-                                    </div>
+                            <div className="bg-slate-900 w-full max-w-6xl h-[95vh] sm:h-auto sm:max-h-[90vh] rounded-t-3xl sm:rounded-3xl border-t sm:border border-slate-700 overflow-hidden flex flex-col md:flex-row shadow-2xl ring-1 ring-white/10">
+                                <div className="relative w-full md:w-[55%] bg-slate-950 flex flex-shrink-0 items-center justify-center p-2 md:p-4 border-b md:border-b-0 md:border-r border-slate-800 shadow-inner">
+                                    <SymbolonImage cardId={selectedCard.id} className="max-w-full max-h-[60vh] md:max-h-[85vh] object-contain drop-shadow-[0_0_50px_rgba(255,255,255,0.15)] rounded-2xl" />
+                                    <button onClick={() => setSelectedCard(null)} className="absolute top-4 left-4 md:top-6 md:left-6 bg-slate-800/80 backdrop-blur-md p-2.5 rounded-full text-white hover:bg-red-500 transition-all z-10 border border-slate-700 shadow-xl"><IconX size={18} /></button>
+                                    <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 bg-amber-600 text-white text-[11px] font-black px-4 py-1.5 rounded-full shadow-2xl">CARD NO. {selectedCard.id}</div>
                                 </div>
-                                
-                                {/* Info Content */}
                                 <div className="flex-grow flex flex-col min-h-0 bg-slate-900/50">
-                                    <div className="p-8 md:p-12 overflow-y-auto custom-scrollbar flex-grow">
-                                        <div className="mb-10">
-                                            <div className="flex items-center gap-2 mb-4">
-                                                <span className="bg-amber-600/20 text-amber-500 text-[10px] px-3 py-1 rounded-full border border-amber-500/30 uppercase tracking-[0.2em] font-black">
-                                                    {selectedCard.type}
-                                                </span>
-                                                {selectedCard.group && (
-                                                    <span className="bg-purple-600/20 text-purple-400 text-[10px] px-3 py-1 rounded-full border border-purple-500/30 uppercase tracking-[0.1em] font-black">
-                                                        {selectedCard.group} Group
-                                                    </span>
-                                                )}
+                                    <div className="p-6 md:p-10 lg:p-12 overflow-y-auto custom-scrollbar flex-grow">
+                                        <div className="mb-8">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <span className="bg-amber-600/20 text-amber-500 text-[10px] px-3 py-1 rounded-full border border-amber-500/30 uppercase tracking-[0.2em] font-black">{selectedCard.type}</span>
+                                                {selectedCard.group && (<span className="bg-purple-600/20 text-purple-400 text-[10px] px-3 py-1 rounded-full border border-purple-500/30 uppercase tracking-[0.1em] font-black">{selectedCard.group} Group</span>)}
                                             </div>
-                                            <h2 className="text-4xl md:text-5xl font-black text-white leading-none tracking-tight drop-shadow-sm">
-                                                {selectedCard.name}
-                                            </h2>
+                                            <h2 className="text-4xl md:text-5xl font-black text-white leading-none tracking-tight">{selectedCard.name}</h2>
                                         </div>
-                                        
-                                        <div className="space-y-10">
-                                            <section className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                                <h3 className="flex items-center gap-2 text-amber-500 text-xs font-black uppercase tracking-[0.15em] mb-4 opacity-70">
-                                                    <IconStar size={14} /> Astrological Combo
-                                                </h3>
-                                                <div className="text-2xl text-slate-100 font-black bg-slate-800/60 p-6 rounded-2xl border border-slate-700 shadow-xl">
-                                                    {selectedCard.combo}
-                                                </div>
+                                        <div className="space-y-8">
+                                            <section>
+                                                <h3 className="flex items-center gap-2 text-amber-500 text-xs font-black uppercase tracking-[0.15em] mb-3 opacity-70"><IconStar size={14} /> 별자리 조합</h3>
+                                                <div className="text-xl md:text-2xl text-slate-100 font-black bg-slate-800/60 p-5 rounded-2xl border border-slate-700 shadow-lg">{selectedCard.combo}</div>
                                             </section>
-
-                                            <section className="animate-in fade-in slide-in-from-bottom-3 duration-500">
-                                                <h3 className="flex items-center gap-2 text-purple-400 text-xs font-black uppercase tracking-[0.15em] mb-4 opacity-70">
-                                                    <IconInfo size={14} /> Psychological Insight
-                                                </h3>
-                                                <div className="text-slate-300 leading-relaxed text-lg md:text-xl font-medium bg-slate-800/30 p-6 rounded-2xl border border-slate-800/50 italic">
-                                                    "{selectedCard.insight}"
-                                                </div>
+                                            <section>
+                                                <h3 className="flex items-center gap-2 text-purple-400 text-xs font-black uppercase tracking-[0.15em] mb-3 opacity-70"><IconInfo size={14} /> 심리학적 통찰</h3>
+                                                <div className="text-slate-300 leading-relaxed text-base md:text-lg bg-slate-800/30 p-5 rounded-2xl border border-slate-800/50">{selectedCard.insight}</div>
                                             </section>
-
-                                            <section className="animate-in fade-in slide-in-from-bottom-4 duration-700 bg-indigo-500/5 border border-indigo-500/10 p-8 rounded-[2rem] relative overflow-hidden shadow-inner group">
-                                                <div className="absolute -right-4 -top-4 text-indigo-500/10 rotate-12 transition-transform group-hover:scale-110">
-                                                    <IconZap size={120} />
-                                                </div>
-                                                <h3 className="flex items-center gap-2 text-indigo-400 text-xs font-black uppercase tracking-[0.15em] mb-4 opacity-70">
-                                                    <IconZap size={14} /> Study Guideline
-                                                </h3>
-                                                <p className="text-slate-200 text-lg md:text-xl leading-relaxed relative z-10 font-bold">
-                                                    {selectedCard.guide}
-                                                </p>
+                                            <section className="bg-indigo-500/5 border border-indigo-500/10 p-6 rounded-[2rem] relative overflow-hidden">
+                                                <h3 className="flex items-center gap-2 text-indigo-400 text-xs font-black uppercase tracking-[0.15em] mb-3 opacity-70"><IconZap size={14} /> 스터디 가이드</h3>
+                                                <p className="text-slate-200 text-base md:text-lg leading-relaxed relative z-10 font-bold italic">"{selectedCard.guide}"</p>
                                             </section>
                                         </div>
                                     </div>
-                                    
-                                    {/* Action Button */}
-                                    <div className="p-8 bg-slate-900 border-t border-slate-800 flex-shrink-0">
-                                        <button 
-                                            onClick={() => setSelectedCard(null)}
-                                            className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white py-5 rounded-2xl font-black text-xl transition-all shadow-2xl active:scale-[0.98] border-b-4 border-orange-800"
-                                        >
-                                            학습 완료
-                                        </button>
+                                    <div className="p-6 md:p-8 bg-slate-900 border-t border-slate-800 flex-shrink-0">
+                                        <button onClick={() => setSelectedCard(null)} className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white py-4 rounded-2xl font-black text-xl transition-all shadow-2xl active:scale-[0.98]">학습 완료</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )}
-
-                    {/* Mobile Floating Menu */}
-                    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/80 backdrop-blur-2xl border border-white/10 px-8 py-4 rounded-[2rem] flex gap-10 items-center shadow-2xl z-40 sm:hidden">
-                        <button onClick={() => {setFilter('all'); setMinorZodiac('all'); window.scrollTo({top: 0, behavior: 'smooth'})}} className={`flex flex-col items-center gap-1.5 transition-colors ${filter === 'all' ? 'text-amber-500' : 'text-slate-500'}`}>
-                            <IconStar size={24} />
-                            <span className="text-[10px] font-black">ALL</span>
-                        </button>
-                        <button onClick={() => setFilter('major')} className={`flex flex-col items-center gap-1.5 transition-colors ${filter === 'major' ? 'text-amber-500' : 'text-slate-500'}`}>
-                            <IconZap size={24} />
-                            <span className="text-[10px] font-black">MAJOR</span>
-                        </button>
-                        <button onClick={() => setFilter('moon')} className={`flex flex-col items-center gap-1.5 transition-colors ${filter === 'moon' ? 'text-amber-500' : 'text-slate-500'}`}>
-                            <IconMoon size={24} />
-                            <span className="text-[10px] font-black">MOON</span>
-                        </button>
-                        <button onClick={() => setFilter('sun')} className={`flex flex-col items-center gap-1.5 transition-colors ${filter === 'sun' ? 'text-amber-500' : 'text-slate-500'}`}>
-                            <IconSun size={24} />
-                            <span className="text-[10px] font-black">SUN</span>
-                        </button>
-                    </nav>
                 </div>
             );
         };
 
-        // --- Grid Card Component ---
-        const CardItem = ({ card, onClick }) => (
-            <div 
-                onClick={() => onClick(card)}
-                className="bg-slate-900/60 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition-all cursor-pointer group active:scale-95 card-glow backdrop-blur-sm shadow-xl flex flex-col h-full"
-            >
-                <div className="relative aspect-card bg-slate-950 overflow-hidden flex-shrink-0">
+        const CardItem = ({ card, onClick, isCompact }) => (
+            <div onClick={() => onClick(card)} className={`bg-slate-900/60 rounded-xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition-all cursor-pointer group active:scale-95 card-glow backdrop-blur-sm shadow-xl flex flex-col h-full ${isCompact ? 'p-1.5' : ''}`}>
+                <div className="relative aspect-card bg-slate-950 overflow-hidden flex-shrink-0 rounded-lg">
                     <SymbolonImage cardId={card.id} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out" />
                     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-                    <div className="absolute top-3 left-3 bg-slate-900/90 backdrop-blur-md text-amber-500 text-[10px] font-black px-2.5 py-1 rounded-lg border border-amber-500/30 shadow-2xl">
-                        {card.id}
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-3">
-                        <p className="text-[9px] text-slate-300 font-bold truncate drop-shadow-md tracking-tight">{card.combo}</p>
-                    </div>
+                    <div className="absolute top-2 left-2 bg-slate-900/90 backdrop-blur-md text-amber-500 text-[9px] font-black px-2 py-0.5 rounded border border-amber-500/30 shadow-2xl">{card.id}</div>
+                    <div className="absolute bottom-2 left-2 right-2"><p className="text-[8px] text-slate-300 font-bold truncate drop-shadow-md tracking-tight opacity-90">{card.combo}</p></div>
                 </div>
-                <div className="p-3.5 text-center bg-slate-900/40 flex-grow flex items-center justify-center border-t border-slate-800/50">
-                    <h3 className="text-[11px] font-black text-slate-100 truncate group-hover:text-amber-400 transition-colors leading-tight tracking-tighter">
-                        {card.name}
-                    </h3>
+                <div className="p-2 text-center bg-slate-900/40 flex-grow flex items-center justify-center border-t border-slate-800/50 mt-auto">
+                    <h3 className="text-[10px] font-black text-slate-100 truncate group-hover:text-amber-400 transition-colors leading-tight tracking-tighter">{card.name}</h3>
                 </div>
             </div>
         );
 
-        // --- Image Handler Component ---
         const SymbolonImage = ({ cardId, className, loading = "lazy" }) => {
             const fileName = `symbolon (${cardId})`;
             const primarySrc = `images/${fileName}.avif`;
             const secondarySrc = `images/${fileName}.AVIF`;
             const jpgSrc = `images/${fileName}.jpg`;
-
             return (
                 <img 
                     src={primarySrc}
@@ -433,14 +310,9 @@
                     className={className}
                     loading={loading}
                     onError={(e) => {
-                        if (e.target.src.includes('.avif')) {
-                            e.target.src = secondarySrc;
-                        } else if (e.target.src.includes('.AVIF')) {
-                            e.target.src = jpgSrc;
-                        } else {
-                            e.target.onerror = null;
-                            e.target.src = `https://via.placeholder.com/200x320/020617/1e293b?text=${cardId}`;
-                        }
+                        if (e.target.src.includes('.avif')) { e.target.src = secondarySrc; }
+                        else if (e.target.src.includes('.AVIF')) { e.target.src = jpgSrc; }
+                        else { e.target.onerror = null; e.target.src = `https://via.placeholder.com/200x320/020617/1e293b?text=${cardId}`; }
                     }}
                 />
             );
