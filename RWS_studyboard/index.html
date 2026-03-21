@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RWS 타로 마스터 스터디 보드</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -19,9 +19,16 @@
         .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
         .major-step-label { background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); }
         .rank-meaning-badge { background: rgba(99, 102, 241, 0.1); color: #4f46e5; border: 1px solid rgba(99, 102, 241, 0.2); }
-        /* 그리드 컬럼 정의 */
+        
+        /* Grid Column Definitions */
         .grid-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
         .grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { animation: fadeIn 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-900 overflow-hidden">
@@ -137,12 +144,11 @@
         const COURT_CARDS = generateCourtCards();
 
         const App = () => {
-            const [activeTab, setActiveTab] = useState('Court'); 
+            const [activeTab, setActiveTab] = useState('Major'); 
             const [majorMode, setMajorMode] = useState('All'); 
             const [activeFilter, setActiveFilter] = useState({ type: 'suit', value: 'All' }); 
             const [zoomedCard, setZoomedCard] = useState(null);
 
-            // 탭 변경 시 필터 및 모드 초기화
             const handleTabChange = (tab) => {
                 setActiveTab(tab);
                 setActiveFilter({ type: 'suit', value: 'All' });
@@ -155,33 +161,29 @@
                 setMajorMode('All'); 
             };
 
-            const getCardStyle = (card) => {
-                if (!card) return 'bg-white';
-                if (activeTab === 'Major') return 'bg-indigo-50 border-indigo-200 text-indigo-900 shadow-indigo-100';
-                switch (card.suit) {
-                    case 'Wands': return 'bg-orange-50 border-orange-400 text-orange-900 shadow-orange-100';
-                    case 'Cups': return 'bg-blue-50 border-blue-400 text-blue-900 shadow-blue-100';
-                    case 'Swords': return 'bg-slate-50 border-slate-400 text-slate-900 shadow-slate-100';
-                    case 'Pentacles': return 'bg-green-50 border-green-400 text-green-900 shadow-green-100';
-                    default: return 'bg-white border-gray-200';
-                }
-            };
-
             const filteredCards = activeTab === 'Major' ? MAJOR_CARDS : activeTab === 'Pip' ? PIP_CARDS : COURT_CARDS;
             const displayCards = activeFilter.value === 'All' ? filteredCards : filteredCards.filter(c => activeFilter.type === 'suit' ? c.suit === activeFilter.value : c.rank === activeFilter.value);
 
-            // 4장 나란히 가로 한 줄 모드
             const isFourCardMode = (activeTab === 'Court' && activeFilter.value !== 'All') || (activeTab === 'Pip' && activeFilter.type === 'rank' && activeFilter.value !== 'All');
-            // 핍 카드 슈트별 10장 5x2 모드
             const isTenCardSuitMode = activeTab === 'Pip' && activeFilter.type === 'suit' && activeFilter.value !== 'All';
 
             const TarotCard = ({ card, customClass = "" }) => (
                 <div key={card.id} onClick={() => setZoomedCard(card)} className={`group perspective h-full ${customClass}`}>
-                    <div className="relative w-full aspect-[2/3.3] transition-all duration-700 transform-style-3d cursor-pointer card-shadow rounded-lg border-2 overflow-hidden shadow-sm bg-white">
+                    <div className="relative w-full aspect-[2/3.3] transition-all duration-700 transform-style-3d cursor-pointer card-shadow rounded-lg border-2 overflow-hidden shadow-sm bg-white hover:border-indigo-400 transition-colors">
                         <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center opacity-10">
                             <div className="w-10 h-10 rounded-full border border-current flex items-center justify-center font-black text-sm">{card.name[0]}</div>
                         </div>
-                        <img src={`${IMG_BASE}${card.img}`} alt={card.name} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300" loading="lazy" onError={(e) => { e.target.style.opacity = '0.3'; }} onLoad={(e) => { e.target.style.opacity = '1'; }} />
+                        <img 
+                            src={`${IMG_BASE}${card.img}`} 
+                            alt={card.name} 
+                            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300" 
+                            loading="lazy" 
+                            onError={(e) => { 
+                                e.target.style.opacity = '0.3'; 
+                                e.target.src = "https://via.placeholder.com/200x330?text=Card";
+                            }} 
+                            onLoad={(e) => { e.target.style.opacity = '1'; }} 
+                        />
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-1.5 z-10 text-white">
                             <div className={`font-black opacity-80 uppercase leading-none mb-0.5 ${(isFourCardMode || isTenCardSuitMode) ? 'text-[9px]' : 'text-[7px]'}`}>{card.type}</div>
                             <div className={`font-bold leading-tight line-clamp-1 ${(isFourCardMode || isTenCardSuitMode) ? 'text-sm' : 'text-[8px] sm:text-[9px]'}`}>{card.name}</div>
@@ -200,7 +202,7 @@
                 }
 
                 return (
-                    <div className="space-y-12 max-w-7xl mx-auto">
+                    <div className="space-y-12 max-w-7xl mx-auto pb-8">
                         <div className="flex justify-center mb-6">
                             <div className="w-24 sm:w-28 text-center">
                                 <TarotCard card={MAJOR_CARDS[0]} />
@@ -258,9 +260,9 @@
             };
 
             const gridClasses = isTenCardSuitMode
-                ? "grid grid-cols-5 gap-2 sm:gap-3 h-[calc(100vh-220px)] max-w-5xl mx-auto px-4" 
+                ? "grid grid-cols-5 gap-2 sm:gap-3 max-w-5xl mx-auto px-4" 
                 : isFourCardMode
-                    ? "grid grid-cols-4 gap-2 sm:gap-4 h-[calc(100vh-200px)] max-w-7xl mx-auto" 
+                    ? "grid grid-cols-4 gap-2 sm:gap-4 max-w-7xl mx-auto" 
                     : activeTab === 'Pip' && activeFilter.value === 'All'
                         ? "grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-10 gap-2 max-w-7xl mx-auto"
                         : "grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 max-w-7xl mx-auto";
@@ -280,11 +282,11 @@
                                     </button>
                                 ))}
                             </div>
-                            <button onClick={resetAll} className="p-1.5 bg-red-50 text-red-500 rounded-lg active:bg-red-100 transition shadow-sm"><Icon name="RefreshCw" size={16} /></button>
+                            <button onClick={resetAll} className="p-1.5 bg-red-50 text-red-500 rounded-lg active:bg-red-100 transition shadow-sm" title="초기화"><Icon name="RefreshCw" size={16} /></button>
                         </div>
                         <div className="max-w-7xl mx-auto mt-3 flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
                             {activeTab === 'Major' ? (
-                                <div className="flex gap-2 items-center bg-slate-50 p-1 rounded-full overflow-x-auto no-scrollbar">
+                                <div className="flex gap-2 items-center bg-slate-50 p-1 rounded-full">
                                     <button onClick={() => setMajorMode('All')} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${majorMode === 'All' ? 'bg-slate-800 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>전체</button>
                                     <button onClick={() => setMajorMode('Climax21')} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${majorMode === 'Climax21' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>21번 클라이맥스</button>
                                     <button onClick={() => setMajorMode('Pivot11')} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${majorMode === 'Pivot11' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>11번 중심축</button>
@@ -313,11 +315,11 @@
                         </div>
                     </header>
 
-                    <main className="flex-1 p-4 overflow-y-auto transition-all duration-500 ease-in-out">
-                        {activeTab === 'Major' ? renderMajorTabContent() : (
-                            <div className={gridClasses}>
-                                {displayCards.map(card => (
-                                    <div key={card.id} className={(isFourCardMode || isTenCardSuitMode) ? "flex flex-col h-full" : "h-full"}>
+                    <main className="flex-1 p-4 overflow-y-auto">
+                        <div className={activeTab === 'Major' ? "" : gridClasses}>
+                            {activeTab === 'Major' ? renderMajorTabContent() : (
+                                displayCards.map(card => (
+                                    <div key={card.id} className={(isFourCardMode || isTenCardSuitMode) ? "flex flex-col h-full animate-in" : "h-full animate-in"}>
                                         <TarotCard card={card} customClass={(isFourCardMode || isTenCardSuitMode) ? "flex-1" : ""} />
                                         {(isFourCardMode || isTenCardSuitMode) && (
                                             <div className={`mt-2 p-2 rank-meaning-badge rounded-xl text-[8px] sm:text-[10px] font-black text-center leading-tight line-clamp-2 ${isTenCardSuitMode ? 'opacity-80' : ''}`}>
@@ -325,16 +327,21 @@
                                             </div>
                                         )}
                                     </div>
-                                ))}
-                            </div>
-                        )}
+                                ))
+                            )}
+                        </div>
                     </main>
 
                     {zoomedCard && (
-                        <div className="fixed inset-0 bg-slate-900/95 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in" onClick={() => setZoomedCard(null)}>
-                            <div className="relative flex flex-col md:flex-row bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
-                                <div className={`md:w-1/2 flex items-center justify-center border-b md:border-b-0 md:border-r p-4 bg-slate-50`}>
-                                    <img src={`${IMG_BASE}${zoomedCard.img}`} alt={zoomedCard.name} className="max-h-[45vh] md:max-h-full w-full object-contain rounded-xl shadow-lg" onError={(e) => { e.target.src = "https://via.placeholder.com/400x600?text=File+Not+Found"; }} />
+                        <div className="fixed inset-0 bg-slate-900/95 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setZoomedCard(null)}>
+                            <div className="relative flex flex-col md:flex-row bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-in" onClick={e => e.stopPropagation()}>
+                                <div className="md:w-1/2 flex items-center justify-center border-b md:border-b-0 md:border-r p-4 bg-slate-50">
+                                    <img 
+                                        src={`${IMG_BASE}${zoomedCard.img}`} 
+                                        alt={zoomedCard.name} 
+                                        className="max-h-[45vh] md:max-h-full w-full object-contain rounded-xl shadow-lg" 
+                                        onError={(e) => { e.target.src = "https://via.placeholder.com/400x660?text=Card+Image"; }} 
+                                    />
                                 </div>
                                 <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
                                     <div>
@@ -344,11 +351,19 @@
                                         </div>
                                         <h2 className="text-3xl sm:text-4xl font-black tracking-tighter mb-6 text-slate-800">{zoomedCard.name}</h2>
                                         <div className="space-y-4">
-                                            <section className="bg-slate-50 p-4 rounded-2xl border border-slate-100"><div className="text-slate-500 font-black text-[10px] uppercase mb-1">핵심 상징</div><p className="text-slate-800 text-base sm:text-lg font-bold leading-relaxed">{zoomedCard.desc}</p></section>
-                                            <section className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100"><div className="text-indigo-600 font-black text-[10px] uppercase mb-1">상징 통찰</div><p className="text-indigo-900 text-xs sm:text-sm font-medium leading-relaxed">{zoomedCard.guide}</p></section>
+                                            <section className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                                <div className="text-slate-500 font-black text-[10px] uppercase mb-1">핵심 상징</div>
+                                                <p className="text-slate-800 text-base sm:text-lg font-bold leading-relaxed">{zoomedCard.desc}</p>
+                                            </section>
+                                            <section className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100">
+                                                <div className="text-indigo-600 font-black text-[10px] uppercase mb-1">상징 통찰</div>
+                                                <p className="text-indigo-900 text-xs sm:text-sm font-medium leading-relaxed">{zoomedCard.guide}</p>
+                                            </section>
                                         </div>
                                     </div>
-                                    <div className="mt-6 pt-4 border-t border-slate-50 text-[9px] font-bold text-slate-400 italic text-center">RWS Master Study Guide</div>
+                                    <div className="mt-6 pt-4 border-t border-slate-100 text-[9px] font-bold text-slate-400 italic text-center uppercase tracking-widest">
+                                        RWS Master Study Guide
+                                    </div>
                                 </div>
                             </div>
                         </div>
