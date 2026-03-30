@@ -55,10 +55,15 @@
         const IconMaximize = ({ size = 20 }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         );
+        const IconChevronLeft = ({ size = 24 }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        );
+        const IconChevronRight = ({ size = 24 }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        );
 
         // --- 78장 전체 데이터 ---
         const INITIAL_CARDS = [
-            // 1. 메이저 카드
             { id: 1, name: "전사", type: "major", combo: "양자리", insight: "행동력, 용기, 에너지", guide: "두려움 없이 승리를 위해 전진하는 용기와 열정을 상징하며, 돌진하는 행동력을 보여줍니다. 하지만 지나친 공격성과 충동심으로 타인에게 상처를 줄 수 있으므로, 에너지를 긍정적인 리더십으로 승화해야 합니다." },
             { id: 2, name: "연인", type: "major", combo: "황소자리", insight: "가치관, 아름다움, 소유", guide: "아름다움과 물질적인 풍요를 만끽하며, 타인을 끌어당기는 관능적인 매력과 사교성을 상징합니다. 세속적인 탐욕과 외적 이미지에만 집착하는 것을 멈추고 내면의 진정한 가치를 깨달아야 합니다." },
             { id: 3, name: "중재자", type: "major", combo: "쌍둥이자리", insight: "소통, 정보, 이성", guide: "다방면의 정보와 지식을 바탕으로 유연하고 재치 있게 타인과 소통하는 지성적인 중재자입니다. 변덕스럽고 피상적인 태도를 경계하고, 거시적인 안목으로 진정성 있는 관계를 맺어야 합니다." },
@@ -71,8 +76,6 @@
             { id: 10, name: "마스터", type: "major", combo: "염소자리", insight: "책임, 법칙, 구조", guide: "엄격한 규율과 험난한 시련 속에서도 끈질긴 인내심과 책임감으로 세속적인 야망을 기어코 성취해 냅니다. 차가운 고립과 굳어진 마음을 스스로 깨고 나와, 내적 성찰을 통해 삶의 무거운 카르마를 책임감 있게 풀어내야 합니다." },
             { id: 11, name: "광대", type: "major", combo: "물병자리", insight: "자유, 혁신, 독창성", guide: "낡은 관습과 억압된 틀을 깨부수고 예측 불가능한 돌발성과 독창적인 개성으로 진보적 자유를 추구합니다. 무모한 충동이나 지나친 개인주의에 빠져 길을 잃지 않도록, 내면의 참된 자유를 자각하고 유쾌한 발상의 전환을 이루어야 합니다." },
             { id: 12, name: "천사", type: "major", combo: "물고기자리", insight: "영성, 직관, 희생", guide: "풍부한 감수성과 깊은 연민으로 타인의 고통을 보듬고, 현실을 초월한 몽환적인 직관과 영성을 지향합니다. 현실의 책임감에서 도피하거나 환영에 갇히지 말고, 내면 깊은 곳에서 생명의 원천과 조우하여 진정한 통찰을 얻어야 합니다." },
-            
-            // 2. 게자리(달) 조합
             { id: 13, name: "반항", type: "moon", combo: "게자리 + 양자리", insight: "정서적 이탈, 독립 의지", guide: "무의식 속에 억눌려 있던 상처와 분노가 밖으로 폭발하여 소심하게 반항하려 하는 상황입니다. 자신을 괴롭히는 감정과 파괴적 충동을 건강하게 표출하고 해방시킴으로써 내면의 평화를 되찾아야 합니다." },
             { id: 14, name: "이브의 두 얼굴", type: "moon", combo: "게자리 + 황소자리", insight: "감정의 이중성, 변덕", guide: "모성애 넘치는 어머니와 관능적인 연인이라는 두 가지 역할 사이에서 겪는 치열한 갈등과 혼란을 보여줍니다. 완벽한 선택을 강요하기보다 내면의 두 영혼이 지닌 가치를 모두 인정하고 양립을 수용해야 합니다." },
             { id: 15, name: "명확한 표현", type: "moon", combo: "게자리 + 쌍둥이자리", insight: "감정의 언어화, 소통", guide: "억눌린 감정과 직관을 숨기지 말고, 객관적인 이성과 연결하여 명확하게 소통할 것을 요구합니다. 마음속 깊은 슬픔과 상처를 외면하지 않고 타인과 진솔하게 대화할 때 진정한 내면의 정화가 일어납니다." },
@@ -84,8 +87,6 @@
             { id: 21, name: "얼음여왕", type: "moon", combo: "게자리 + 염소자리", insight: "정서적 냉담, 완벽주의", guide: "깊은 슬픔과 상처로 인해 마음의 문을 굳게 닫아걸고 세상과 자신을 고립시킨 차가운 냉담의 상태입니다. 자신의 고립을 남 탓으로 돌리는 자기 연민에서 벗어나, 내면의 눈물을 온전히 흘려보내야 꽁꽁 언 마음이 녹아내립니다." },
             { id: 22, name: "해방", type: "moon", combo: "게자리 + 물병자리", insight: "감정적 구원, 희망", guide: "오랫동안 당신을 보호해 주던 낡고 편안한 껍질(환경)이 부서지고, 홀로 거친 세상 밖으로 밀려나는 불안정한 상황입니다. 과거의 안식처로 돌아가려는 미련을 버리고, 두려움을 이겨내며 독립적인 영혼으로 성숙하게 날아올라야 합니다." },
             { id: 23, name: "잠자는 미녀", type: "moon", combo: "게자리 + 물고기자리", insight: "환상, 무의식적 수면", guide: "현실에 뿌리내리지 못하고 누군가 나를 구원해 주기만을 수동적으로 기다리는 무기력하고 몽상적인 고립 상태입니다. 환상에 기대는 것을 멈추고 내면의 직관적인 영감에 귀 기울일 때, 고독을 깨고 주도적인 삶으로 나아갈 수 있습니다." },
-
-            // 3. 사자자리(태양) 조합
             { id: 24, name: "전투", type: "sun", combo: "사자자리 + 양자리", insight: "권력 투쟁, 자아 충돌", guide: "외부의 적이 실은 내 안의 또 다른 그림자임을 깨닫지 못한 채, 끝없는 힘겨루기와 소모적인 자존심 대결로 자멸하고 있습니다. 공격적인 투쟁심을 거두고 상대를 인정하는 용기를 발휘할 때, 무의미한 섀도 복싱을 멈추고 내면의 평화를 얻습니다." },
             { id: 25, name: "여왕", type: "sun", combo: "사자자리 + 황소자리", insight: "소유의 즐거움, 과시", guide: "타인의 권력이나 자신의 관능적인 매력에 기대어 얄팍한 자존감을 세우고 관계를 주도하려는 의존적인 태도를 경계합니다. 허영심과 거짓된 겸손을 벗어던지고, 나만의 매력과 능력을 긍정적으로 발휘하여 주체적인 '진짜 여왕'으로 거듭나야 합니다." },
             { id: 26, name: "배우", type: "sun", combo: "사자자리 + 쌍둥이자리", insight: "역할 연기, 연출된 자아", guide: "세상이 요구하는 완벽한 가면에 숨어 진실성을 잃고 가식적인 역할을 연기하느라 온전한 나를 잃어버린 상황입니다. 지금 수행하는 역할이 일종의 게임에 불과함을 인지하고, 그것과 자신을 동일시하지 않으면서 유연하게 대처해야 합니다." },
@@ -96,8 +97,6 @@
             { id: 31, name: "짐", type: "sun", combo: "사자자리 + 염소자리", insight: "과도한 업무, 압박", guide: "도망칠 수 없는 무거운 숙명과 책임감이 영혼을 짓누르고 있어, 그 어느 때보다 가파르고 힘겨운 시련을 오르고 있습니다. 타인에게 의지하거나 요행을 바라지 말고, 강인한 인내와 양심을 나침반 삼아 끝까지 이 의무를 묵묵히 짊어지고 가야 합니다." },
             { id: 32, name: "몰락", type: "sun", combo: "사자자리 + 물병자리", insight: "자아의 붕괴, 실각", guide: "굳게 믿었던 권력과 자존감이 하루아침에 뒤집히고 배신과 명예 실추를 겪으며 고통스러운 몰락의 길을 걷고 있습니다. 배신자를 탓하며 과거에 연연하기보다 스스로 광대가 되는 길을 택해, 낡은 자아를 해체하고 새로운 도약의 비전을 맞이해야 합니다." },
             { id: 33, name: "후퇴", type: "sun", combo: "사자자리 + 물고기자리", insight: "은둔, 자아 상실", guide: "외부 세계의 모든 활동이 무의미하고 따분하게 느껴지며, 더 이상 밖에서 이룰 것도, 잃을 것도 없는 단조로운 무기력의 상태입니다. 상황을 통제하려는 시도를 멈추고 조용히 눈을 감아 내면에 침잠함으로써, 소모된 영혼을 정화하고 한 단계 성숙시켜야 합니다." },
-
-            // 4. 마이너 카드 조합
             { id: 34, name: "에로스", type: "minor", group: "양자리", combo: "양자리 + 황소자리", insight: "열정적 결합, 욕망", guide: "영혼의 교감 없이 육체적 매력과 감각적인 유혹에만 이끌려 즉흥적인 쾌락을 좇는 불꽃 같은 사랑을 나타냅니다. 성적 욕망을 죄악시하거나 지나치게 집착하지 말고, 그것이 인간 삶의 자연스럽고 아름다운 일부분임을 건강하게 수용해야 합니다." },
             { id: 35, name: "차꼬", type: "minor", group: "양자리", combo: "양자리 + 쌍둥이자리", insight: "사고의 구속, 정체", guide: "날카로운 독설과 비방, 중상모략이 오가며 타인에게 치명적인 상처를 입히는 잔인한 인신공격의 상황에 묶여 있습니다. 가해자든 피해자든 자신의 숨겨진 공격성과 부도덕한 행위를 공개적으로 인정하고 맞서야만 이 오명에서 벗어날 수 있습니다." },
             { id: 36, name: "죄책감", type: "minor", group: "양자리", combo: "양자리 + 처녀자리", insight: "자기 검열, 강박", guide: "의도치 않게 타인에게 치명상을 입히면서 자신 역시 죄책감의 피해자가 되어버린 억울하고 고통스러운 굴레입니다. 핑계나 방어를 멈추고 스스로 저지른 실수를 솔직하게 고백하며 뉘우치는 것만이 파괴된 관계와 양심을 회복하는 유일한 길입니다." },
@@ -107,7 +106,6 @@
             { id: 40, name: "헛수고", type: "minor", group: "양자리", combo: "양자리 + 염소자리", insight: "방해받는 행동, 좌절", guide: "아무리 애를 써도 결코 이룰 수 없는 불가능한 운명의 장벽 앞에서, 결실 없는 무의미한 노력으로 에너지만 낭비하고 있습니다. 현재 자신이 선택하거나 가질 수 없는 영역임을 겸허히 인정하고, 과도한 집착을 내려놓은 뒤 새로운 방향으로 에너지를 돌려야 합니다." },
             { id: 41, name: "골칫덩이", type: "minor", group: "양자리", combo: "양자리 + 물병자리", insight: "가벼운 방해, 도발", guide: "내면 깊숙이 숨어 있던 억눌린 분노와 파괴적인 충동이 돌발적으로 튀어나와 훼방을 놓고 관계를 엉망으로 만듭니다. 사악하게 날뛰는 내면의 그림자를 외면하지 말고 대면하여 성숙하게 정화시켜야만, 타인에게 휘둘리지 않는 진정한 독립을 이룹니다." },
             { id: 42, name: "완벽한 바보", type: "minor", group: "양자리", combo: "양자리 + 물고기자리", insight: "고정관념 타파, 무지", guide: "육체적, 정신적 에너지가 완전히 고갈된 채, 어떠한 실천도 없이 승리자가 되길 바라는 헛된 몽상만 좇는 무기력한 패배자입니다. 쓸데없는 경쟁에 힘을 낭비하지 말고 푹 쉬면서 일상의 허상을 버린 뒤, 나만의 진실된 목표를 다시 세워나가야 합니다." },
-            
             { id: 43, name: "황금 소녀", type: "minor", group: "황소자리", combo: "황소자리 + 쌍둥이자리", insight: "물질적 허영, 풍요", guide: "겉모습의 화려함이나 피상적인 지식으로 서로를 끊임없이 질투하고 비교하며, 열등감에 시달리는 경쟁적인 관계를 의미합니다. 타인의 시선을 의식하여 나를 포장하는 행위를 멈추고, 자신만의 진정한 가치와 주체적인 자아 존중감을 온전히 회복해야 합니다." },
             { id: 44, name: "집착", type: "minor", group: "황소자리", combo: "황소자리 + 처녀자리", insight: "정서적 굴레, 고립", guide: "물질적인 부와 소유만이 자신을 안전하게 지켜줄 것이란 강박에 빠져, 스스로를 감옥에 가두고 탐욕의 노예가 되어버렸습니다. 재물은 삶을 돕는 도구일 뿐 삶의 목적이 아님을 깨닫고, 강박적인 소유욕에서 벗어나 유연하고 조화로운 가치관을 되찾아야 합니다." },
             { id: 45, name: "황금빛 새장", type: "minor", group: "황소자리", combo: "황소자리 + 천칭자리", insight: "구속된 풍요, 가난한 부자", guide: "금전적인 안락함과 편안한 보호를 대가로 자신의 자유와 주체성을 파트너에게 팔아넘긴 종속적이고 구속된 관계입니다. 편안함에 안주하여 부식되어 가는 영혼을 일깨우고, 개인의 자유와 진정한 상호 존중이 뒷받침되는 건강한 관계로 거듭나야 합니다." },
@@ -116,7 +114,6 @@
             { id: 48, name: "창조에 대한 의무", type: "minor", group: "황소자리", combo: "황소자리 + 염소자리", insight: "결과의 수용, 산고", guide: "세상의 약자와 자연, 그리고 나에게 주어진 작은 생명들을 소홀히 방치하지 말고 따뜻한 애정으로 책임감 있게 돌봐야 합니다. 자연의 조화로움 속에서 이타적인 헌신과 선행을 실천할 때, 비로소 고립된 삶이 치유되고 깊은 영혼의 평화를 얻게 됩니다." },
             { id: 49, name: "작별", type: "minor", group: "황소자리", combo: "황소자리 + 물병자리", insight: "아름다운 이별, 환상 종결", guide: "안전하게만 여겼던 기존의 보금자리와 관계가 갑작스레 붕괴되며, 쓰라린 작별을 통해 홀로 세상 밖으로 쫓겨나는 시련의 시기입니다. 익숙한 환경에 대한 미련과 의존성을 과감히 끊어내고, 더 넓은 세상으로 나아가 자주적이고 독립적인 성장을 이룩해야 할 때입니다." },
             { id: 50, name: "영혼의 정원", type: "minor", group: "황소자리", combo: "황소자리 + 물고기자리", insight: "내면의 평화, 치유", guide: "버거운 현실에 뿌리내리지 못한 채, 백마 탄 왕자를 기다리며 몽환적인 꿈과 도피성 환상의 정원에만 안주하고 있습니다. 달콤한 망상에서 깨어나 물질세계의 한계와 책임을 적극적으로 수용해야만, 비로소 진정한 자립과 현실적인 성취를 이룰 수 있습니다." },
-            
             { id: 51, name: "전략가", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 처녀자리", insight: "치밀한 계획, 계산", guide: "감정을 철저히 배제하고 모든 사람과 상황을 손익 계산과 치밀한 인과관계로만 통제하려는 극도로 냉철하고 이성적인 태도를 보여줍니다. 체계적이고 신중한 분석으로 훌륭한 성과를 낼 수는 있지만, 지나치게 계산적인 태도로 주변 사람들에게 상처를 주지 않도록 유의해야 합니다." },
             { id: 52, name: "허영의 시장", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 천칭자리", insight: "표면적 가치, 유혹", guide: "내면의 유대감은 텅 빈 채, 그저 남들의 시선을 의식하여 화려한 쇼윈도 커플처럼 피상적이고 가식적인 만남을 유지하고 있습니다. 타인과 끊임없이 비교하며 더 나은 조건을 찾는 허영심을 버리고, 사회적 이미지에 연연하지 않는 진실된 삶의 태도를 배워야 합니다." },
             { id: 53, name: "피리 부는 사람", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 전갈자리", insight: "최면적 현혹, 집단 최면", guide: "화려한 달콤함과 기만적인 속임수에 완전히 이성을 잃고 세뇌당하여, 파멸의 길인 줄도 모른 채 사기꾼을 맹종하고 있습니다. 공허한 유혹의 선율에서 귀를 막고 냉철하게 현실의 진정성을 파악하여, 자신을 좀먹는 거짓된 관계와 맹신에서 빠져나와야 합니다." },
@@ -124,32 +121,26 @@
             { id: 55, name: "고통", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 염소자리", insight: "정서적 결핍, 우울", guide: "외부 환경의 엄격한 제약이나 신체적/정신적 부상으로 인해 일상의 활동과 소통이 완전히 단절되고 무력감에 빠진 고통스러운 시기입니다. 성급하게 날아오르려 하지 말고, 힘든 시련 속에서 묵묵히 자신의 행동을 성찰하며 책임을 다하는 인내의 과정을 거쳐야 합니다." },
             { id: 56, name: "꿈꾸는 조니", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 물병자리", insight: "백일몽, 비현실성", guide: "기초를 다지지도 않고 현실성 없는 허황된 꿈만 좇으며, 단번에 성공하려는 성급하고 경솔한 태도로 인해 큰 낭패를 볼 위험이 있습니다. 틀에 얽매이지 않는 자유로운 발상은 좋으나, 현실적인 한계를 냉정하게 인지하고 한 단계씩 차분하게 도약하려는 노력이 뒷받침되어야 합니다." },
             { id: 57, name: "침묵", type: "minor", group: "쌍둥이자리", combo: "쌍둥이자리 + 물고기자리", insight: "단절된 소통, 공허", guide: "외부 세계의 혼돈에 맞서 억지로 변명하거나 불필요한 소통을 이어가려 하지 말고, 고요히 입을 닫고 침묵의 미덕을 지켜야 할 때입니다. 남의 시선이나 가식적인 허영을 내려놓고 내면의 목소리에 온전히 귀 기울일 때, 굳이 말하지 않아도 도달하는 깊은 영적 평온을 얻습니다." },
-            
             { id: 58, name: "일상적인 관계", type: "minor", group: "처녀자리", combo: "처녀자리 + 천칭자리", insight: "무미건조한 역할 분담", guide: "설렘은 사라지고 각자의 역할과 의무만 남은 단조롭고 무관심한 관계 속에서, 서로에 대한 동기를 잃고 부식되어가고 있습니다. 권태로운 일상이 주는 소박한 안락함과 공생의 가치를 재발견하고, 작지만 꾸준한 배려를 통해 메마른 파트너십에 다시 활력을 불어넣어야 합니다." },
             { id: 59, name: "자책", type: "minor", group: "처녀자리", combo: "처녀자리 + 전갈자리", insight: "가혹한 자기 징벌", guide: "완벽함과 도덕적 순결에 집착한 나머지, 작은 잘못에도 자기 자신을 지독하게 채찍질하며 파괴적인 강박과 죄책감에 시달리고 있습니다. 무의미한 자기 처벌을 멈추고 헌신과 희생의 진정한 의미를 깨달아, 무거운 단죄의 족쇄에서 벗어나 영혼의 평화를 되찾아야 합니다." },
             { id: 60, name: "종교재판", type: "minor", group: "처녀자리", combo: "처녀자리 + 사수자리", insight: "엄격한 심판, 억압", guide: "자신이 굳게 믿는 편협한 신념만을 절대적 진리라 착각하고, 타인의 생각과 의견을 무자비하게 이단으로 몰아 심문하고 경멸합니다. 위선적인 아집과 비난을 멈추고 서로 다른 가치관을 너그럽게 수용하며, 자기 자신에게도 겸손해지는 관용의 지혜를 배워야 합니다." },
-            { id: 61, name: "공포", type: "minor", group: "처녀자리", combo: "처녀자리 + 염소자리", insight: "생각의 감옥, 위축", guide: "운명이나 죽음, 혹은 낯설고 예측할 수 없는 미지의 상실에 대한 극심한 두려움으로 인해 삶의 에너지가 차갑게 마비되어 있습니다. 피하고 도망칠수록 공포는 커지므로, 삶의 필연적인 순환이자 끝을 담담하게 수용하고 친구처럼 받아들여야 두려움을 극복할 수 있습니다." },
+            { id: 61, name: "공포", type: "minor", group: "처녀자리", combo: "처녀자리 + 염소자리", insight: "생각의 감옥, 위축", guide: "운명이나 죽음, 혹은 낯설고 예측할 수 미지의 상실에 대한 극심한 두려움으로 인해 삶의 에너지가 차갑게 마비되어 있습니다. 피하고 도망칠수록 공포는 커지므로, 삶의 필연적인 순환이자 끝을 담담하게 수용하고 친구처럼 받아들여야 두려움을 극복할 수 있습니다." },
             { id: 62, name: "분노", type: "minor", group: "처녀자리", combo: "처녀자리 + 물병자리", insight: "폭발적 분노, 복수심", guide: "무의식 속에 꼭꼭 숨겨두었던 끔찍한 죄책감과 억눌린 분노가 복수의 여신처럼 잔인하게 되살아나 당신을 옥죄고 파괴하려 듭니다. 공포에 질려 회피하지 말고 자신의 과오와 양심의 가책을 정직하게 시인할 때, 맹렬했던 분노는 사라지고 영혼의 고요를 되찾게 됩니다." },
             { id: 63, name: "속임수", type: "minor", group: "처녀자리", combo: "처녀자리 + 물고기자리", insight: "거짓, 조작, 지적 유혹", guide: "일확천금을 노리는 얄팍한 마술과 조작된 사기에 눈이 멀어, 스스로 자기기만에 빠진 채 타인과 자신을 모두 속이고 있습니다. 혼돈의 늪에서 벗어나 현실을 있는 그대로 직시하고 진실성을 회복해야, 헛된 과욕이 부르는 뼈아픈 자멸을 피할 수 있습니다." },
-            
             { id: 64, name: "재앙", type: "minor", group: "천칭자리", combo: "천칭자리 + 전갈자리", insight: "전복, 강력한 충격", guide: "상대방에 대한 지독한 집착과 소유욕이 애증으로 변질되어, 서로를 지옥 같은 감옥에 묶어두고 파괴하는 최악의 사슬 관계입니다. 서로를 갉아먹는 비정상적인 종속 관계에서 단호하게 벗어나, 진정성 있는 자아 성찰을 통해 개인의 성숙을 향해 나아가야 합니다." },
             { id: 65, name: "결합", type: "minor", group: "천칭자리", combo: "천칭자리 + 사수자리", insight: "합일, 믿음의 완성", guide: "주관적인 욕심을 내려놓고 파트너와 동등한 가치를 인정하며, 더 큰 목표를 향해 나아가는 가장 축복받고 의미 있는 영적 동반자 관계입니다. 서로의 부족함을 보완하고 단점보다는 장점을 존중하는 성숙한 파트너십을 이룰 때, 관계는 진정한 행복과 깨달음의 길로 이끌어줍니다." },
             { id: 66, name: "슬픔", type: "minor", group: "천칭자리", combo: "천칭자리 + 염소자리", insight: "이별의 비탄, 정화", guide: "사랑하는 이와의 이별, 혹은 거스를 수 없는 운명적 분리로 인해 홀로 남겨진 깊은 고립감과 애끓는 상실의 아픔을 나타냅니다. 슬픔을 억지로 참거나 타인을 원망하지 말고 그 상처를 오롯이 애도하며 흘려보내야만, 다시 홀로서기 할 수 있는 강인함을 얻게 됩니다." },
             { id: 67, name: "분리", type: "minor", group: "천칭자리", combo: "천칭자리 + 물병자리", insight: "홀로서기, 돌발 이별", guide: "서로의 자유와 성장을 가로막던 낡고 구속적인 공생 관계를 끝내고, 각자의 개별적인 삶을 위해 미련 없이 작별을 고하는 순간입니다. 이별은 끝이 아니라 온전한 나를 되찾기 위한 독립의 과정임을 깨닫고, 얽매임 없이 당당하게 자유의 날개를 펼쳐야 합니다." },
             { id: 68, name: "왕의 두 자녀", type: "minor", group: "천칭자리", combo: "천칭자리 + 물고기자리", insight: "닿지 않는 그리움", guide: "현실에 존재하지 않는 완벽한 환상 속의 소울메이트만을 그리워하며, 손에 닿지 않는 거친 물결 너머의 허상에만 기대고 있습니다. 무의미한 갈망과 비현실적인 기대를 버리고 눈앞의 현실로 돌아와야, 깊은 외로움을 극복하고 진짜 삶의 의미를 발견할 수 있습니다." },
-            
             { id: 69, name: "광신도", type: "minor", group: "전갈자리", combo: "전갈자리 + 사수자리", insight: "맹목적 집착, 권력욕", guide: "특정 교리나 이념, 혹은 맹목적인 믿음에 세뇌되어 비판적 사고를 잃어버리고 사이비 같은 도그마의 덫에 깊이 갇혀 있습니다. 맹신에 사로잡힌 영혼의 고리를 날카로운 통찰력으로 끊어내고 유연한 사고방식을 회복해야 진정한 자유를 얻을 수 있습니다." },
             { id: 70, name: "우울", type: "minor", group: "전갈자리", combo: "전갈자리 + 염소자리", insight: "침체, 에너지 고갈", guide: "깊은 절망과 고통 속에서 삶의 에너지가 완전히 소진되어, 현실을 회피한 채 망각의 의자에 앉아 온몸이 돌처럼 굳어가고 있습니다. 끔찍한 어둠의 터널이라도 외면하지 말고 정면으로 맞서 걸어 나가야, 그 심연의 끝에서 당신을 비추는 새로운 부활의 빛을 만날 수 있습니다." },
             { id: 71, name: "불사조", type: "minor", group: "전갈자리", combo: "전갈자리 + 물병자리", insight: "죽음과 부활, 재생", guide: "낡은 과거와 익숙한 세계가 철저히 무너져 내리는 혼란을 맞지만, 이는 잿더미 속에서 새롭게 탄생하기 위한 영광스러운 탈바꿈입니다. 무너지는 과거에 대한 미련과 고집을 미련 없이 버리고 과감히 도약할 때, 비로소 불사조처럼 자유롭고 화려하게 날아오를 수 있습니다." },
             { id: 72, name: "거짓된 후광", type: "minor", group: "전갈자리", combo: "전갈자리 + 물고기자리", insight: "위선, 잘못된 성스러움", guide: "겉으로는 도덕적이고 자상한 천사의 미소를 띠고 있지만, 그 이면에는 불순한 의도와 이기적인 악마의 욕망이 똬리를 틀고 있습니다. 자기기만과 위선의 가면을 찢고 내면의 선악이 지닌 양면성을 겸허하게 통합해야만, 거짓된 후광에 영혼을 좀먹히지 않습니다." },
-            
             { id: 73, name: "고해", type: "minor", group: "사수자리", combo: "사수자리 + 염소자리", insight: "진실 탄로, 심리적 정화", guide: "내면에 가득 찬 무거운 죄책감과 비밀을 홀로 짊어진 채 고통받고 있으며, 명예가 실추될까 두려워 진실의 입을 굳게 다물고 있습니다. 뼈아픈 자존심의 하락을 감수하더라도 누군가에게 진심으로 잘못을 고백하고 뉘우칠 때, 비로소 객관적인 통찰과 영혼의 정화를 얻게 됩니다." },
             { id: 74, name: "양자 도약", type: "minor", group: "사수자리", combo: "사수자리 + 물병자리", insight: "비약적 성장, 차원 이동", guide: "오래되고 안전했던 삶의 궤도를 완전히 뒤로하고, 한 치 앞을 알 수 없는 미지의 세계로 낡은 패러다임을 깨며 점프하는 경이로운 순간입니다. 두려움을 떨치고 과감하게 새로운 차원으로 뛰어오르는 용기를 발휘할 때, 지금까지 경험하지 못한 새로운 인연과 기적 같은 자유를 성취합니다." },
             { id: 75, name: "피티야", type: "minor", group: "사수자리", combo: "사수자리 + 물고기자리", insight: "직관적 예언, 신탁", guide: "타인의 난해한 조언이나 불확실한 점술, 거짓된 신탁에 맹목적으로 매달려 스스로 생각하고 판단하는 주체성을 상실했습니다. 바깥에서 정답을 구하려는 얄팍한 시도를 멈추고, 당신 내면의 깊은 직관과 흔들리지 않는 이성을 굳게 신뢰해야 합니다." },
-            
             { id: 76, name: "감금", type: "minor", group: "염소자리", combo: "염소자리 + 물병자리", insight: "운명의 굴레, 억압", guide: "지나친 경쟁심과 열등감, 혹은 통제할 수 없이 거대한 목표와 압박감 때문에 스스로 만든 정신적 감옥에 갇혀 질식해가고 있습니다. 외부의 기대에 맞춰 무조건 참아내는 억압을 멈추고, 현실적 한계를 쿨하게 수용할 때 비로소 내면의 벽이 허물어지며 자유를 얻습니다." },
             { id: 77, name: "운명의 여신", type: "minor", group: "염소자리", combo: "염소자리 + 물고기자리", insight: "인과응보, 시간의 흐름", guide: "인간의 힘으로는 도저히 거스를 수 없는 거대한 운명의 수레바퀴 앞에서 발버둥 치며 헛된 분노와 절망을 쏟아내고 있습니다. 억지스러운 저항을 멈추고 자신에게 주어진 운명의 몫을 담담하고 지혜롭게 수용할 때, 삶은 다시 부드럽게 흐르며 새로운 봄을 맞이합니다." },
-            
             { id: 78, name: "성배의 질문", type: "minor", group: "물병자리", combo: "물병자리 + 물고기자리", insight: "궁극의 질문, 의미 탐구", guide: "주관적인 좁은 틀에 갇혀 존재하지도 않는 완벽한 해답만을 집요하게 찾아 헤매며 스스로 길을 잃고 헤매고 있습니다. 단편적인 질문을 멈추고 보편적인 진리와 집단 무의식의 거대한 흐름에 기꺼이 나를 맡길 때, 모든 것을 품어내는 평화로운 통찰을 얻게 됩니다." }
         ];
 
@@ -198,6 +189,21 @@
 
             const zodiacGroups = ["양자리", "황소자리", "쌍둥이자리", "처녀자리", "천칭자리", "전갈자리", "사수자리", "염소자리", "물병자리"];
 
+            // --- 네비게이션 처리 함수 ---
+            const navigateCard = (direction) => {
+                if (!selectedCard) return;
+                const currentIndex = filteredCards.findIndex(card => card.id === selectedCard.id);
+                if (currentIndex !== -1) {
+                    let newIndex;
+                    if (direction === 'next') {
+                        newIndex = (currentIndex + 1) % filteredCards.length;
+                    } else {
+                        newIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+                    }
+                    setSelectedCard(filteredCards[newIndex]);
+                }
+            };
+
             // --- 스와이프 이벤트 핸들러 ---
             const handleTouchStart = (e) => {
                 touchStartX.current = e.touches[0].clientX;
@@ -220,15 +226,10 @@
                 }
 
                 if (Math.abs(distance) > minSwipeDistance) {
-                    const currentIndex = filteredCards.findIndex(card => card.id === selectedCard.id);
-                    if (currentIndex !== -1) {
-                        if (distance > 0) {
-                            const nextIndex = (currentIndex + 1) % filteredCards.length;
-                            setSelectedCard(filteredCards[nextIndex]);
-                        } else {
-                            const prevIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
-                            setSelectedCard(filteredCards[prevIndex]);
-                        }
+                    if (distance > 0) {
+                        navigateCard('next');
+                    } else {
+                        navigateCard('prev');
                     }
                 }
             };
@@ -313,8 +314,24 @@
                                     onTouchMove={handleTouchMove}
                                     onTouchEnd={handleTouchEnd}
                                 >
-                                    <SymbolonImage cardId={selectedCard.id} className="max-w-full max-h-[50vh] md:max-h-[85vh] object-contain drop-shadow-[0_0_60px_rgba(255,255,255,0.15)] rounded-xl md:rounded-2xl transition-transform duration-300 md:group-hover:scale-105 pointer-events-none" />
+                                    {/* PC 환경: 이미지 영역 내부 좌측 이전 버튼 */}
+                                    <button 
+                                        onClick={(e) => { e.stopPropagation(); navigateCard('prev'); }} 
+                                        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-amber-500 p-2.5 rounded-full text-white transition-all z-20 border border-slate-700 shadow-xl opacity-0 group-hover:opacity-100"
+                                    >
+                                        <IconChevronLeft size={24} />
+                                    </button>
+
+                                    <SymbolonImage cardId={selectedCard.id} className="w-full h-[45vh] md:h-[80vh] object-contain drop-shadow-[0_0_60px_rgba(255,255,255,0.15)] rounded-xl md:rounded-2xl transition-transform duration-300 md:group-hover:scale-105 pointer-events-none" />
                                     
+                                    {/* PC 환경: 이미지 영역 내부 우측 다음 버튼 */}
+                                    <button 
+                                        onClick={(e) => { e.stopPropagation(); navigateCard('next'); }} 
+                                        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-amber-500 p-2.5 rounded-full text-white transition-all z-20 border border-slate-700 shadow-xl opacity-0 group-hover:opacity-100"
+                                    >
+                                        <IconChevronRight size={24} />
+                                    </button>
+
                                     <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-black/50 backdrop-blur-md p-2 rounded-full text-white/80 transition-all z-10 border border-white/10 pointer-events-none md:opacity-0 md:group-hover:opacity-100 shadow-lg">
                                         <IconMaximize size={18} />
                                     </div>
@@ -348,7 +365,7 @@
                                             </section>
                                             <section className="bg-indigo-500/5 border border-indigo-500/10 p-6 rounded-[2rem] relative overflow-hidden">
                                                 <h3 className="flex items-center gap-2 text-indigo-400 text-xs font-black uppercase tracking-[0.15em] mb-3 opacity-70"><IconZap size={14} /> 스터디 가이드</h3>
-                                                <p className="text-slate-200 text-base md:text-lg leading-relaxed relative z-10 font-medium break-keep">"{selectedCard.guide}"</p>
+                                                <p className="text-slate-200 text-base md:text-lg leading-relaxed relative z-10 font-bold italic break-keep">"{selectedCard.guide}"</p>
                                             </section>
                                         </div>
                                     </div>
@@ -363,7 +380,7 @@
                     {/* 화면을 꽉 채우는 '크게 보기' 모달 (Zoom Modal) - 스와이프 기능 포함 */}
                     {isZoomed && selectedCard && (
                         <div 
-                            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-lg cursor-zoom-out p-4 animate-in fade-in duration-200 touch-pan-y"
+                            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-lg cursor-zoom-out p-4 animate-in fade-in duration-200 touch-pan-y group"
                             onClick={() => {
                                 if (isSwipingRef.current) {
                                     isSwipingRef.current = false;
@@ -375,10 +392,27 @@
                             onTouchMove={handleTouchMove}
                             onTouchEnd={handleTouchEnd}
                         >
+                            {/* 크게보기 모드: 좌측 이전 버튼 (PC용) */}
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); navigateCard('prev'); }} 
+                                className="hidden md:flex absolute left-8 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-amber-500 p-4 rounded-full text-white transition-all z-20 border border-slate-700 shadow-2xl opacity-0 group-hover:opacity-100"
+                            >
+                                <IconChevronLeft size={32} />
+                            </button>
+
                             <SymbolonImage 
                                 cardId={selectedCard.id} 
                                 className="max-w-full max-h-[95vh] object-contain drop-shadow-[0_0_50px_rgba(255,255,255,0.2)] rounded-xl pointer-events-none" 
                             />
+
+                            {/* 크게보기 모드: 우측 다음 버튼 (PC용) */}
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); navigateCard('next'); }} 
+                                className="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-amber-500 p-4 rounded-full text-white transition-all z-20 border border-slate-700 shadow-2xl opacity-0 group-hover:opacity-100"
+                            >
+                                <IconChevronRight size={32} />
+                            </button>
+
                             <button 
                                 onClick={(e) => { e.stopPropagation(); setIsZoomed(false); }} 
                                 className="absolute top-6 right-6 md:top-10 md:right-10 bg-slate-800/80 backdrop-blur-md p-3 md:p-4 rounded-full text-white hover:bg-red-500 transition-all z-10 border border-slate-700 shadow-2xl"
