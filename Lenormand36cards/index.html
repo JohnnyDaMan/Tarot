@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레노먼드 오라클 가이드 (Lenormand Oracle Guide)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d6d3d1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a29e;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .suit-hearts { color: #dc2626; }
+        .suit-spades { color: #1c1917; }
+        .suit-diamonds { color: #dc2626; }
+        .suit-clubs { color: #1c1917; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: '#fdfbf7',
+                        ink: '#292524',
+                        accent: '#b45309',
+                        highlight: '#fef3c7'
+                    },
+                    fontFamily: {
+                        serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+                        sans: ['"Noto Sans KR"', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-parchment text-ink font-sans antialiased leading-relaxed">
+
+    <!-- Chosen Palette: Warm Neutrals (Parchment background, dark brown/charcoal text, amber accents) -->
+    <!-- Application Structure Plan: The SPA is divided into three main logical sections. 1) 'Introduction' sets the context and history based on the book's prefaces. 2) 'The Four Suits' uses a dashboard approach with an interactive Chart.js visualization to explain the foundational elemental meanings and their sentiment distribution, providing a macro-view. 3) 'The 36 Cards Gallery' is a highly interactive, filterable grid that acts as a digital reference tool. Clicking a card opens a modal with deep qualitative data (translation, health, vocab). This structure moves the user from macro (history/suits) to micro (individual cards), making the dense text highly explorable. -->
+    <!-- Visualization & Content Choices: 1. Suit Sentiment -> Goal: Compare the emotional weight of the 4 suits -> Viz: Chart.js Bar Chart -> Interaction: Hover tooltips -> Justification: The text specifically highlights that Clubs are negative and Spades are positive (contrary to popular belief); a chart makes this counter-intuitive data instantly understandable. 2. 36 Cards Data -> Goal: Organize and Inform -> Viz: Filterable Grid & Detail Modal -> Interaction: Click, Filter, Search -> Justification: Allows users to quickly find specific cards or browse by suit without overwhelming them with a massive wall of text. Confirmed NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="sticky top-0 z-40 bg-parchment/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-2 text-accent">🎴</span>
+                    <span class="font-serif font-bold text-xl tracking-tight text-ink">레노먼드 오라클 가이드</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center font-medium text-sm text-stone-600">
+                    <a href="#intro" class="hover:text-accent transition">소개 및 역사</a>
+                    <a href="#suits" class="hover:text-accent transition">4가지 수트</a>
+                    <a href="#gallery" class="hover:text-accent transition">36장 카드 갤러리</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-20 bg-stone-100 border-b border-stone-200" id="intro">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-ink mb-6">레노먼드 오라클의 세계로</h1>
+            <p class="text-lg md:text-xl text-stone-600 mb-8 leading-relaxed">
+                전통적인 알레만닉(Alemannic) 패턴에서 유래한 36장의 카드. 타로와 달리 즉각적이고 명료한 상징을 통해 일상의 문제부터 깊은 영적 질문까지 통찰을 제공합니다. 앤디 보로버셴그라(Andy Boroveshengra)의 지혜를 담은 이 가이드를 통해 카드의 숨겨진 의미를 탐색해보세요.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#gallery" class="bg-accent text-white px-6 py-3 rounded-md font-medium hover:bg-amber-800 transition shadow-md">카드 탐색하기</a>
+                <a href="#suits" class="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded-md font-medium hover:bg-stone-50 transition shadow-sm">수트의 의미 보기</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <section id="suits" class="mb-20 scroll-mt-20">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif font-bold text-ink mb-4">4가지 수트의 고전적 의미</h2>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-stone-600 leading-relaxed text-left">
+                        이 섹션은 레노먼드 덱을 구성하는 네 가지 기둥인 하트, 스페이드, 다이아몬드, 클로버의 근본적인 의미를 다룹니다. 영미권의 일반적인 플레잉 카드 점술과는 전혀 다른 동유럽 및 중앙유럽의 전통적인 관점을 보여줍니다. 아래 카드를 클릭하여 각 수트가 삶의 어떤 영역을 지배하는지 확인하고, 차트를 통해 수트별 성향 분포를 시각적으로 파악해보세요.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+                <div class="space-y-4" id="suit-cards-container">
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('hearts')">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="text-4xl suit-hearts">♥</span>
+                                <h3 class="text-xl font-bold font-serif">하트 (Hearts)</h3>
+                            </div>
+                            <span class="text-sm font-medium text-stone-500 bg-stone-100 px-3 py-1 rounded-full">가정, 애정</span>
+                        </div>
+                    </button>
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('spades')">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="text-4xl suit-spades">♠</span>
+                                <h3 class="text-xl font-bold font-serif">스페이드 (Spades)</h3>
+                            </div>
+                            <span class="text-sm font-medium text-stone-500 bg-stone-100 px-3 py-1 rounded-full">희망, 관계</span>
+                        </div>
+                    </button>
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('diamonds')">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="text-4xl suit-diamonds">♦</span>
+                                <h3 class="text-xl font-bold font-serif">다이아몬드 (Diamonds)</h3>
+                            </div>
+                            <span class="text-sm font-medium text-stone-500 bg-stone-100 px-3 py-1 rounded-full">번영, 불안정</span>
+                        </div>
+                    </button>
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('clubs')">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <span class="text-4xl suit-clubs">♣</span>
+                                <h3 class="text-xl font-bold font-serif">클로버 (Clubs)</h3>
+                            </div>
+                            <span class="text-sm font-medium text-stone-500 bg-stone-100 px-3 py-1 rounded-full">고난, 권력</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 flex flex-col h-full">
+                    <h3 class="text-lg font-bold font-serif mb-2 text-center">수트별 성향 및 길흉 분포도</h3>
+                    <p class="text-xs text-stone-500 text-center mb-4">원문 텍스트 분석에 기반한 각 수트 내 카드의 긍정/부정 비율 추정치</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="suitChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="suit-detail-box" class="hidden bg-highlight p-8 rounded-lg border border-amber-200 shadow-inner transition-opacity duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <span id="suit-detail-icon" class="text-3xl"></span>
+                    <h3 id="suit-detail-title" class="text-2xl font-serif font-bold text-accent"></h3>
+                </div>
+                <p id="suit-detail-content" class="text-stone-800 leading-relaxed whitespace-pre-line"></p>
+            </div>
+        </section>
+
+        <section id="gallery" class="scroll-mt-20">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif font-bold text-ink mb-4">36장 카드 갤러리</h2>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-stone-600 leading-relaxed text-left">
+                        이 섹션은 36장의 프티 레노먼드(Petit Lenormand) 카드의 모든 세부 정보를 탐색할 수 있는 핵심 도구입니다. 카드의 본질적인 핵심어, 상징, 건강과 관련된 의미, 그리고 원문에 사용된 주요 어휘를 확인할 수 있습니다. 필터와 검색 기능을 사용하여 특정 카드를 빠르게 찾아보거나, 카드를 클릭하여 심층적인 번역과 분석을 확인하세요.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200 mb-8 sticky top-16 z-30">
+                <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                    <div class="flex gap-2 flex-wrap">
+                        <button class="filter-btn active bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium transition" data-filter="all">전체 보기</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Hearts">♥ 하트</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Spades">♠ 스페이드</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Diamonds">♦ 다이아몬드</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Clubs">♣ 클로버</button>
+                    </div>
+                    <div class="relative w-full md:w-64">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400">🔍</span>
+                        <input type="text" id="searchInput" placeholder="카드 이름 또는 키워드 검색..." class="w-full pl-10 pr-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-stone-50">
+                    </div>
+                </div>
+            </div>
+
+            <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            </div>
+            
+            <div id="no-results" class="hidden text-center py-12 text-stone-500">
+                <span class="text-4xl block mb-2">📄</span>
+                검색 결과가 없습니다.
+            </div>
+        </section>
+    </main>
+
+    <div id="cardModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-stone-900 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-parchment rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl w-full border border-stone-300">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-start mb-5 border-b border-stone-200 pb-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span id="modal-suit-icon" class="text-2xl"></span>
+                                <span id="modal-suit-text" class="text-sm font-medium text-stone-500 bg-stone-100 px-2 py-0.5 rounded"></span>
+                                <span id="modal-number" class="text-sm font-bold text-accent"></span>
+                            </div>
+                            <h3 class="text-3xl leading-6 font-serif font-bold text-ink" id="modal-title"></h3>
+                        </div>
+                        <button onclick="closeModal()" class="text-stone-400 hover:text-stone-600 focus:outline-none transition text-2xl">✖</button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-highlight p-4 rounded-md border border-amber-200">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-accent mb-1">핵심어 (Keywords)</h4>
+                            <p id="modal-keywords" class="text-lg font-medium text-stone-800"></p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-bold border-l-4 border-accent pl-2 mb-2">한국어 번역 및 본질</h4>
+                            <p id="modal-translation" class="text-stone-700 leading-relaxed bg-stone-50 p-4 rounded"></p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-sm font-bold border-l-4 border-stone-400 pl-2 mb-2">건강 (Health)</h4>
+                                <p id="modal-health" class="text-stone-600 text-sm leading-relaxed"></p>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold border-l-4 border-stone-400 pl-2 mb-2">주요 어휘 (Vocabulary)</h4>
+                                <ul id="modal-vocab" class="text-stone-600 text-sm space-y-1 list-disc pl-4"></ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="button" class="w-full text-left text-xs font-medium text-stone-500 hover:text-stone-800 flex justify-between items-center p-2 bg-stone-100 rounded" onclick="toggleElement('modal-original')">
+                                <span>원문 텍스트 (Original Text) 보기</span>
+                                <span>▼</span>
+                            </button>
+                            <div id="modal-original" class="hidden mt-2 p-4 bg-stone-50 rounded border border-stone-200 text-sm text-stone-500 font-serif italic whitespace-pre-line"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-stone-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-stone-200">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent text-base font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:ml-3 sm:w-auto sm:text-sm transition" onclick="closeModal()">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-ink text-stone-300 py-8 text-center border-t border-stone-800 mt-20">
+        <p class="text-sm">레노먼드 오라클 가이드 분석 및 시각화</p>
+        <p class="text-xs mt-2 text-stone-500">Based on Andy Boroveshengra's writings</p>
+    </footer>
+
+    <script>
+        const suitDetails = {
+            hearts: {
+                icon: '♥', colorClass: 'suit-hearts', title: '하트 (HEARTS)',
+                content: "질문자의 외모와 관련된 수트에서 지시자(Significator)를 선택하는 영미·프랑스식 시스템과 달리, 동유럽 전통에서 질문자를 나타내는 카드는 오직 하트 수트에서만 발견됩니다(남성: 하트 킹, 여성: 하트 퀸).\n\n하트는 질문자의 가정사, 일상생활, 직계 주변 환경을 다루는 핵심 수트입니다. 이 수트의 또 다른 핵심 의미는 소망과 진실한 애정입니다. 하트는 낭만적인 사랑뿐만 아니라 플라토닉하고 가족적인 사랑도 다룹니다."
+            },
+            spades: {
+                icon: '♠', colorClass: 'suit-spades', title: '스페이드 (SPADES)',
+                content: "가장 혼란을 주는 수트입니다. 스페이드는 나쁜 것이라고요? 틀렸습니다. 중앙유럽 패턴에서 스페이드는 칼날이 아니라 '잎사귀'나 '방패'로 간주되었습니다.\n\n이 수트는 관계, 희망, 삶을 가치 있게 만드는 생산적인 영역들을 다룹니다. 또한 우리가 매력을 느끼는 사람들로부터 얼마나 행복을 얻는지를 보여주며, 특히 백합과 닻 카드는 연인의 열정과 감정의 깊이를 나타냅니다."
+            },
+            diamonds: {
+                icon: '♦', colorClass: 'suit-diamonds', title: '다이아몬드 (DIAMONDS)',
+                content: "번영과 관련된 문제를 다룰 것이라 추측하기 쉽지만, 이 수트는 삶의 불안정한 본질과 개인의 근심을 나타내기도 합니다. 재무와 관련된 핵심 카드로 물고기와 관이 있습니다.\n\n관은 질병뿐 아니라 재정적 손실(죽은 돈)을 뜻하기도 합니다. 또한 낫과 새처럼 질문자에게 위험과 슬픔을 예고하는 어려운 카드들도 포함되어 있습니다."
+            },
+            clubs: {
+                icon: '♣', colorClass: 'suit-clubs', title: '클로버 (CLUBS)',
+                content: "영미권에서는 긍정적으로 보지만, 알레만닉 시스템에서는 다릅니다. 클로버 계열에는 가장 어렵고 부정적인 카드들이 포진해 있습니다.\n\n우리에게 권력을 휘두르는 인물부터 불운과 슬픔까지 인생의 불쾌한 사건들을 상징합니다. 도토리라는 상징에 걸맞게 채찍, 곰, 여우 카드는 우리를 지배하려는 사람들의 뉘앙스를 담고 있습니다. 이 방식에서 가장 불쾌한 카드는 '구름'입니다."
+            }
+        };
+
+        const cardData = [
+            { id: 1, name: "기사", eng: "The Cavalier", suit: "Hearts", suitDesc: "하트 9", keywords: "소식, 남성, 탈것(운송 수단)", orig: "News is the essence of the Cavalier card. The primary meaning of the Cavalier is news. When it is far away from the significator, the news has traditionally been seen as coming from abroad or a place some distance. In contrast, when close to the significator this is indicative of news from one's neighbourhood, or family. The Cavalier can represent a man set to appear in your life. The Cavalier stands for one's personal mode of transport. Health: The Cavalier shows an improvement in health matters. It also symbolises all ligaments, the legs, knees and ankles.", trans: "소식은 기사 카드의 본질입니다. 지시자로부터 멀리 떨어져 있을 때 그 소식은 먼 곳이나 해외에서 오는 것이고, 가까이 있을 때는 이웃이나 집안 내부에서 오는 소식을 뜻합니다. 이 카드는 당신의 인생에 등장할 한 남성을 상징할 수도 있으며, 개인의 이동 수단을 나타내기도 합니다.", health: "건강의 호전을 보여줍니다. 또한 모든 인대, 다리, 무릎, 발목을 상징합니다.", vocab: "Dapper [ˈdæpə(r)]: 말쑥한, 깔끔한.|Virile [ˈvɪraɪl]: 활기찬, 남성미 넘치는.|Ligament [ˈlɪɡəmənt]: 인대." },
+            { id: 2, name: "클로버", eng: "The Clover", suit: "Diamonds", suitDesc: "다이아몬드 6", keywords: "기쁨, 동료애, 행운", orig: "Joy is the essence of the Clover card. The Clover symbolises happiness and joy. Quite often these are derived from our surroundings, so there is a promise of comfort and companionship in this card, too. When it’s located near the querent’s card, and free from negative influences, you can expect bad times or loneliness to lessen. As with the Bear and the Fish, the Clover can represent money. However, unlike the Fish, the Clover most often represents smaller amounts, usually under £100. Just like the Sun, the Clover’s good fortune can be doubled by the presence of the Birds. Health: The Clover usually shows a recovery and a pick-up in our mood or energy.", trans: "기쁨은 클로버 카드의 본질입니다. 이 카드는 행복, 위안, 동료애를 상징합니다. 질문자 근처에 있고 부정적인 영향이 없다면 힘든 시간이나 외로움이 줄어들 것을 기대할 수 있습니다. 곰이나 물고기 카드처럼 돈을 나타낼 수 있으나, 대개 적은 액수(소액)를 의미합니다. 태양과 마찬가지로 새 카드와 함께 있으면 행운이 두 배가 됩니다.", health: "보통 회복과 기분 또는 에너지의 상승을 보여주며, 채소/과일에서 얻는 미네랄과 비타민의 결핍을 나타낼 수도 있습니다.", vocab: "Essence [ˈesns]: 본질.|Companionship [kəmˈpæniənʃɪp]: 동료애.|Deficiency [dɪˈfɪʃnsi]: 결핍." },
+            { id: 3, name: "배", eng: "The Ship", suit: "Spades", suitDesc: "스페이드 10", keywords: "여행, 무역, 갈망", orig: "This card symbolises the essence of movement. This is an auspicious card that bodes well for your enterprises. Traditionally, the Ship has been seen as business ventures. Another meaning the Ship carries is that of inheritance. When the Ship falls close to the querent’s card, an opportunity for travel is to be expected. A frequent meaning the Ship can add to the reading is that of longing for someone or something. Health: The Ship represents the liver, spleen, pancreas and gall bladder. It can also indicate sickness associated with travel.", trans: "이 카드는 이동의 본질을 상징합니다. 사업이나 계획에 좋은 징조가 되는 상서로운 카드입니다. 전통적으로 비즈니스 벤처를 의미하며, 다른 한편으로는 누군가 설정해 둔 신탁 기금이나 유산을 의미하기도 합니다. 질문자와 가까우면 여행의 기회를 예상할 수 있습니다. 리딩에서 자주 더해지는 의미는 누군가나 무언가에 대한 '갈망'입니다.", health: "간, 비장, 췌장, 담낭을 나타냅니다. 여행 관련 질병(비행 공포증 등)을 나타내기도 합니다.", vocab: "Auspicious [ɔːˈspɪʃəs]: 상서로운.|Inheritance [ɪnˈherɪtəns]: 유산, 상속.|Spleen [spliːn]: 비장(지라)." },
+            { id: 4, name: "집", eng: "The House", suit: "Hearts", suitDesc: "하트 킹", keywords: "가정, 사생활, 기업(사업)", orig: "The House's essence is that of sanctuary. This card symbolises your home and domestic affairs. A positive card, the House shows opportunities for improvement in your personal circumstances and prosperity. The House card shows the people you actually live with. This card also reveals your private life; it is the card of what goes on behind closed doors. Like the Ship, the House can indicate business ventures. The King of Hearts can stand for a man. Health: The House represents the body as a whole. Nevertheless, it also signifies the skeleton and bones.", trans: "집 카드의 본질은 안식처입니다. 이 카드는 당신의 집과 가정사를 상징하며, 개인적 상황 개선과 번영의 기회를 보여주는 긍정적인 카드입니다. 이 카드는 실제로 함께 사는 사람들을 보여주며, 닫힌 문 뒤의 '사생활'을 드러냅니다. 배 카드처럼 사업적 모험을 뜻하기도 하지만, 이것이 어떻게 삶의 질을 향상시키는지를 보여줍니다. 하트 킹은 한 남성을 나타낼 수 있습니다.", health: "신체 전체를 나타내며 골격과 뼈를 의미하기도 합니다.", vocab: "Sanctuary [ˈsæŋktʃueri]: 안식처.|Domesticity [ˌdoʊmeˈstɪsəti]: 가정생활.|Osteoarthritis [ˌɑːstioʊˌɑːrˈθraɪtɪs]: 골관절염." },
+            { id: 5, name: "나무", eng: "The Tree", suit: "Hearts", suitDesc: "하트 7", keywords: "건강, 시간, 타성(관성)", orig: "The essence of the Tree card is health. The Tree represents your health. Whenever the Tree is near the significator, health will be of concern. When the Tree is close to the House, the Garden, the Paths or the Sun, some of the negativity around it is offset and recovery is foretold. The Tree is a slow-paced card of lasting effect. Because of this longevity, the Tree often symbolises a sense of inertia. Health: The Tree, in terms of health, talks about the general state of the body, how strong it is and the overall constitution.", trans: "나무 카드의 본질은 건강입니다. 지시자 근처에 있을 때 건강이 주요 관심사가 됩니다. 집, 정원, 길, 태양 카드와 가까이 있으면 부정적인 기운이 상쇄되고 회복이 예견됩니다. 나무는 지속적인 효과를 지닌 느린 속도의 카드이며, 이러한 장수(longevity)의 특성 때문에 종종 변화하지 않으려는 '타성(inertia)'을 상징하기도 합니다.", health: "신체의 일반적인 상태, 강건함, 전반적인 체질에 대해 이야기합니다.", vocab: "Inertia [ɪˈnɜːrʃə]: 타성, 관성.|Constitution [ˌkɑːnstɪˈtuːʃn]: 체질.|Longevity [lɔːnˈdʒevəti]: 장수." },
+            { id: 6, name: "구름", eng: "The Clouds", suit: "Clubs", suitDesc: "클로버 킹", keywords: "고난, 문제, 혼란", orig: "Misfortune is the essence of the Clouds. This is one of the most negative cards in the deck. Whatever touches the Clouds in a reading becomes troublesome and problematic. Its influence increases the closer it is to the significator card. The Clouds predicts problems that are not easily overcome. Any card one position away from the Clouds takes its ‘clouded’ meaning without fail. Another meaning is bad weather of all varieties. As with the King of Clubs, the Clouds can describe a man. Health: The Clouds card is a symbol for the lungs and respiratory system.", trans: "불운은 구름 카드의 본질입니다. 덱에서 가장 부정적인 카드 중 하나이며, 구름과 닿는 것은 무엇이든 골칫거리가 됩니다. 지시자에 가까울수록 영향력이 큽니다. 쉽게 극복할 수 없는 문제, 혼란과 불확실성을 예견합니다. 구름에서 한 칸 떨어진 카드는 예외 없이 그 의미가 '흐려집니다(clouded)'. 안개나 폭풍 같은 악천후나 오염을 뜻하기도 합니다. 클로버 킹처럼 한 남성(전 파트너 등)을 묘사할 수 있습니다.", health: "폐, 호흡기 시스템, 계절성 질환의 상징입니다.", vocab: "Tribulation [ˌtrɪbjuˈleɪʃn]: 고난, 시련.|Abstruse [əbˈstruːs]: 난해한.|Brusque [brʌsk]: 퉁명스러운." },
+            { id: 7, name: "뱀", eng: "The Snake", suit: "Clubs", suitDesc: "클로버 퀸", keywords: "배신, 복잡한 문제, 우여곡절", orig: "The Snake’s essence is sedition in that she brings trouble and complications. The Snake warns you to be on your guard. Treachery, often in your friendships and relationships, will soon reveal itself. If the Snake hurts you then she does so on a personal level. This card has a bad habit of turning up in matters of love. It’s never a good sign to see the Snake near the Heart. The Snake can stand for a woman. This card is also a symbol for rivers, brooks, streams and inland water. Health: This card represents the intestines, particularly the large bowel and rectum.", trans: "뱀의 본질은 문제와 혼란을 야기하는 선동(sedition)에 있습니다. 이 카드는 경계를 늦추지 말라고 경고하며, 주로 대인 관계에서의 배신을 의미합니다. 여우 카드가 물질적인 것을 빼앗는다면, 뱀은 개인적 차원(파트너를 가로채는 등)에서 상처를 줍니다. 하트 근처에 있으면 연애 문제에서 복잡하고 속상한 전개를 가져옵니다. 지적이지만 쉽게 정이 가지 않는 여성을 나타내거나, 강이나 구불구불한 길을 상징하기도 합니다.", health: "장, 특히 대장과 직장을 나타냅니다. 건강 문제의 복잡성을 더합니다.", vocab: "Treachery [ˈtretʃəri]: 배신.|Sedition [sɪˈdɪʃn]: 선동, 반란 (혼란 야기).|Intestines [ɪnˈtestɪnz]: 장, 창자." },
+            { id: 8, name: "관", eng: "The Coffin", suit: "Diamonds", suitDesc: "다이아몬드 9", keywords: "질병, 끝, 상실", orig: "The Coffin symbolises the essence of loss. A thoroughly unpleasant and negative card, the Coffin predicts sickness and lasting losses, which are often financial. The Coffin is about endings, not about transformations. Don’t confuse the two. Whatever falls immediately before the Coffin is set to end. Principally a card of sickness, the Coffin shows the debilitating effects of illness. If the card describes a person, he or she is normally sickly or depressed. The Coffin can show being boxed in. Health: The Coffin is the card of sickness. Very often this is debilitating and chronic.", trans: "관은 상실의 본질을 상징합니다. 철저히 부정적인 카드이며 질병과 지속적인 상실(흔히 재정적 상실)을 예견합니다. 관은 '변화'가 아니라 '끝(결말)'에 관한 것입니다. 관 바로 앞에 놓이는 것은 무엇이든 끝나게 됩니다. 기본적으로 질병의 카드로 병의 쇠약해지는 효과를 보여줍니다. 사람을 묘사할 때는 병약하거나 우울한 상태, 혹은 은둔형을 나타냅니다. '갇혀 있음'이나 상자, 서랍장을 나타낼 수도 있습니다.", health: "심신을 쇠약하게 만드는 만성적인 질환, 우울증, 심한 두통을 나타냅니다.", vocab: "Crippling [ˈkrɪplɪŋ]: 치명적인.|Transitory [ˈtrænzɪtɔːri]: 일시적인.|Debilitating [dɪˈbɪlɪteɪtɪŋ]: 쇠약하게 만드는." },
+            { id: 9, name: "꽃다발", eng: "The Bouquet", suit: "Spades", suitDesc: "스페이드 퀸", keywords: "행복, 도움, 선물", orig: "Happiness is the essence of the Bouquet. One of the most positive cards in the pack, the Bouquet is a card of happiness and joy, especially in your day-to-day affairs. Even when it falls far away, the Bouquet promises that the querent will have people who support him. There is an ‘old world’ flavour to the Bouquet card. Qualities of good manners, consideration and even being kempt all fall under the Bouquet. Traditionally, when it falls with the Ring a proposal follows. The Bouquet can stand for a woman. Health: The Bouquet promises recovery and points to complementary remedies.", trans: "행복은 꽃다발 카드의 본질입니다. 덱에서 가장 긍정적인 카드 중 하나로 일상적인 행복, 기쁨, 동료애를 상징합니다. 멀리 떨어져 나오더라도 질문자를 지지하고 위로해 줄 사람들이 있음을 약속합니다. 이 카드는 훌륭한 매너, 배려심, 단정한 모습과 같은 '구세계'적인 풍취를 지닙니다. 반지 카드와 함께 나오면 청혼이나 데이트 신청을 의미합니다. 모든 종류의 실제 꽃을 상징하며, 한 여성(또는 딸)을 나타내기도 합니다.", health: "회복을 약속하며 보조 요법이나 동종 요법 치료를 가리킵니다. (부정적 카드와 함께면 알레르기)", vocab: "Kempt [kempt]: (외모가) 단정한.|Complementary [ˌkɑːmplɪˈmentri]: 보완적인.|Flavour [ˈfleɪvər]: 풍미, 정취." },
+            { id: 10, name: "낫", eng: "The Scythe", suit: "Diamonds", suitDesc: "다이아몬드 잭", keywords: "위험, 공격성, 범죄성", orig: "This card’s essence is danger. The Scythe is a warning to be on guard. It’s a sign that you are in danger of severe loss or injury. The card that follows the Scythe normally represents what is under threat. When the Scythe strikes it cuts away something, and the loss is unequivocal. If a person card precedes the Scythe, it more often describes the person as being overbearing, if not outright aggressive. The Scythe also stands for criminality. It is a symbol of all things sharp. Health: The Scythe can indicate fractures, torn ligaments, surgery and injections.", trans: "이 카드의 본질은 위험입니다. 심각한 상실이나 부상의 위험에 처해 있다는 경고의 신호입니다. 낫 뒤에 오는 카드는 위협받고 있는 대상을 나타내며, 낫이 휘둘러지면 무엇이든 잘라내 버리고 그 상실은 명백합니다. 인물 카드 뒤에 나오면 그 사람을 매우 위압적이거나 공격적인 사람으로 묘사합니다. 또한 폭행이나 범죄성을 상징하며, 칼, 바늘, 총 등 날카로운 모든 것과 무기의 카드입니다.", health: "골절, 인대 파열, 사고로 인한 부상을 나타내며, 수술과 주사를 상징합니다.", vocab: "Aggression [əˈɡreʃn]: 공격성.|Unequivocal [ˌʌnɪˈkwɪvəkl]: 명백한.|Overbearing [ˌoʊvərˈberɪŋ]: 위압적인." },
+            { id: 11, name: "채찍/회초리", eng: "The Rod", suit: "Clubs", suitDesc: "클로버 잭", keywords: "갈등, 토론, 두 번(반복)", orig: "The essence of the Rod is discord. The Rod is not a nice card. It forecasts anything from the coming of tension to outright strife and animosity. Often the Rod is a card of face-to-face communications; however, these are normally on the heated side. Strife augured by this card is most often within relationships, family or friendships. The Rod is derived from the ancient Roman fasces. For this reason it also stands for legal documents, writing, official debates. It’s an indicator of repetition; a test might need to be taken twice. Health: The Rod indicates the throat and recurring ailments.", trans: "채찍의 본질은 불화(discord)입니다. 긴장감부터 노골적인 싸움과 적대감에 이르기까지 모든 것을 예보하는 나쁜 카드입니다. 흔히 대면 소통을 뜻하지만 보통 가열된 양상을 띱니다. 이 갈등은 대개 관계나 가족, 우정 내에서 발생합니다. 고대 로마의 '파스케스'에서 유래하여 법적 문서, 공식 토론, 재판, 노동조합을 상징하기도 합니다. 이 카드는 '두 번' 반복하는 것을 의미합니다 (시험을 두 번 치르거나 병이 재발하는 등).", health: "목구멍을 나타내며, 반복되는 질환과 병의 재발을 상징합니다.", vocab: "Discord [ˈdɪskɔːrd]: 불화.|Animosity [ˌænɪˈmɑːsəti]: 적대감.|Fasces [ˈfæsiːz]: 파스케스 (권표)." },
+            { id: 12, name: "새", eng: "The Birds", suit: "Diamonds", suitDesc: "다이아몬드 7", keywords: "동요, 스트레스, 발표", orig: "Upsets are the essence of the Birds card. The Birds stands for upsets and stresses when it falls close to the significator. These troubles tend to be related to a disappointment, or to work-related stress. When the Birds is located at a distance from the querent’s card it predicts that a sudden journey will take place. When the Birds follows the Child card, it predicts a pregnancy. These days the Birds often plays out as stresses in everyday life or conversations and gossip. The Birds can stand for two people or double the luck. Health: The Birds represents the eyes and anxiety disorders.", trans: "동요와 소란은 새 카드의 본질입니다. 지시자와 가까우면 실망이나 업무 관련 스트레스로 인한 동요를 의미합니다. 멀리 떨어져 있을 때는 기분 좋은 갑작스러운 여행을 예견합니다. 아이 카드 뒤에 새 카드가 오면 임신 소식을 나타냅니다. 현대에는 일상생활의 스트레스나 대화 및 가십(뒷담화)으로 자주 나타납니다. '두 사람'이나 무언가가 '두 배'임을 의미할 수도 있으며, 말이 많고 수다스러운 사람을 묘사하기도 합니다.", health: "눈(eyes)을 나타내며, 불안 장애나 혈압 문제(두근거림)를 의미합니다.", vocab: "Upsets [ˌʌpˈsets]: 동요, 혼란.|Indiscreet [ˌɪndɪˈskriːt]: 경솔한, 조심성 없는.|Palpitations [ˌpælpɪˈteɪʃnz]: 심계항진, 두근거림." },
+            { id: 13, name: "아이", eng: "The Child", suit: "Spades", suitDesc: "스페이드 잭", keywords: "젊음, 작음, 시작", orig: "The essence of the Child card is youth. The Child is a card of beginnings and happiness. When close to the significator, it promises that you will soon find yourself in pleasant company. It can also stand for a small child, or something small. The Child card has a lot to do with the concept of ‘smallness’. It indicates that something is in its infancy and yet to grow. It also represents innocence and trust. When describing a person, the Child stands for a young person, or someone who is young at heart. The Child can also represent a literal child. Health: The Child represents the chest and childhood illnesses.", trans: "아이 카드의 본질은 젊음입니다. 시작과 행복의 카드로, 지시자와 가까우면 즐거운 사람들과 함께하게 될 것임을 약속합니다. 실제 어린아이나 아주 '작은' 무언가를 상징합니다. 이 카드는 무언가가 초기 단계(유아기)에 있으며 더 성장해야 함을 나타냅니다. 순수함과 신뢰를 상징하며, 부정적 카드와 만나면 세상 물정을 모르는 미숙함을 뜻합니다. 젊은 사람이나 체구가 작은 사람, 또는 실제 자녀를 나타냅니다.", health: "어린이의 가슴과 폐를 나타내며 수두, 홍역 등 어린 시절의 질병이나 가벼운 단기적 건강 문제를 가리킵니다.", vocab: "Infancy [ˈɪnfənsi]: 유아기, 초기 단계.|Naive [naɪˈiːv]: 순진무구한, 세상 물정 모르는.|Measles [ˈmiːzlz]: 홍역." },
+            { id: 14, name: "여우", eng: "The Fox", suit: "Clubs", suitDesc: "클로버 9", keywords: "기만, 잘못된, 사기", orig: "Wrongness is the essence of the Fox card. The Fox symbolises that something is wrong in the querent’s life and that he needs to take care. Theft and fraud are frequently augured by this card. Primarily, the Fox’s keyword is ‘wrong’. The card that falls after it is worth close attention as it shows something that should not be taken at face value. The Fox points towards cheats and thefts, and professional sabotage. Alone, however, the Fox has nothing to do with work save commenting on someone’s work ethic. In certain contexts the Fox can say your approach, or idea, is wrong. Health: The Fox symbolises the nose and indicates a need for caution (misdiagnosis).", trans: "'잘못됨'은 여우 카드의 본질입니다. 질문자의 삶에 무언가 잘못되었으며 도난이나 사기, 직장 내 방해 공작(사보타주)을 조심해야 함을 상징합니다. 여우 다음에 오는 카드는 액면 그대로 받아들여서는 안 되는 무언가를 보여줍니다. 프랑스계 서적에서는 여우를 '직장 생활'로 해석하기도 하지만, 전통적으로 여우는 누군가의 직업 윤리 결여를 언급하는 것을 제외하면 업무와는 무관합니다. 상황에 따라 당신의 생각이나 접근법이 '틀렸음'을 말해주기도 합니다. 고양이를 뜻하기도 합니다.", health: "코를 상징하며, 다른 문제에 가려진 오진 가능성이나 치료 재검토의 필요성을 경고합니다.", vocab: "Deceit [dɪˈsiːt]: 기만, 속임수.|Face value [feɪs ˈvæljuː]: 액면가, 겉으로 보이는 가치.|Sabotage [ˈsæbətɑːʒ]: 방해 행위, 사보타주." },
+            { id: 15, name: "곰", eng: "The Bear", suit: "Clubs", suitDesc: "클로버 10", keywords: "힘, 보호, 질투", orig: "The Bear’s essence is power. Power is good only for those who have it, but it also brings enemies and breeds envy. The Bear is a dichotomy: on one hand it promises you good fortune, but it also warns you against those who might abuse or resent your good luck. The Bear often stands for a person – usually a woman – who holds some influence over you (mother, grandmother). In the context of work, the Bear represents the person you report to. The Bear indicates good luck in financial dealings. Health: Anatomically, the Bear stands for the stomach and eating habits. It symbolises hair.", trans: "곰의 본질은 '힘(권력)'입니다. 힘은 보호와 번영을 약속하지만 적을 불러들이고 질투를 낳기도 합니다. 곰 카드는 아군의 보호를 뜻하면서도 당신의 행운을 시기하는 자를 조심하라는 경고이기도 합니다. 주로 당신에게 영향력을 가진 여성(어머니, 할머니 등)이나 직장의 직속 상사를 상징합니다. 신체적·정신적으로 위풍당당한 인물을 묘사하며, 금융 거래(저축, 연금 등)에서의 행운과 자금 융통을 나타냅니다.", health: "위장과 식습관을 나타내며, 머리카락을 상징하기도 합니다.", vocab: "Envy [ˈenvi]: 질투.|Dichotomy [daɪˈkɑːtəmi]: 이분법.|Imposing [ɪmˈpoʊzɪŋ]: 위풍당당한." },
+            { id: 16, name: "별", eng: "The Stars", suit: "Hearts", suitDesc: "하트 6", keywords: "성공, 밤, 북쪽", orig: "The essence of the Stars is good luck. The Stars promises success in your endeavours. The cards that touch the Stars should prove successful and lucky. I see the Stars as a card of guidance that tells me where best to concentrate my efforts. In certain contexts, the Stars can indicate both science and fortune-telling. The Stars can indicate the human mind as a whole. It can reflect how happy and clear-sighted you are. In terms of timing, the Stars stands for night. Health: The Stars represents the skin and issues involving sleep.", trans: "별의 본질은 '행운'입니다. 진행 중인 프로젝트에서의 성공을 약속합니다. \"별 없는 하늘 아래에서는 캠프를 치지 마라\"는 격언처럼, 별 카드는 나의 노력을 어디에 집중하는 것이 최선인지 알려주는 '안내'의 카드입니다. 별 옆에 있는 분야에 집중하면 실질적이고 정서적인 혜택을 얻습니다. 과학자나 수치에 밝은 사람, 혹은 점성가나 영매를 나타냅니다. 또한 인간의 마음 전체와 통찰력을 반영합니다. 시기적으로는 밤과 북쪽을 뜻합니다.", health: "피부를 나타내며, 뇌 기능의 문제나 수면과 관련된 이슈를 나타냅니다.", vocab: "Endeavours [ɪnˈdevərz]: 노력, 시도.|Clear-sighted [ˌklɪr ˈsaɪtɪd]: 통찰력 있는.|Guidance [ˈɡaɪdns]: 안내." },
+            { id: 17, name: "황새", eng: "The Storks", suit: "Hearts", suitDesc: "하트 퀸", keywords: "변화, 이전(이사), 출생", orig: "The Storks’ essence is change, particularly in relation to your domestic life. When the Storks falls very close to the querent’s card it augurs changes and improvements. Traditionally, it forecasts relocation to a new address. Primarily, the Storks talks about a change which will be towards something better. When the Storks follows the Child it can indicate the forthcoming birth of a child. The Storks can stand for a woman. Health: The Storks is a card of improvement and upturn in health problems. It stands for the legs and mobility.", trans: "황새 카드의 본질은 가정 생활과 관련된 '변화'입니다. 질문자와 가까우면 새로운 집으로의 이사나 환경의 긍정적인 개선을 예고합니다. 더 나은 방향으로의 진전, 심지어 승진을 나타냅니다. 아이 카드 뒤에 오면 예상된 아이의 출산을 나타냅니다(반면 예상치 못한 임신은 새 카드). 키가 크고 야심 있거나 여행 업계에서 일하는 여성을 상징할 수 있습니다. 탑 카드와 만나면 중대한 인생의 변화를 뜻합니다.", health: "건강 문제의 호전과 개선을 나타내며, 다리와 전반적인 가동성(움직임)을 상징합니다.", vocab: "Relocation [ˌriːloʊˈkeɪʃn]: 이전, 이사.|Forthcoming [ˌfɔːrθˈkʌmɪŋ]: 다가오는.|Restless [ˈrestləs]: 가만히 못 있는, 안달하는." },
+            { id: 18, name: "개", eng: "The Dog", suit: "Hearts", suitDesc: "하트 10", keywords: "우정, 신뢰성, 남성", orig: "Loyalty is the essence the Dog brings. This card speaks of faithful friendships that can aid you. When the Dog is close to the querent’s card it promises good, faithful and lasting friendships. When surrounded by the Clouds, the Dog is a warning not to readily trust those you are unsure of. The Dog can stand for any friend, but it is also a card that can represent a man. If the Fox is our work rivals, the Dog is our work allies. Health: The Dog stands for a carer. Anatomically it represents the mouth, tongue and teeth.", trans: "충성심은 개 카드의 본질입니다. 도움을 줄 수 있는 충실하고 변함없는 우정과 동맹을 약속합니다. 하지만 부정적인 카드와 함께라면 확신 없는 사람을 쉽게 믿지 말라는 경고가 됩니다. 친구뿐만 아니라, 친절하고 충실한 남성(때로는 전 파트너)을 상징하기도 합니다. 여우가 직장의 라이벌이라면 개는 직장의 든든한 동료(아군)를 의미합니다. 실제 반려동물을 뜻하기도 합니다.", health: "의사나 간호사 등 '간병인(조력자)'을 의미하며, 해부학적으로는 입, 혀, 치아를 나타냅니다.", vocab: "Loyalty [ˈlɔɪəlti]: 충성심.|Steadfast [ˈstedfæst]: 확고한, 변함없는.|Work allies: 직장 내 아군/동료." },
+            { id: 19, name: "높은 탑", eng: "The 'High' Tower", suit: "Spades", suitDesc: "스페이드 6", keywords: "노령, 공식적인(공무), 고립", orig: "The Tower is a symbol of the essence of longevity. The Tower is a card of longevity and old age. Surrounded by good cards it promises you a happy, healthy and long retirement. This card can indicate periods of solitary life. Near to the Heart, it indicates a period of loneliness through separation or divorce. The Tower can stand for buildings of high importance: a courthouse, government building or university. This card can represent a man, frequently the querent's father or grandfather. Health: The card stands for longevity. Anatomically, the Tower stands for the spine.", trans: "탑은 장수와 노년을 상징하는 카드입니다. 긍정적인 카드들과 함께라면 안전하고 행복한 긴 은퇴 생활을 약속하지만, 부정적인 카드와 만나면 심신이 쇠약해지는 만성 질환을 경고합니다. 이 카드는 고독한 삶의 시기(별거, 이혼 등)를 나타낼 수 있습니다. 법원, 정부 기관, 대학교 등 중요한 공식 건물을 상징하기도 합니다. 아버지나 조부처럼 야심 차고 냉담한 성격의 권위 있는 남성을 나타내기도 합니다. 이 카드가 주는 행복은 타인과 나누지 않는 '자기중심적인' 행복입니다.", health: "장수 혹은 오래 지속되는 질환을 의미하며, 해부학적으로는 척추를 상징합니다.", vocab: "Longevity [lɔːnˈdʒevəti]: 장수.|Schism [ˈskɪzəm]: 분열, 분리.|Solipsistic [ˌsɒlɪpˈsɪstɪk]: 유아론적인, 자기중심적인." },
+            { id: 20, name: "정원", eng: "The Garden", suit: "Spades", suitDesc: "스페이드 8", keywords: "공동체, 대중, 사회", orig: "The Garden is the essence of interaction. Close to the significator, the Garden promises new friendships and alliances which can lead to a fruitful improvement. The Garden stands for the public and society in general. It frequently appears as a public space. In attendance with the Letter it can be social networking sites. When it describes a person, before a person card, it describes a social butterfly. When the Garden follows a person card, it describes a 'queen bee'. Health: The Garden denotes a hospital or convalescent home, and contagion.", trans: "정원은 '상호작용'의 본질을 상징합니다. 지시자와 가까우면 유익한 발전을 가져올 새로운 우정과 인맥을 약속하지만, 멀리 있다면 가짜 친구와 고립을 조심해야 합니다. 일반적인 대중과 사회, 공공장소(식당, 극장, 숲 등)를 뜻합니다. 편지 카드와 결합하면 SNS(페이스북 등)나 인터넷 커뮤니티를 의미합니다. 인물 카드 앞에 오면 사교적인 사람(사교 나비)을, 인물 뒤에 오면 무리의 우두머리 여성(퀸비)을 묘사합니다.", health: "병원이나 요양소 등 치료 장소를 의미하며, 접촉으로 퍼지는 전염병을 묘사하기도 합니다.", vocab: "Interaction [ˌɪntərˈækʃn]: 상호작용.|Social butterfly: 사교적인 사람.|Contagion [kənˈteɪdʒən]: 전염, 감염." },
+            { id: 21, name: "산", eng: "The Mountain", suit: "Clubs", suitDesc: "클로버 8", keywords: "방해물, 적, 장벽", orig: "The Mountain card is the essence of obstacles. When the Mountain is located close to the significator it indicates that the querent has a rival or opponent who will hinder or attack. Frequently, the Mountain will either manifest as a barrier to a goal or as an actual enemy. As a blockage or an enemy the Mountain is not insurmountable, but the challenge to climb it is often doubtful and lengthy. The Mountain can also indicate another country. Health: Often the Mountain indicates calcification, sclerosis or stenosis. It represents the skull.", trans: "산 카드는 '장애물'의 본질입니다. 지시자와 가까이 있다면 질문자를 방해하거나 공격하려는 경쟁자/적대자가 있음을 나타내며 정체와 문제를 예상해야 합니다. 멀리 떨어져 있다면 역설적으로 위기 때 도와줄 강력한 조력자가 될 수 있습니다. 산은 목표를 막는 장벽이거나 실제의 적(직장 동료, 괴롭히는 사람, 혹은 금연 시도의 담배 등)입니다. 극복이 불가능하지는 않으나 불확실하고 오래 걸립니다. 국경을 맞댄 다른 나라를 상징하기도 합니다.", health: "석회화, 경화증(단단해짐), 협착증(좁아짐) 등 신체 기능의 막힘을 뜻하며, 두개골을 상징합니다.", vocab: "Obstacle [ˈɑːbstəkl]: 장애물.|Insurmountable [ˌɪnsərˈmaʊntəbl]: 극복할 수 없는.|Sclerosis [skləˈroʊsɪs]: 경화증." },
+            { id: 22, name: "길", eng: "The Paths", suit: "Diamonds", suitDesc: "다이아몬드 퀸", keywords: "선택, 교차로, 위기", orig: "The essence of the Paths card is choice. Free from negative influence, the Paths indicates that anxious times will soon present themselves. A problem or important intersection on the querent's life journey will manifest; however, the worries will pass when a decision is made. Most of the time, the Paths indicates that the querent has options and choices. Near the Clouds this card is particularly malefic as it indicates several problems converging. The Paths can be a literal road. Health: The Paths is one of the cards that can mitigate the Tree. Anatomically, it relates to the arteries and veins.", trans: "길 카드의 본질은 '선택'입니다. 질문자에게 여러 옵션과 선택권이 주어지는 인생의 중요한 기로를 나타냅니다. 결정을 내리고 나면 불안은 지나가겠지만, 한 번 선택하면 되돌리기 어렵습니다. 구름 카드 옆에서는 여러 문제가 한데 모이는 매우 불길한 위기(격변과 고통스러운 선택)를 상징합니다. 실제 도로를 의미하여 정기적인 통근이나 출장을 나타내기도 합니다. 한 여성을 상징할 수 있습니다.", health: "의학적으로 여러 선택지를 신중하게 탐색해야 하며 치료법을 찾게 됨을 의미합니다. 동맥과 정맥에 해당합니다.", vocab: "Intersection [ˌɪntərˈsekʃn]: 교차로, 기로.|Upheaval [ʌpˈhiːvl]: 격변.|Converge [kənˈvɜːrdʒ]: 모여들다." },
+            { id: 23, name: "쥐", eng: "The Mice", suit: "Clubs", suitDesc: "클로버 7", keywords: "도난, 손실, 불안감", orig: "The Mice carries the essence of erosion. The Mice symbolises a loss, sometimes through theft, but also through carelessness. The card to the left of the Mice is what is set to be soiled or destroyed, and the card to the right is what that will cause you to lose out on. The Mice close to the significator points to some anxiety for the querent, which may indicate a lasting dispiritedness and passive-aggressive tendencies. Health: Anatomically, the Mice can be an ulcer, necrotic tissue, a tumour or parasites, but it can also indicate stress and alopecia.", trans: "쥐 카드는 서서히 갉아먹히는 '침식'의 본질을 담고 있습니다. 도난이나 부주의로 인한 손실을 상징합니다. 쥐의 왼쪽에 있는 카드는 파괴될 대상을, 오른쪽에 있는 카드는 손해를 볼 원인을 나타냅니다. 지시자 근처의 쥐는 단기적이지 않은 지속적인 의욕 상실이나 수동적-공격적 성향, 불안감을 나타냅니다. 기운을 빼앗는 사람을 묘사하기도 합니다. 실제 설치류 동물들을 나타냅니다.", health: "궤양, 괴사 조직, 종양, 기생충처럼 몸을 갉아먹는 질환이나 스트레스성 원형 탈모증을 나타냅니다.", vocab: "Erosion [ɪˈroʊʒn]: 침식, 갉아먹힘.|Dispiritedness [dɪˈspɪrɪtɪdnəs]: 의욕 상실.|Necrotic [neˈkrɑːtɪk]: 괴사의." },
+            { id: 24, name: "하트", eng: "The Heart", suit: "Hearts", suitDesc: "하트 잭", keywords: "사랑, 애정, 따스함", orig: "Affection is the essence of the Heart card. If free from negative cards, the Heart promises happiness and love. When the Heart is near the querent's card, his romantic life will come under the spotlight. New love is around the corner. When the Heart is far away, it can show platonic love or simply strong friendships. Love doesn't always need to be romantic. Near the cards of home, work or money, the Heart signifies a sense of love and happiness in these respective areas. Health: The Heart symbolises the cardiopulmonary and circulatory systems.", trans: "애정은 하트 카드의 본질입니다. 질문자 가까이에 있으면 새로운 로맨스가 오거나 기존 관계가 깊어지는 등 연애 생활이 주목받습니다. 멀리 떨어져 있으면 깊은 우정이나 플라토닉한 사랑을 나타냅니다. 구름, 관, 낫 등과 만나면 고통스러운 깊은 실망을 예고합니다. 연애뿐만 아니라 집, 직장, 금전 카드 옆에 있으면 해당 분야에서 느끼는 애정과 행복감을 뜻합니다.", health: "심장 및 심폐/순환기 계통을 상징하며, 새 카드 근처에 있으면 고혈압이나 두근거림을 의미합니다.", vocab: "Affection [əˈfekʃn]: 애정.|Cardiopulmonary [ˌkɑːrdioʊˈpʊlməneri]: 심폐의.|Palpitation [ˌpælpɪˈteɪʃn]: 심계항진(두근거림)." },
+            { id: 25, name: "반지", eng: "The Ring", suit: "Clubs", suitDesc: "클로버 에이스", keywords: "결혼, 계약, 연결(관계)", orig: "The essence of the Ring card is ties. The Ring’s meaning is determined by which side of the querent’s card it falls on. To the left of the significator, it augurs the possibility of a separation. To the right of the querent’s card it indicates a lasting relationship. Another meaning of the Ring is contracts of all kinds. Frequently this will mean employment, but it can also be a mortgage. Health: The Ring stands for illnesses which can be progressive and debilitating, and co-morbidity.", trans: "반지 카드의 본질은 '유대(결속)'입니다. 지시자의 오른쪽에 놓이면 지속적인 로맨틱한 관계나 새롭고 진지한 사랑을 나타냅니다. 반면 왼쪽에 놓이고 멀어질수록 가혹한 이별을 예고합니다. (다만 닻 카드와 함께라면 관계 유지 의지를 나타냄). 반지는 모든 종류의 '계약'을 의미하여 취업, 담보 대출, 임대차 계약 등을 상징합니다.", health: "점진적으로 심신을 쇠약하게 만드는 만성/불치병을 상징하며, 두 가지 질병이 동시에 존재하는 '공존 이환'을 자주 나타냅니다.", vocab: "Ties [taɪz]: 유대, 결속.|Co-morbidity [ˌkoʊmɔːrˈbɪdəti]: 공존 이환 (동반 질환).|Mortgage [ˈmɔːrɡɪdʒ]: 담보 대출." },
+            { id: 26, name: "책", eng: "The Book", suit: "Diamonds", suitDesc: "다이아몬드 10", keywords: "비밀, 교육, 미지의 것", orig: "The Book represents the essence of the unknown. When the Book falls near the significator it indicates that something important will be revealed. The Book often simply means that the querent doesn't know something. Thus, she needs to do her research or wait for events to unfold. The 'unknown' nature of the Book means it frequently appears as education. When the Book falls before a person card it normally indicates you do not yet know that person. Health: The Book represents the brain and cognition.", trans: "책 카드는 '미지의 것'을 상징하며 본래 이름은 마법서(Grimoire)였습니다. 질문자 근처에 있으면 중요하고 때론 당혹스러운 비밀이 드러남을 의미합니다. 질문자가 무언가를 모른다는 뜻이므로, 섣부른 행동 대신 연구하고 때를 기다려야 합니다. 이 미지의 속성 때문에 교육, 학업, 구직자의 자격 요건 보강 등을 상징합니다. 인물 카드 앞에 오면 아직 당신이 알지 못하는 사람을, 인물 카드 뒤에 오면 지적이고 학구적인 사람을 나타냅니다.", health: "뇌와 인지 능력을 상징하며 아직 진단되지 않은 의학적 문제를 나타냅니다.", vocab: "Grimoire [ɡrɪmˈwɑːr]: 마법서.|Unfold [ʌnˈfoʊld]: 전개되다.|Cognition [kɑːɡˈnɪʃn]: 인지 능력." },
+            { id: 27, name: "편지", eng: "The Letter", suit: "Spades", suitDesc: "스페이드 7", keywords: "전화 통화, 종이(문서), 피상성", orig: "The Letter symbolises the essence of communication. Wherever the Letter falls it denotes the arrival of news, rarely in person. It is the card of communication that occurs without being face-to-face. Thus it augurs telephone calls, SMS, emails and letters. Positive cards indicate news or replies, negative cards indicate bad news (e.g. rejection letter). The Letter stands for all paper and card items. Before a person card it means the person is superficial. Health: The Letter can stand for letters from a doctor, pamphlets and prescriptions. It stands for fingers.", trans: "편지 카드는 '통신'의 본질을 상징합니다. 직접 대면하지 않고 전해지는 소식, 즉 전화 통화, 문자(SMS), 이메일, 편지 등을 예고합니다. 편지가 인물 카드 오른쪽에 있으면 연락을 받는 것이고, 왼쪽에 있으면 거는 것입니다. 긍정적 카드와 함께면 좋은 소식을, 관 등과 함께면 거절 통지서를 뜻합니다. 모든 종이/카드 형태의 물품을 상징합니다. 사람 앞에 오면 겉치레만 중시하는 피상적인 사람을, 하트나 닻 앞에 오면 일시적이고 덧없는 속성을 부여합니다.", health: "의사 소견서, 처방전, 안내 책자 등을 의미하며 해부학적으로는 손가락을 상징합니다.", vocab: "Superficiality [ˌsuːpərˌfɪʃiˈæləti]: 피상성, 겉치레.|Fleeting [ˈfliːtɪŋ]: 덧없는, 일시적인.|Prescription [prɪˈskrɪpʃn]: 처방전." },
+            { id: 28, name: "신사", eng: "The Lord", suit: "Hearts", suitDesc: "하트 에이스", keywords: "남성, 남성 질문자, 지시 카드", orig: "The Lord card personifies the masculine essence and will, thus, always stand for a male person. The Lord represents the male querent. If the querent is female, the Lord denotes the most important man in her life. When the Lord isn't the significator it will frequently represent the querent's love interest.", trans: "신사 카드는 남성적인 본질과 의지를 인격화한 카드로 항상 남성을 상징합니다. 남성 질문자 본인을 나타내는 지시 카드입니다. 질문자가 여성이라면 인생에서 가장 중요한 남성(배우자, 관심 있는 남자, 남사친, 상사, 혹은 아버지)을 뜻합니다. (게이 남성일 경우 파트너는 '기사' 카드입니다.)", health: "(본문에 없음)", vocab: "Personify [pərˈsɑːnɪfaɪ]: 인격화하다, 전형적으로 보여주다.|Masculine [ˈmæskjəlɪn]: 남성적인." },
+            { id: 29, name: "숙녀", eng: "The Lady", suit: "Spades", suitDesc: "스페이드 에이스", keywords: "여성, 여성 질문자, 지시 카드", orig: "The Lady is the embodiment of the female essence and, thus, always represents a woman. The Lady represents the female querent. If the querent is male, the Lady stands for the most important woman in his life. When the Lady isn't the significator it will often represent the querent's love interest.", trans: "숙녀 카드는 여성적 본질의 구현으로 항상 여성을 상징합니다. 여성 질문자 본인을 나타내는 지시 카드입니다. 질문자가 남성이라면 인생에서 가장 중요한 여성(배우자, 관심 있는 여자, 자매, 상사, 어머니 등)을 뜻합니다. (레즈비언 여성일 경우 파트너는 '뱀' 카드입니다.)", health: "(본문에 없음)", vocab: "Embodiment [ɪmˈbɑːdimənt]: 구현, 전형." },
+            { id: 30, name: "백합", eng: "The Lily", suit: "Spades", suitDesc: "스페이드 킹", keywords: "행복감, 성적 에너지, 보호", orig: "The essence of the Lily card is ecstasy. The main meaning of the Lily is that of your family in general, but especially your children, siblings and cousins. Good cards around the Lily and the Lily falling above your significator are always a strong sign of happiness. Unlike the Bouquet this is a deeper or more enduring happiness. As the card deals with your offspring, it also deals with your sex life. The Lily is a sign of official protection by agencies. Health: The Lily stands for all sexual health. Anatomically, it represents the male sexual organs.", trans: "백합 카드의 본질은 '황홀경(ecstasy)'입니다. 이 카드의 주된 의미는 가족(특히 자녀, 형제자매, 사촌)입니다. 지시자 위에 놓이고 좋은 카드가 주위에 있으면, 꽃다발보다 더 깊고 오래 지속되는 '행복'을 굳건하게 약속합니다. 자손을 다루기에 동시에 성생활을 상징하기도 하며, 태양 카드와 함께면 성적 만족을 의미하지만 낫이 앞서면 성적 일탈/희롱의 신호일 수 있습니다. 사회 복지 기관 등의 공식적인 '보호'를 뜻하기도 합니다.", health: "모든 성적 건강을 뜻하며 해부학적으로는 남성 성기를 나타냅니다.", vocab: "Euphoria [juːˈfɔːriə]: 행복감, 희열.|Ecstasy [ˈekstəsi]: 황홀경.|Enduring [ɪnˈdʊrɪŋ]: 지속되는." },
+            { id: 31, name: "태양", eng: "The Sun", suit: "Diamonds", suitDesc: "다이아몬드 에이스", keywords: "성공, 행운, 낙관주의", orig: "The Sun symbolises the essence of success. With the Sun near the significator and free of bad cards, the querent should expect good luck, successful ventures and fortitude. The Sun stands for big luck. Successful overcoming, new starts and happiness can be delivered by this card. When the Sun is far away, it shows that the querent will have to expend much effort to overcome trials. Another meaning of the Sun is electricity. Health: The main meaning of the Sun is energy and vitality. It can also denote dehydration.", trans: "태양은 '성공'의 본질을 상징합니다. 클로버의 소소한 행운에 대비되는 '큰 행운'의 카드입니다. 지시자 근처에 있으면 모든 일의 개선, 새로운 시작, 성공적 사업과 굳건한 용기를 보장합니다(새 카드와 만나면 행운이 2배). 반대로 멀리 떨어져 있으면 시련 극복에 엄청난 노력이 필요하고 용기를 잃기 쉬움을 뜻하며, 구름과 만나면 운이 역전됩니다. 또 다른 의미로 '전기'를 뜻합니다. 매력적이고 낙천적인 사람을 묘사합니다.", health: "에너지와 활력을 뜻합니다. 이것이 손상되면 무기력과 탈수 증상(별 카드와 함께면 건성 피부)을 의미합니다.", vocab: "Vanquish [ˈvæŋkwɪʃ]: 물리치다.|Fortitude [ˈfɔːrtɪtuːd]: 불굴의 용기.|Dehydration [ˌdiːhaɪˈdreɪʃn]: 탈수." },
+            { id: 32, name: "달", eng: "The Moon", suit: "Hearts", suitDesc: "하트 8", keywords: "일(직업), 명예, 명성", orig: "Adulation is the essence of the Moon card. If the Moon falls close to the querent’s card it promises that she will be recognised and met with honours and acclaim. The Moon principally talks about your profession and how well it's going. Good cards around the Moon show that it’s a good time to try for that promotion. The Moon is a positive card for tangible rewards from your professional life (bonus, company car). It is a validation card. Health: The Moon stands for the female reproductive system. It reflects your self-esteem.", trans: "'찬사'는 달 카드의 본질입니다. 지시자 근처에 놓이면 인정받고 명예와 명성, 실질적인 이득을 얻을 것을 약속합니다. 이 카드는 주로 당신의 '경력(직업)'이 얼마나 잘 풀리는지 말해줍니다. 이력서의 강점, 면접 성과, 승진, 급여 인상, 보너스 등 직업적 보상을 의미합니다. 자신을 가치 있게 만들어주는 카드이지만, 멀리 떨어져 있으면 성과 없이 정체되는 시기를 보여줍니다. 전설적인 인성을 가졌거나 외모가 뛰어난 사람을 나타냅니다.", health: "여성 생식 계통을 나타내며, 자존감을 반영합니다. (나쁜 카드와 함께면 외모 콤플렉스나 우울증, 자기 혐오)", vocab: "Adulation [ˌædʒuˈleɪʃn]: 과찬, 칭찬.|Tangible [ˈtændʒəbl]: 실질적인.|Validation [ˌvælɪˈdeɪʃn]: 가치 입증, 인정." },
+            { id: 33, name: "열쇠", eng: "The Key", suit: "Diamonds", suitDesc: "다이아몬드 8", keywords: "예(긍정), 확실성, 섭리", orig: "The Key's essence is providence. When the Key falls very close to the querent's card, it's a sign that ventures will go well and aspirations are within reach. providence is on his side. The Key is a very positive card in and of itself. As a rule, it says 'yes' to whatever is to its left, so negative cards become more certain. Obviously the Key can also be real keys or passwords. Health: The Key stands for tests and diagnoses, such as MRIs, bone density scans.", trans: "열쇠의 본질은 '신의 섭리'입니다. 질문자 가까이에 있으면 섭리가 그의 편이 되어 추진하는 사업이 잘 풀리고 포부가 실현될 것임을 알립니다. 이 자체로 매우 긍정적인 카드이지만, 열쇠의 왼쪽에 위치한 그 어떤 내용이든 '예(Yes)'라고 응답하여 기정사실화하므로 부정적인 카드가 왼쪽에 있으면 그 불운이 확실히 일어납니다. 집 열쇠, 자동차 열쇠 등의 실제 열쇠나 비밀번호를 상징하기도 합니다.", health: "MRI, 골밀도 검사, 자폐 진단 등 전문가의 '검사와 진단'을 상징합니다. (낫과 함께면 내시경 등 최소 침습 수술)", vocab: "Providence [ˈprɑːvɪdəns]: 섭리, 신의 뜻.|Aspiration [ˌæspəˈreɪʃn]: 포부." },
+            { id: 34, name: "물고기", eng: "The Fish", suit: "Diamonds", suitDesc: "다이아몬드 킹", keywords: "수입, 금융 사업, 비즈니스", orig: "The Fish symbolises the essence affluence. When the Fish is close by, the querent can expect an upturn in her financial circumstances. 'Income' is the word most used to describe this card. It shows whatever money you have that comes in regularly. If the Stars are by the Fish it can show a windfall. Another meaning of the Fish is depth (deep feelings). The Fish card symbolises liquid. Health: The Fish stands for the urinary system, and potency. It can show liquids (alcohol abuse).", trans: "물고기는 '풍요'의 본질입니다. 질문자와 가까이 있으면 월급, 연금 등 정기적으로 들어오는 '수입'의 증가와 재정적 호전을 기대할 수 있습니다. 별 카드가 함께면 뜻밖의 횡재를 의미합니다. 물고기가 멀리 있으면 사업적 시련을 겪는 궁핍한 시기를 예견합니다. 이 카드는 하트와 함께 깊은 감정의 '깊이'를 나타내거나, 상류층 생활에 대한 사랑을 의미할 수 있습니다. 바다, 수영장, 음료 등 '액체'를 상징합니다.", health: "비뇨기 계통과 남성의 정력을 뜻하며, 구름과 결합 시 알코올 남용(액체)을 나타낼 수 있습니다.", vocab: "Affluence [ˈæfluəns]: 풍요.|Windfall [ˈwɪndfɔːl]: 횡재.|Potency [ˈpoʊtnsi]: 정력, 효능." },
+            { id: 35, name: "닻", eng: "The Anchor", suit: "Spades", suitDesc: "스페이드 9", keywords: "희망, 토대(기반), 안정적인", orig: "The Anchor is the essence of hope. When the Anchor is with good cards, it promises that your relationships and professional life are being built on strong foundations. The Anchor stands for stability. This is the card that shows something lasting: your relationships, your business, your job security. The closer the Anchor falls to the querent's card, the stronger it is. Health: The Anchor denotes how stable a recovery is. Anatomically, it stands for the hips and pelvic bones.", trans: "닻 카드는 '희망'과 '안정성'의 본질을 띱니다. 인간관계, 비즈니스, 고용 안정성 등 무언가가 튼튼한 토대 위에서 '오래 지속됨'을 보여줍니다. 좋은 카드들과 함께라면 애정운에서 평생 함께할 좋은 사람을 얻었음을 뜻하지만, 부정적인 카드와 만나면 유동적인 모래 위에 성을 쌓듯 모든 것이 변덕스럽고 좌절될 수 있음을 보여줍니다. 질문자에게 가까울수록 힘이 강해집니다.", health: "순조롭고 안정적인 회복 여부를 나타냅니다. 해부학적으로 골반뼈와 고관절을 상징합니다.", vocab: "Foundation [faʊnˈdeɪʃn]: 토대.|Fickle [ˈfɪkl]: 변덕스러운.|Pelvic bones: 골반뼈." },
+            { id: 36, name: "십자가", eng: "The Cross", suit: "Clubs", suitDesc: "클로버 6", keywords: "고난, 운명, 신념(믿음)", orig: "The Cross's essence is suffering. This is one of the most negative cards in the deck. It stands for testing times of grief and pain wherever it falls. It's a fateful card. Whatever the Cross is touching becomes burdensome. In select situations the trials of the Cross can mean an actual test (a performance review, driving exam). The Cross stands for religion of any denomination. Health: The Cross indicates being spent. It's a debilitating card. In terms of anatomy it stands for the lower back and lumbar discs.", trans: "십자가 카드의 본질은 '고통'입니다. 덱에서 가장 부정적인 카드 중 하나이며 슬픔과 고통의 숙명적 시련기를 뜻합니다. 십자가가 닿는 모든 영역은 짐스러워지며 피할 방법이 많지 않습니다. 질문자 카드와 아주 가까울 때만 고통의 기간이 짧아지는 것으로 의미가 완화됩니다. 인사 고과나 운전면허 시험 등 치르기 싫은 벅찬 '실제 시험'을 뜻하기도 합니다. 종파를 불문하고 종교, 종교인, 추모 장소 등을 상징합니다. 십자가의 오른쪽 카드는 의미가 강해지고, 왼쪽은 약해집니다.", health: "에너지가 다 소진되어 쇠약해진 상태와 통증을 의미합니다. 해부학적으로 요추(허리 아래)와 디스크를 뜻합니다.", vocab: "Burdensome [ˈbɜːrdnsəm]: 부담스러운.|Denomination [dɪˌnɑːmɪˈneɪʃn]: 종파, 교파.|Lumbar disc [ˈlʌmbər dɪsk]: 요추 디스크." }
+        ];
+
+        const suitIcons = {
+            'Hearts': { icon: '♥', colorClass: 'suit-hearts' },
+            'Spades': { icon: '♠', colorClass: 'suit-spades' },
+            'Diamonds': { icon: '♦', colorClass: 'suit-diamonds' },
+            'Clubs': { icon: '♣', colorClass: 'suit-clubs' }
+        };
+
+        function initChart() {
+            const ctx = document.getElementById('suitChart').getContext('2d');
+            
+            const sentimentData = {
+                'Hearts': { pos: 6, neu: 3, neg: 0 },
+                'Spades': { pos: 5, neu: 4, neg: 0 },
+                'Diamonds': { pos: 4, neu: 2, neg: 3 },
+                'Clubs': { pos: 0, neu: 1, neg: 8 }
+            };
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['하트 (Hearts)', '스페이드 (Spades)', '다이아몬드 (Diamonds)', '클로버 (Clubs)'],
+                    datasets: [
+                        {
+                            label: '긍정적 (Positive)',
+                            data: [sentimentData['Hearts'].pos, sentimentData['Spades'].pos, sentimentData['Diamonds'].pos, sentimentData['Clubs'].pos],
+                            backgroundColor: '#b45309',
+                            stack: 'Stack 0'
+                        },
+                        {
+                            label: '중립/상황적 (Neutral)',
+                            data: [sentimentData['Hearts'].neu, sentimentData['Spades'].neu, sentimentData['Diamonds'].neu, sentimentData['Clubs'].neu],
+                            backgroundColor: '#d6d3d1',
+                            stack: 'Stack 0'
+                        },
+                        {
+                            label: '부정적 (Negative)',
+                            data: [sentimentData['Hearts'].neg, sentimentData['Spades'].neg, sentimentData['Diamonds'].neg, sentimentData['Clubs'].neg],
+                            backgroundColor: '#44403c',
+                            stack: 'Stack 0'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true },
+                        y: { 
+                            stacked: true, 
+                            beginAtZero: true,
+                            max: 9,
+                            ticks: { stepSize: 1 }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' 장';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function showSuitDetail(suitKey) {
+            const detailBox = document.getElementById('suit-detail-box');
+            const titleEl = document.getElementById('suit-detail-title');
+            const contentEl = document.getElementById('suit-detail-content');
+            const iconEl = document.getElementById('suit-detail-icon');
+            
+            const data = suitDetails[suitKey];
+            
+            titleEl.textContent = data.title;
+            contentEl.textContent = data.content;
+            iconEl.textContent = data.icon;
+            iconEl.className = `text-3xl ${data.colorClass}`;
+            
+            detailBox.classList.remove('hidden');
+            detailBox.classList.add('opacity-100');
+            
+            detailBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function renderCards(cardsToRender) {
+            const grid = document.getElementById('card-grid');
+            const noResults = document.getElementById('no-results');
+            grid.innerHTML = '';
+            
+            if(cardsToRender.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            cardsToRender.forEach(card => {
+                const suitInfo = suitIcons[card.suit];
+                const cardEl = document.createElement('div');
+                cardEl.className = 'bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden cursor-pointer card-hover flex flex-col h-full';
+                cardEl.onclick = () => openModal(card.id);
+                
+                cardEl.innerHTML = `
+                    <div class="p-2 flex justify-between items-center border-b border-stone-100 bg-stone-50">
+                        <span class="text-xs font-bold text-stone-500">${card.id}</span>
+                        <span class="text-lg ${suitInfo.colorClass}">${suitInfo.icon}</span>
+                    </div>
+                    <div class="p-4 flex-grow flex flex-col justify-center items-center text-center">
+                        <h3 class="font-serif font-bold text-lg text-ink mb-1">${card.name}</h3>
+                        <p class="text-xs text-stone-500 italic mb-3">${card.eng}</p>
+                        <p class="text-xs font-medium text-accent bg-amber-50 px-2 py-1 rounded w-full truncate">${card.keywords.split(',')[0]}</p>
+                    </div>
+                `;
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function filterCards() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const activeFilterBtn = document.querySelector('.filter-btn.active');
+            const suitFilter = activeFilterBtn.dataset.filter;
+
+            const filtered = cardData.filter(card => {
+                const matchesSearch = card.name.toLowerCase().includes(searchTerm) || 
+                                      card.keywords.toLowerCase().includes(searchTerm) ||
+                                      card.eng.toLowerCase().includes(searchTerm);
+                const matchesSuit = suitFilter === 'all' || card.suit === suitFilter;
+                return matchesSearch && matchesSuit;
+            });
+
+            renderCards(filtered);
+        }
+
+        function openModal(id) {
+            const card = cardData.find(c => c.id === id);
+            if(!card) return;
+
+            const suitInfo = suitIcons[card.suit];
+            
+            document.getElementById('modal-title').textContent = `${card.id}. ${card.name} (${card.eng})`;
+            document.getElementById('modal-suit-icon').textContent = suitInfo.icon;
+            document.getElementById('modal-suit-icon').className = `text-2xl ${suitInfo.colorClass}`;
+            document.getElementById('modal-suit-text').textContent = card.suitDesc;
+            
+            document.getElementById('modal-keywords').textContent = card.keywords;
+            document.getElementById('modal-translation').textContent = card.trans;
+            
+            const healthEl = document.getElementById('modal-health');
+            healthEl.textContent = card.health && card.health !== "(본문에 없음)" ? card.health : "관련 건강 정보가 명시되지 않았습니다.";
+            
+            const vocabList = document.getElementById('modal-vocab');
+            vocabList.innerHTML = '';
+            if (card.vocab && card.vocab !== "") {
+                card.vocab.split('|').forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    vocabList.appendChild(li);
+                });
+            } else {
+                vocabList.innerHTML = '<li class="text-stone-400 italic">추가 어휘 없음</li>';
+            }
+
+            document.getElementById('modal-original').textContent = card.orig;
+            document.getElementById('modal-original').classList.add('hidden');
+
+            document.getElementById('cardModal').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('cardModal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        function toggleElement(id) {
+            const el = document.getElementById(id);
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            renderCards(cardData);
+
+            document.getElementById('searchInput').addEventListener('input', filterCards);
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-stone-800', 'text-white');
+                        b.classList.add('bg-stone-100', 'text-stone-600');
+                    });
+                    
+                    const clickedBtn = e.currentTarget;
+                    clickedBtn.classList.add('active', 'bg-stone-800', 'text-white');
+                    clickedBtn.classList.remove('bg-stone-100', 'text-stone-600');
+                    
+                    filterCards();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
