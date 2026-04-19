@@ -336,6 +336,14 @@
             'Clubs': { icon: '♣', colorClass: 'suit-clubs' }
         };
 
+        function getShortRank(suitDesc) {
+            const parts = suitDesc.split(' ');
+            if (parts.length < 2) return '';
+            const rank = parts[1];
+            const rankMap = { '킹': 'K', '퀸': 'Q', '잭': 'J', '에이스': 'A' };
+            return rankMap[rank] || rank;
+        }
+
         function initChart() {
             const ctx = document.getElementById('suitChart').getContext('2d');
             
@@ -439,7 +447,7 @@
                 cardEl.innerHTML = `
                     <div class="p-2 flex justify-between items-center border-b border-stone-100 bg-stone-50">
                         <span class="text-xs font-bold text-stone-500">${card.id}</span>
-                        <span class="text-lg ${suitInfo.colorClass}">${suitInfo.icon}</span>
+                        <span class="text-lg font-bold ${suitInfo.colorClass}">${suitInfo.icon} ${getShortRank(card.suitDesc)}</span>
                     </div>
                     <div class="p-4 flex-grow flex flex-col justify-center items-center text-center">
                         <h3 class="font-serif font-bold text-lg text-ink mb-1">${card.name}</h3>
