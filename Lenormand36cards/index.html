@@ -211,7 +211,7 @@
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-stone-900 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div class="inline-block align-bottom bg-parchment rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl w-full border border-stone-300">
+            <div class="inline-block align-bottom bg-parchment rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl w-full border border-stone-300">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="flex justify-between items-start mb-5 border-b border-stone-200 pb-4">
                         <div>
@@ -226,24 +226,24 @@
                     </div>
                     
                     <div class="flex flex-col md:flex-row gap-8">
-                        <!-- 이미지 영역 (크기 확대 및 화살표 네비게이션 추가) -->
-                        <div class="w-full md:w-1/2 flex-shrink-0 relative group flex items-center justify-center bg-stone-50 rounded-lg border border-stone-200 p-2 h-fit">
+                        <!-- 이미지 영역 (크기 확대, 비율 조정 및 스와이프를 위한 ID 추가) -->
+                        <div id="modal-image-container" class="w-full md:w-1/2 lg:w-3/5 flex-shrink-0 relative group flex items-center justify-center bg-stone-50 rounded-lg border border-stone-200 p-2 h-fit select-none">
                             <button onclick="navigateModal(-1)" class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-stone-900/40 hover:bg-stone-900/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 focus:outline-none backdrop-blur-sm" title="이전 카드">
                                 <span class="text-2xl -ml-1">&#10094;</span>
                             </button>
                             
-                            <img id="modal-image" src="" alt="카드 이미지" class="w-full max-h-[65vh] object-contain rounded shadow-sm">
+                            <img id="modal-image" src="" alt="카드 이미지" draggable="false" class="w-full max-h-[50vh] md:max-h-[80vh] object-contain rounded shadow-sm pointer-events-none">
                             
                             <button onclick="navigateModal(1)" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-stone-900/40 hover:bg-stone-900/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 focus:outline-none backdrop-blur-sm" title="다음 카드">
                                 <span class="text-2xl -mr-1">&#10095;</span>
                             </button>
                         </div>
                         
-                        <!-- 텍스트 정보 영역 (개별 스크롤 적용) -->
-                        <div class="w-full md:w-1/2 space-y-6 max-h-[65vh] overflow-y-auto pr-3">
-                            <div class="bg-highlight p-4 rounded-md border border-amber-200">
-                                <h4 class="text-xs font-bold uppercase tracking-wider text-accent mb-1">핵심어 (Keywords)</h4>
-                                <p id="modal-keywords" class="text-lg font-medium text-stone-800"></p>
+                        <!-- 텍스트 정보 영역 (비율 조정 및 스크롤 높이 조정) -->
+                        <div class="w-full md:w-1/2 lg:w-2/5 space-y-6 max-h-[60vh] md:max-h-[80vh] overflow-y-auto pr-3">
+                            <div class="bg-highlight p-5 rounded-md border border-amber-200">
+                                <h4 class="text-sm font-bold uppercase tracking-wider text-accent mb-2">핵심어 (Keywords)</h4>
+                                <p id="modal-keywords" class="text-2xl md:text-3xl font-bold text-stone-900 leading-tight"></p>
                             </div>
 
                             <div>
@@ -547,11 +547,43 @@
             }
         }
 
+        // 터치 스와이프 기능 변수
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }
+
+        function handleSwipe() {
+            const threshold = 50; // 스와이프 인식 최소 거리
+            if (touchStartX - touchEndX > threshold) {
+                // 왼쪽으로 스와이프 -> 다음 카드
+                navigateModal(1);
+            }
+            if (touchEndX - touchStartX > threshold) {
+                // 오른쪽으로 스와이프 -> 이전 카드
+                navigateModal(-1);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             initChart();
             renderCards(cardData);
 
             document.getElementById('searchInput').addEventListener('input', filterCards);
+
+            // 이미지 컨테이너에 터치 이벤트 리스너 추가
+            const imageContainer = document.getElementById('modal-image-container');
+            if (imageContainer) {
+                imageContainer.addEventListener('touchstart', handleTouchStart, false);
+                imageContainer.addEventListener('touchend', handleTouchEnd, false);
+            }
 
             const filterBtns = document.querySelectorAll('.filter-btn');
             filterBtns.forEach(btn => {
