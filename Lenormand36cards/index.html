@@ -168,6 +168,16 @@
                     <h3 id="suit-detail-title" class="text-2xl font-serif font-bold text-accent"></h3>
                 </div>
                 <p id="suit-detail-content" class="text-stone-800 leading-relaxed whitespace-pre-line"></p>
+                
+                <!-- 추가된 수트별 소속 카드 갤러리 영역 -->
+                <div class="border-t border-amber-300/50 mt-8 pt-6">
+                    <h4 class="text-sm font-bold text-amber-800 mb-4 flex items-center gap-2">
+                        <span class="text-lg">🎴</span> 이 수트에 속하는 카드 목록
+                    </h4>
+                    <div id="suit-detail-cards" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-4">
+                        <!-- JS에서 카드가 주입됩니다 -->
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -197,7 +207,8 @@
                 </div>
             </div>
 
-            <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <!-- 그리드 비율 및 간격 최적화 -->
+            <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 md:gap-6">
             </div>
             
             <div id="no-results" class="hidden text-center py-12 text-stone-500">
@@ -419,6 +430,7 @@
             const titleEl = document.getElementById('suit-detail-title');
             const contentEl = document.getElementById('suit-detail-content');
             const iconEl = document.getElementById('suit-detail-icon');
+            const cardsContainerEl = document.getElementById('suit-detail-cards');
             
             const data = suitDetails[suitKey];
             
@@ -427,10 +439,35 @@
             iconEl.textContent = data.icon;
             iconEl.className = `text-3xl ${data.colorClass}`;
             
+            // 수트에 속하는 카드들 추출 및 이미지 썸네일 렌더링
+            const suitFilterMap = {
+                'hearts': 'Hearts',
+                'spades': 'Spades',
+                'diamonds': 'Diamonds',
+                'clubs': 'Clubs'
+            };
+            const targetSuit = suitFilterMap[suitKey];
+            const suitCards = cardData.filter(c => c.suit === targetSuit);
+            
+            cardsContainerEl.innerHTML = '';
+            suitCards.forEach(card => {
+                const cardWrap = document.createElement('div');
+                cardWrap.className = 'cursor-pointer group flex flex-col items-center';
+                cardWrap.onclick = () => openModal(card.id);
+                cardWrap.innerHTML = `
+                    <div class="w-full aspect-[2/3] rounded-md shadow-sm border border-stone-300 overflow-hidden mb-2 relative">
+                        <img src="images/c (${card.id}).jpg" alt="${card.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <span class="text-xs font-bold text-stone-700 w-full text-center truncate px-1">${card.id}. ${card.name}</span>
+                `;
+                cardsContainerEl.appendChild(cardWrap);
+            });
+            
             detailBox.classList.remove('hidden');
             detailBox.classList.add('opacity-100');
             
-            detailBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            detailBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function renderCards(cardsToRender) {
@@ -450,18 +487,36 @@
             cardsToRender.forEach(card => {
                 const suitInfo = suitIcons[card.suit];
                 const cardEl = document.createElement('div');
-                cardEl.className = 'bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden cursor-pointer card-hover flex flex-col h-full';
+                // 기존 디자인을 이미지가 꽉 차는 레이아웃으로 변경
+                cardEl.className = 'group bg-white rounded-xl shadow-sm hover:shadow-md border border-stone-200 overflow-hidden cursor-pointer card-hover flex flex-col h-full relative';
                 cardEl.onclick = () => openModal(card.id);
                 
                 cardEl.innerHTML = `
-                    <div class="p-2 flex justify-between items-center border-b border-stone-100 bg-stone-50">
-                        <span class="text-xs font-bold text-stone-500">${card.id}</span>
-                        <span class="text-lg font-bold ${suitInfo.colorClass}">${suitInfo.icon} ${getShortRank(card.suitDesc)}</span>
+                    <div class="relative w-full aspect-[2/3] bg-stone-100 overflow-hidden">
+                        <img src="images/c (${card.id}).jpg" alt="${card.name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        
+                        <!-- 하단 텍스트 그라데이션 백그라운드 -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-transparent to-transparent pointer-events-none"></div>
+                        
+                        <!-- 카드 번호 배지 -->
+                        <div class="absolute top-2 left-2 bg-stone-900/80 backdrop-blur-sm text-white px-2.5 py-1 rounded-md shadow-sm text-xs font-bold border border-white/20">
+                            ${card.id}
+                        </div>
+                        
+                        <!-- 수트 및 계급 배지 -->
+                        <div class="absolute top-2 right-2 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-md shadow-sm text-sm font-bold ${suitInfo.colorClass} border border-stone-200">
+                            ${suitInfo.icon} ${getShortRank(card.suitDesc)}
+                        </div>
+                        
+                        <!-- 이미지 내 카드 이름 -->
+                        <div class="absolute bottom-0 left-0 right-0 p-3 text-center transform translate-y-1 group-hover:translate-y-0 transition-transform">
+                            <h3 class="font-serif font-bold text-white text-lg drop-shadow-md truncate">${card.name}</h3>
+                        </div>
                     </div>
-                    <div class="p-4 flex-grow flex flex-col justify-center items-center text-center">
-                        <h3 class="font-serif font-bold text-lg text-ink mb-1">${card.name}</h3>
-                        <p class="text-xs text-stone-500 italic mb-3">${card.eng}</p>
-                        <p class="text-xs font-medium text-accent bg-amber-50 px-2 py-1 rounded w-full truncate">${card.keywords.split(',')[0]}</p>
+                    
+                    <!-- 하단 키워드 영역 -->
+                    <div class="p-3 bg-white z-10 relative flex flex-col justify-center items-center">
+                        <p class="text-[11px] font-medium text-accent bg-amber-50 px-2 py-1.5 rounded-md w-full text-center truncate border border-amber-100/50">${card.keywords.split(',')[0]}</p>
                     </div>
                 `;
                 grid.appendChild(cardEl);
