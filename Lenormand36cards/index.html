@@ -218,69 +218,83 @@
         </section>
     </main>
 
-    <div id="cardModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-stone-900 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div class="inline-block align-bottom bg-parchment rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl w-full border border-stone-300">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="flex justify-between items-start mb-5 border-b border-stone-200 pb-4">
-                        <div>
-                            <div class="flex items-center gap-3 mb-1">
-                                <span id="modal-suit-icon" class="text-2xl"></span>
-                                <span id="modal-suit-text" class="text-sm font-medium text-stone-500 bg-stone-100 px-2 py-0.5 rounded"></span>
-                                <span id="modal-number" class="text-sm font-bold text-accent"></span>
+    <div id="cardModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- 배경 어둡게 처리 및 클릭 시 닫기 -->
+        <div class="fixed inset-0 bg-stone-900 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+        
+        <!-- 전체 모달 스크롤 컨테이너 (태블릿 세로 모드 대응 핵심) -->
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-6">
+                <!-- 실제 모달 패널 -->
+                <div class="relative transform overflow-hidden rounded-lg bg-parchment text-left shadow-xl transition-all w-full sm:max-w-6xl border border-stone-300">
+                    
+                    <!-- 모달 헤더 -->
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-stone-200">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center gap-3 mb-1">
+                                    <span id="modal-suit-icon" class="text-2xl"></span>
+                                    <span id="modal-suit-text" class="text-sm font-medium text-stone-500 bg-stone-100 px-2 py-0.5 rounded"></span>
+                                    <span id="modal-number" class="text-sm font-bold text-accent"></span>
+                                </div>
+                                <h3 class="text-3xl leading-6 font-serif font-bold text-ink" id="modal-title"></h3>
                             </div>
-                            <h3 class="text-3xl leading-6 font-serif font-bold text-ink" id="modal-title"></h3>
+                            <button onclick="closeModal()" class="text-stone-400 hover:text-stone-600 focus:outline-none transition text-2xl">✖</button>
                         </div>
-                        <button onclick="closeModal()" class="text-stone-400 hover:text-stone-600 focus:outline-none transition text-2xl">✖</button>
                     </div>
                     
-                    <div class="flex flex-col md:flex-row gap-8">
-                        <!-- 이미지 영역 (크기 확대, 비율 조정 및 스와이프를 위한 ID 추가) -->
-                        <div id="modal-image-container" class="w-full md:w-1/2 lg:w-3/5 flex-shrink-0 relative group flex items-center justify-center bg-stone-50 rounded-lg border border-stone-200 p-2 h-fit select-none">
-                            <button onclick="navigateModal(-1)" class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-stone-900/40 hover:bg-stone-900/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 focus:outline-none backdrop-blur-sm" title="이전 카드">
-                                <span class="text-2xl -ml-1">&#10094;</span>
-                            </button>
-                            
-                            <img id="modal-image" src="" alt="카드 이미지" draggable="false" class="w-full max-h-[50vh] md:max-h-[80vh] object-contain rounded shadow-sm pointer-events-none">
-                            
-                            <button onclick="navigateModal(1)" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-stone-900/40 hover:bg-stone-900/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 focus:outline-none backdrop-blur-sm" title="다음 카드">
-                                <span class="text-2xl -mr-1">&#10095;</span>
-                            </button>
-                        </div>
-                        
-                        <!-- 텍스트 정보 영역 (비율 조정 및 스크롤 높이 조정) -->
-                        <div class="w-full md:w-1/2 lg:w-2/5 space-y-6 max-h-[60vh] md:max-h-[80vh] overflow-y-auto pr-3">
-                            <div class="bg-highlight p-5 rounded-md border border-amber-200">
-                                <h4 class="text-sm font-bold uppercase tracking-wider text-accent mb-2">핵심어 (Keywords)</h4>
-                                <p id="modal-keywords" class="text-2xl md:text-3xl font-bold text-stone-900 leading-tight"></p>
-                            </div>
-
-                            <div>
-                                <h4 class="text-sm font-bold border-l-4 border-accent pl-2 mb-2">기본 의미</h4>
-                                <p id="modal-translation" class="text-stone-700 leading-relaxed bg-stone-50 p-4 rounded"></p>
-                            </div>
-
-                            <div>
-                                <h4 class="text-sm font-bold border-l-4 border-stone-400 pl-2 mb-2">건강 (Health)</h4>
-                                <p id="modal-health" class="text-stone-600 text-sm leading-relaxed"></p>
-                            </div>
-
-                            <div>
-                                <button type="button" class="w-full text-left text-xs font-medium text-stone-500 hover:text-stone-800 flex justify-between items-center p-2 bg-stone-100 rounded" onclick="toggleElement('modal-original')">
-                                    <span>영문 텍스트</span>
-                                    <span>▼</span>
+                    <!-- 모달 바디 (태블릿 세로에서는 위아래로, 가로/데스크탑에서는 양옆으로) -->
+                    <div class="bg-white px-4 py-5 sm:p-6">
+                        <div class="flex flex-col lg:flex-row gap-8">
+                            <!-- 이미지 영역 -->
+                            <div id="modal-image-container" class="w-full lg:w-1/2 xl:w-3/5 flex-shrink-0 relative group flex items-center justify-center bg-stone-50 rounded-lg border border-stone-200 p-2 h-fit select-none">
+                                <button onclick="navigateModal(-1)" class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-stone-900/40 hover:bg-stone-900/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 focus:outline-none backdrop-blur-sm" title="이전 카드">
+                                    <span class="text-2xl -ml-1">&#10094;</span>
                                 </button>
-                                <div id="modal-original" class="hidden mt-2 p-4 bg-stone-50 rounded border border-stone-200 text-sm text-stone-500 font-serif italic whitespace-pre-line"></div>
+                                
+                                <!-- 세로 모드일 때는 최대 높이를 줄여 글이 보일 공간 확보, 데스크탑에서는 크게 -->
+                                <img id="modal-image" src="" alt="카드 이미지" draggable="false" class="w-full max-h-[45vh] lg:max-h-[75vh] object-contain rounded shadow-sm pointer-events-none">
+                                
+                                <button onclick="navigateModal(1)" class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-stone-900/40 hover:bg-stone-900/80 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 focus:outline-none backdrop-blur-sm" title="다음 카드">
+                                    <span class="text-2xl -mr-1">&#10095;</span>
+                                </button>
+                            </div>
+                            
+                            <!-- 텍스트 정보 영역 -->
+                            <!-- 가로 모드(lg 이상)에서만 독립 스크롤 적용, 세로 모드에서는 전체 화면 스크롤을 따름 -->
+                            <div class="w-full lg:w-1/2 xl:w-2/5 space-y-6 lg:max-h-[75vh] lg:overflow-y-auto lg:pr-3">
+                                <div class="bg-highlight p-5 rounded-md border border-amber-200">
+                                    <h4 class="text-sm font-bold uppercase tracking-wider text-accent mb-2">핵심어 (Keywords)</h4>
+                                    <p id="modal-keywords" class="text-2xl md:text-3xl font-bold text-stone-900 leading-tight"></p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-sm font-bold border-l-4 border-accent pl-2 mb-2">기본 의미</h4>
+                                    <p id="modal-translation" class="text-stone-700 leading-relaxed bg-stone-50 p-4 rounded"></p>
+                                </div>
+
+                                <div>
+                                    <h4 class="text-sm font-bold border-l-4 border-stone-400 pl-2 mb-2">건강 (Health)</h4>
+                                    <p id="modal-health" class="text-stone-600 text-sm leading-relaxed"></p>
+                                </div>
+
+                                <div>
+                                    <button type="button" class="w-full text-left text-xs font-medium text-stone-500 hover:text-stone-800 flex justify-between items-center p-2 bg-stone-100 rounded" onclick="toggleElement('modal-original')">
+                                        <span>영문 텍스트</span>
+                                        <span>▼</span>
+                                    </button>
+                                    <div id="modal-original" class="hidden mt-2 p-4 bg-stone-50 rounded border border-stone-200 text-sm text-stone-500 font-serif italic whitespace-pre-line"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="bg-stone-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-stone-200">
-                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent text-base font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:ml-3 sm:w-auto sm:text-sm transition" onclick="closeModal()">
-                        닫기
-                    </button>
+                    
+                    <!-- 모달 푸터 -->
+                    <div class="bg-stone-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-stone-200">
+                        <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent text-base font-medium text-white hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:ml-3 sm:w-auto sm:text-sm transition" onclick="closeModal()">
+                            닫기
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
