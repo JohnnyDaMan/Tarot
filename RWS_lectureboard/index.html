@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RWS 타로 마스터 스터디 보드</title>
+    <!-- 빠르고 안정적인 jsDelivr CDN으로 교체하여 로딩 지연을 해결했습니다. -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -61,7 +63,7 @@
         const MAJOR_CARDS = [
             { id: 'm-0', type: 'Major', num: 0, name: '0. 바보', element: '공기', desc: '무한한 가능성과 시작.', guide: '순수한 영혼의 여행이 시작되는 지점입니다.', img: `RWS (1)${EXT}`, details: ['<b>벼랑 끝과 웃옷 주름:</b> 과거에 얽매이지 않는 무한한 가능성과 한계 없는 자유.', '<b>빛(햇빛)과 흰색 개:</b> 순결의 상징이자 평온하고 즐거운 상태.', '<b>막대기와 보따리, 주황색 깃털 모자:</b> 보따리는 가볍게 짊어진 인생 경험과 과거의 기억이며, 모자의 주황색 깃털은 열정적인 자유를 의미.', '<b>숫자 0:</b> 구속받지 않고 무한한 가능성을 가진 새로운 삶의 부화.'] },
             { id: 'm-1', type: 'Major', num: 1, name: '1. 마법사', element: '수성', desc: '의지와 현실화 능력.', guide: '네 가지 원소를 다루는 창조적인 힘의 상징입니다.', img: `RWS (2)${EXT}`, details: ['<b>빨간 장미와 흰 백합:</b> 열정(장미)과 순수함(백합).', '<b>무한대 사인과 뱀:</b> 끝이 없는 영원이 아니라, 우리가 경험하는 위대하고 특별한 삶의 순간.', '<b>수정 막대와 향한 손:</b> "하늘에서와 같이 땅에서도 그러하다"는 비전의 원리로, 신성한 에너지를 끌어내어 창조함.', '<b>네 가지 상징:</b> 불, 물, 공기, 흙이라는 삶의 4원소를 지휘하는 법을 배움.'] },
-            { id: 'm-2', type: 'Major', num: 2, name: '2. 고위 여사제', element: '달', desc: '직관과 무의식의 지혜.', guide: '침묵 속에서 진실을 통찰하는 수호자입니다.', img: `RWS (3)${EXT}`, details: ["<b>'토라(Tora)' 두루마리:</b> 단어와 해석에 의해 달라지지 않는, 언어 너머의 깊은 진실과 율법.", '<b>두 기둥(B와 J)과 초승달:</b> 빛과 어둠처럼 반대의 씨앗을 품고 있는 양면성. 초승달은 여신이 발을 쉬게 하는 곳.', '<b>합쳐진 왕관:</b> 상현달, 하현달, 보름달의 결합으로 고대 여신(이시스)을 상징.', '<b>석류와 흐르는 물:</b> 석류는 생명의 원천이자 관능적 과일(영적인 천국)을 뜻하며, 물은 평화와 깊이를 상징.'] },
+            { id: 'm-2', type: 'Major', num: 2, name: '2. 고위 여사제', element: '달', desc: '직관และ 무의식의 지혜.', guide: '침묵 속에서 진실을 통찰하는 수호자입니다.', img: `RWS (3)${EXT}`, details: ["<b>'토라(Tora)' 두루마리:</b> 단어와 해석에 의해 달라지지 않는, 언어 너머의 깊은 진실과 율법.", '<b>두 기둥(B와 J)과 초승달:</b> 빛과 어둠처럼 반대의 씨앗을 품고 있는 양면성. 초승달은 여신이 발을 쉬게 하는 곳.', '<b>합쳐진 왕관:</b> 상현달, 하현달, 보름달의 결합으로 고대 여신(이시스)을 상징.', '<b>석류와 흐르는 물:</b> 석류는 생명의 원천이자 관능적 과일(영적인 천국)을 뜻하며, 물은 평화와 깊이를 상징.'] },
             { id: 'm-3', type: 'Major', num: 3, name: '3. 여황제', element: '금성', desc: '풍요와 모성적 생명력.', guide: '물질적 비옥함과 즐거움의 정점입니다.', img: `RWS (4)${EXT}`, details: ['<b>별 달린 왕관:</b> 12개의 별자리를 의미하며 그녀가 천국의 여왕임을 상징.', '<b>하트 모양 방패:</b> 멈추지 않는 사랑이자 열정의 지배자 (비너스의 상징).', '<b>밀과 폭포:</b> 밀은 헌신적인 대지의 여신(데메테르)과 식물을 뜻하고, 폭포는 넘쳐흐르는 열정과 애정.'] },
             { id: 'm-4', type: 'Major', num: 4, name: '4. 황제', element: '양자리', desc: '질서와 권위의 구축.', guide: '현실적인 힘과 책임감을 보여주는 카드입니다.', img: `RWS (5)${EXT}`, details: ['<b>메마른 산과 사막 위 왕좌:</b> 엄격하고 냉정하며 가혹해 보이는 아버지의 역할.', '<b>갑옷과 좁은 냇물:</b> 갑옷은 감정의 포옹을 막는 방어를 뜻하며, 냇물은 넘치던 감정을 통제하고 억누른 상태.'] },
             { id: 'm-5', type: 'Major', num: 5, name: '5. 교황', element: '황소자리', desc: '전통과 사회적 규범.', guide: '믿음 체계와 가르침을 전달받는 단계입니다.', img: `RWS (6)${EXT}`, details: ['<b>왕관과 두 명의 승려:</b> 권위에 복종하는 모습이자, 함께 지혜를 나누고 영적인 가르침을 전파함.', '<b>축복의 제스처:</b> "하늘에서와 같이 땅에서도 그러하다"는 의미로 각자의 삶이 우주의 일부로서 의미가 있음을 뜻함.'] },
@@ -288,7 +290,7 @@
                         '<b>화성과 같은 색의 옷을 입고 승리의 웃음을 짓는 빨간 머리 남자:</b> 전쟁의 별인 화성의 에너지, 수모나 파괴 같은 가혹한 감정을 지닌 승리자(영웅).',
                         '<b>남자가 잡고 있는 세 개의 칼:</b> 달아나고 있는 두 사람에게서 빼앗은 것이라 짐작되는 전리품.',
                         '<b>우는 것처럼 보이는 멀리 있는 사람:</b> 패배하고 떠나는 자의 무력감과 부끄러움.',
-                        '<b>칼을 버리고 철수하는 사람:</b> 너무 센 상대와는 싸울 가치가 없다고 생각해 칼을 버리고 물러나는 모습.',
+                        '<b>화살표처럼 버려진 칼:</b> 너무 센 상대와는 싸울 가치가 없다고 생각해 칼을 버리고 물러나는 모습.',
                         '<b>바닥에 버려진 두 개의 칼:</b> 패배하고 달아난 자들이 버리고 간 무기.'
                     ],
                     'Six': [
@@ -331,7 +333,7 @@
                         '<b>빛으로 반짝거리는 손과 내미는 동전:</b> 매우 현실적인 선물.',
                         '<b>정원과 꽃같이 잘 다듬어진 자연의 모습:</b> 천국의 마법 유니콘과 식물, 인간의 몸, 안정적인 안식처.',
                         '<b>감시자가 없는 열린 녹색 울타리:</b> 언제나 열려 있는 안식처.',
-                        '<b>녹색 울타 너머로 보이는 산:</b> 고도의 진리이자 은둔자가 머무르는 곳.'
+                        '<b>녹색 울타리 너머로 보이는 산:</b> 고도의 진리이자 은둔자가 머무르는 곳.'
                     ],
                     'Two': [
                         '<b>원뿔 모양의 모자를 쓴 피에로 같은 젊은 남자:</b> 즐기거나 긴장하는 등 관점에 따라 다르게 해석되는 모호한 인물.',
@@ -529,7 +531,7 @@
                     'King': '에너지를 숨기지 않고 발산하며, 매우 강하고 자신감 넘치는 보스 기질로 외부 상황을 지배하려는 확고한 권위를 뜻합니다.'
                 },
                 'Cups': {
-                    'Page': '특별한 목적 없이도 영적이거나 공상적인 주제에 깊이 빠져들며, 아름다움과 내면의 메시지에 파장을 맞추는 순수한 명상적 자세를 보여줍니다.',
+                    'Page': '특별한 목적 없이도 영적이거나 공상적인 주제에 깊이 빠져들며, 아름다움และ 내면의 메시지에 파장을 맞추는 순수한 명상적 자세를 보여줍니다.',
                     'Knight': '로맨틱하고 몽상가적이며, 현실적인 행동보다는 내적 성찰과 자신만의 꿈, 환상에 깊이 사로잡혀 있는 헌신적인 사랑을 뜻합니다.',
                     'Queen': '이타적인 사랑의 끝을 보여주며, 강렬한 감정을 바탕으로 타인을 치유하고 보호하는 창조적이고 헌신적인 힘을 상징합니다.',
                     'King': '매우 예민하고 창조적인 감정을 지녔으나, 감정에 매몰되지 않도록 통제하며 이를 독창적인 성취로 이끌어내는 성숙함을 보여줍니다.'
@@ -795,11 +797,16 @@
                                         ))}
                                     </div>
                                     <div className="flex gap-2 items-center border-l pl-2 border-slate-200 overflow-x-auto no-scrollbar">
-                                        {activeTab === 'Pip' ? ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'].map((rank, i) => (
-                                            <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{i === 0 ? 'Ace' : i + 1}</button>
-                                        )) : ['Page', 'Knight', 'Queen', 'King'].map(rank => (
-                                            <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{rank === 'Page' ? '시종' : rank === 'Knight' ? '기사' : rank === 'Queen' ? '여왕' : '왕'}</button>
-                                        ))}
+                                        {/* 삼항 연산자 구조를 안정적으로 괄호 맵핑 처리하였습니다. */}
+                                        {activeTab === 'Pip' ? (
+                                            ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'].map((rank, i) => (
+                                                <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{i === 0 ? 'Ace' : i + 1}</button>
+                                            ))
+                                        ) : (
+                                            ['Page', 'Knight', 'Queen', 'King'].map(rank => (
+                                                <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{rank === 'Page' ? '시종' : rank === 'Knight' ? '기사' : rank === 'Queen' ? '여왕' : '왕'}</button>
+                                            ))
+                                        )}
                                     </div>
                                 </>
                             )}
