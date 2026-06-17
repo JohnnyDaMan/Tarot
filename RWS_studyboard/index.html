@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RWS 타로 마스터 스터디 보드</title>
+    <!-- 훨씬 더 안정적이고 속도가 빠른 jsDelivr CDN으로 교체했습니다. -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -65,7 +67,7 @@
             { id: 'm-3', type: 'Major', num: 3, name: '3. 여황제', element: '금성', desc: '풍요와 모성적 생명력.', guide: '물질적 비옥함과 즐거움의 정점입니다.', img: `RWS (4)${EXT}`, details: ['열두 개의 별자리를 의미하는 별이 달린 왕관', '비너스(금성)의 상징이 그려진 하트 모양의 방패', '주위에서 자라나는 밀과 왕좌 아래에 개울처럼 흐르는 폭포'] },
             { id: 'm-4', type: 'Major', num: 4, name: '4. 황제', element: '양자리', desc: '질서와 권위의 구축.', guide: '현실적인 힘과 책임감을 보여주는 카드입니다.', img: `RWS (5)${EXT}`, details: ['배경의 날카롭고 메마른 산과 사막 위 왕좌', '방어를 상징하는 갑옷과 겨우 흐르는 좁은 냇물'] },
             { id: 'm-5', type: 'Major', num: 5, name: '5. 교황', element: '황소자리', desc: '전통과 사회적 규범.', guide: '믿음 체계와 가르침을 전달받는 단계입니다.', img: `RWS (6)${EXT}`, details: ['왕관을 쓴 교황과 그 아래에 무릎을 꿇은 두 명의 승려', '위로 두 개, 아래로 두 개를 향한 손가락인 축복의 제스처'] },
-            { id: 'm-6', type: 'Major', num: 6, name: '6. 연인', element: '쌍둥이자리', desc: '선택과 관계의 조화.', guide: '단순한 사랑을 넘어 삶의 가치관 선택을 의미합니다.', img: `RWS (7)${EXT}`, details: ['아담과 이브, 그리고 그들 뒤의 생명의 나무와 지혜의 나무', '이들을 축복하기 위해 팔을 뻗고 있는 대천사 라파엘'] },
+            { id: 'm-6', type: 'Major', num: 6, name: '6. 연인', element: '쌍둥이자리', desc: '선택과 관계의 조화.', guide: '단순한 사랑을 넘어 삶의 가치관 선택을 의미합니다.', img: `RWS (7)${EXT}`, details: ['아담 and 이브, 그리고 그들 뒤의 생명의 나무와 지혜의 나무', '이들을 축복하기 위해 팔을 뻗고 있는 대천사 라파엘'] },
             { id: 'm-7', type: 'Major', num: 7, name: '7. 전차', element: '게자리', desc: '승리와 통제된 의지.', guide: '강한 추진력으로 목표를 향해 나아가는 에너지입니다.', img: `RWS (8)${EXT}`, details: ['마법사처럼 쥐고 있는 긴 막대와 어깨 위의 초승달, 머리의 별 달린 왕관', '별이 빛나는 캐노피와 물질세계를 상징하는 수레의 사각 형태 및 뒤의 도시', '대비와 모순을 뜻하는 흑백의 스핑크스 두 마리', '가슴 위 하얀 사각형과 전차 앞의 링감과 요니(너트와 볼트) 상징'] },
             { id: 'm-8', type: 'Major', num: 8, name: '8. 힘', element: '사자자리', desc: '내면의 용기와 인내.', guide: '부드러운 통제로 야성을 길들이는 승리입니다.', img: `RWS (9)${EXT}`, details: ['길들여지는 사자와 그녀가 입은 순수한 하얀 드레스', '머리 위의 무한대 기호와 자연을 근간으로 함을 뜻하는 나뭇잎과 꽃의 왕관', '정신 작용을 뜻하는 노란 하늘과 사자처럼 욕망을 상징하는 빨간 장미 벨트'] },
             { id: 'm-9', type: 'Major', num: 9, name: '9. 은둔자', element: '처녀자리', desc: '자기 성찰과 고독의 빛.', guide: '세상을 떠나 자신만의 진리를 구하는 단계입니다.', img: `RWS (10)${EXT}`, details: ['망토를 두른 채 서 있는 산 정상', '지혜의 빛을 비추는 등불과 그 안의 육각의 별'] },
@@ -450,11 +452,15 @@
                                         ))}
                                     </div>
                                     <div className="flex gap-2 items-center border-l pl-2 border-slate-200 overflow-x-auto no-scrollbar">
-                                        {activeTab === 'Pip' ? ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'].map((rank, i) => (
-                                            <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{i === 0 ? 'Ace' : i + 1}</button>
-                                        )) : ['Page', 'Knight', 'Queen', 'King'].map(rank => (
-                                            <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{rank === 'Page' ? '시종' : rank === 'Knight' ? '기사' : rank === 'Queen' ? '여왕' : '왕'}</button>
-                                        ))}
+                                        {activeTab === 'Pip' ? (
+                                            ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'].map((rank, i) => (
+                                                <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{i === 0 ? 'Ace' : i + 1}</button>
+                                            ))
+                                        ) : (
+                                            ['Page', 'Knight', 'Queen', 'King'].map(rank => (
+                                                <button key={rank} onClick={() => setActiveFilter({ type: 'rank', value: rank })} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[10px] font-bold border transition ${activeFilter.type === 'rank' && activeFilter.value === rank ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-500 border-slate-200'}`}>{rank === 'Page' ? '시종' : rank === 'Knight' ? '기사' : rank === 'Queen' ? '여왕' : '왕'}</button>
+                                            ))
+                                        )}
                                     </div>
                                 </>
                             )}
@@ -528,7 +534,7 @@
                                                 <p className="text-slate-800 text-base sm:text-lg font-bold leading-relaxed">{zoomedCard.desc}</p>
                                             </section>
                                             
-                                            {/* 세부 상징 표시부 (데이터가 있을 때만 렌더링) */}
+                                            {/* 세부 상징 표시부 */}
                                             {zoomedCard.details && zoomedCard.details.length > 0 && (
                                                 <section className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
                                                     <div className="text-slate-500 font-black text-[10px] uppercase mb-2">세부 상징 요소</div>
