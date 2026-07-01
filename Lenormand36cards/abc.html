@@ -1,255 +1,600 @@
-<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-    
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">1. 근접성 (Proximity)</h2>
-        <div class="space-y-4">
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
-                <p class="text-xs font-bold text-stone-400 mb-3 uppercase tracking-wider">Example 01</p>
-                <div class="flex flex-wrap gap-2 sm:gap-3 items-center">
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (29).jpg" alt="숙녀" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">29. 숙녀</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (18).jpg" alt="개" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">18. 개</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (12).jpg" alt="새" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">12. 새</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (6).jpg" alt="구름" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">6. 구름</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (33).jpg" alt="열쇠" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">33. 열쇠</span></div>
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레노먼드 오라클 실습 보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f5f5f4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d6d3d1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a29e;
+        }
+        .wood-pattern {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#f1ede4 1px, transparent 0), radial-gradient(#f1ede4 1px, transparent 0);
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
+        }
+        .card-container-active {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-container-active:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-[#fdfbf7] text-[#292524] antialiased leading-relaxed wood-pattern">
+
+    <!-- 메인 콘텐츠 카드 테이블 레이아웃 -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        
+        <div class="text-center space-y-2 pb-6 border-b border-stone-200">
+            <h1 class="text-3xl md:text-4xl font-serif font-extrabold text-[#b45309] tracking-tight">🔮 인터랙티브 조합 연습 보드</h1>
+            <p class="text-xs font-medium text-stone-500 tracking-wider">클릭 또는 터치하시면 화면에 가득 차는 거대한 풀스크린 뷰어로 확대/축소할 수 있습니다.</p>
+        </div>
+
+        <!-- 1. 근접성 (Proximity) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">📏</span> 1. 근접성 (Proximity)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 예제 01 -->
+                <div onclick="openZoom('근접성 예제 01 (숙녀 중심의 위협)', [29, 18, 12, 6, 33], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Example 01</p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (29).jpg" alt="숙녀" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">29. 숙녀</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (18).jpg" alt="개" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">18. 개</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (12).jpg" alt="새" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">12. 새</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (6).jpg" alt="구름" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">6. 구름</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (33).jpg" alt="열쇠" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">33. 열쇠</span></div>
+                    </div>
+                </div>
+                <!-- 예제 02 -->
+                <div onclick="openZoom('근접성 예제 02 (수정되지 않는 중립선)', [27, 18, 12, 9, 31], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Example 02</p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (27).jpg" alt="편지" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">27. 편지</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (18).jpg" alt="개" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">18. 개</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (12).jpg" alt="새" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">12. 새</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (9).jpg" alt="꽃다발" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">9. 꽃다발</span></div>
+                        <span class="text-stone-300 font-bold">→</span>
+                        <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (31).jpg" alt="태양" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1.5 text-stone-600">31. 태양</span></div>
+                    </div>
                 </div>
             </div>
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
-                <p class="text-xs font-bold text-stone-400 mb-3 uppercase tracking-wider">Example 02</p>
-                <div class="flex flex-wrap gap-2 sm:gap-3 items-center">
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (27).jpg" alt="편지" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">27. 편지</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (18).jpg" alt="개" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">18. 개</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (12).jpg" alt="새" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">12. 새</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (9).jpg" alt="꽃다발" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">9. 꽃다발</span></div>
-                    <span class="text-stone-300 font-bold">→</span>
-                    <div class="flex flex-col items-center w-16 sm:w-20"><img src="images/c (31).jpg" alt="태양" class="w-full aspect-[2/3] object-cover rounded shadow-sm border border-stone-300"><span class="text-[11px] font-bold mt-1 text-stone-700">31. 태양</span></div>
+        </section>
+
+        <!-- 2. 어텐던스 및 순서 법칙 (Attendance & Order) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">⏳</span> 2. 어텐던스 및 명사-형용사 구조 (Attendance)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 2장 기본 대조군 -->
+                <div onclick="openZoom('어텐던스 예제 (십자가와 태양의 순서 의미 반전)', [36, 31, 25, 31, 36], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Two-Card Statement contrasts</p>
+                    <div class="flex flex-col gap-6 justify-center h-full pb-4">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-12"><img src="images/c (36).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-stone-300">→</span>
+                            <div class="w-12"><img src="images/c (31).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-xs font-bold text-[#b45309] ml-2">고통 끝의 성공</span>
+                        </div>
+                        <div class="flex gap-4 items-center border-t border-stone-100 pt-4">
+                            <div class="w-12"><img src="images/c (31).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-stone-300">→</span>
+                            <div class="w-12"><img src="images/c (36).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-xs font-bold text-[#44403c] ml-2">성공 끝의 좌절</span>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- 명사형용사 순서 반전 예시 -->
+                <div onclick="openZoom('명사-형용사 순서 변경 (편지와 관)', [27, 8, 25, 8, 27], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Noun-Adjective Rule</p>
+                    <div class="flex flex-col gap-6 justify-center h-full pb-4">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-12"><img src="images/c (27).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-stone-300">→</span>
+                            <div class="w-12"><img src="images/c (8).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-xs font-bold text-stone-600 ml-2">나쁜 소식 (부고/거절)</span>
+                        </div>
+                        <div class="flex gap-4 items-center border-t border-stone-100 pt-4">
+                            <div class="w-12"><img src="images/c (8).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-stone-300">→</span>
+                            <div class="w-12"><img src="images/c (27).jpg" class="rounded border border-stone-200 shadow-sm"></div>
+                            <span class="text-xs font-bold text-stone-600 ml-2">상실/질병의 소식 전달</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 카드 수 추가에 따른 해석의 전개 -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">📈</span> 3. 3장 및 4장 조합 확장
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 3장 체인 예시 -->
+                <div onclick="openZoom('3장 조합 확장 예제', [27, 8, 36, 25, 8, 27, 36], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Three-Card Statement extension</p>
+                    <div class="flex flex-col gap-6 justify-center h-full pb-4">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10"><img src="images/c (27).jpg" class="rounded"></div>
+                            <div class="w-10"><img src="images/c (8).jpg" class="rounded"></div>
+                            <div class="w-10"><img src="images/c (36).jpg" class="rounded"></div>
+                            <span class="text-xs font-bold text-stone-600 ml-2">해고 통지서 (바꿀 수 없는 나쁜 소식)</span>
+                        </div>
+                        <div class="flex gap-4 items-center border-t border-stone-100 pt-4">
+                            <div class="w-10"><img src="images/c (8).jpg" class="rounded"></div>
+                            <div class="w-10"><img src="images/c (27).jpg" class="rounded"></div>
+                            <div class="w-10"><img src="images/c (36).jpg" class="rounded"></div>
+                            <span class="text-xs font-bold text-stone-600 ml-2">치료 단절 (만성적인 악화 상태 확인)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4장 체인 예시 -->
+                <div onclick="openZoom('4장 확장 예제 (황새의 변화 영향력 추가)', [27, 8, 36, 17, 25, 8, 27, 36, 17], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Four-Card Statement extension</p>
+                    <div class="flex flex-col gap-6 justify-center h-full pb-4">
+                        <div class="flex gap-3 items-center">
+                            <div class="w-9"><img src="images/c (27).jpg" class="rounded"></div>
+                            <div class="w-9"><img src="images/c (8).jpg" class="rounded"></div>
+                            <div class="w-9"><img src="images/c (36).jpg" class="rounded"></div>
+                            <div class="w-9"><img src="images/c (17).jpg" class="rounded"></div>
+                            <span class="text-xs font-bold text-stone-600 ml-1">해고 후 거처 이전(이동) 강제 유발</span>
+                        </div>
+                        <div class="flex gap-3 items-center border-t border-stone-100 pt-4">
+                            <div class="w-9"><img src="images/c (8).jpg" class="rounded"></div>
+                            <div class="w-9"><img src="images/c (27).jpg" class="rounded"></div>
+                            <div class="w-9"><img src="images/c (36).jpg" class="rounded"></div>
+                            <div class="w-9"><img src="images/c (17).jpg" class="rounded"></div>
+                            <span class="text-xs font-bold text-stone-600 ml-1">상실 소식 후 울며 이주하는 변동</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 수직 어텐던스 (Vertical Attendance) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">↕️</span> 4. 수직 어텐던스 (Vertical Attendance)
+            </h2>
+            <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative"
+                 onclick="openZoom('수직 어텐던스 상호 비교 (위의 카드가 아래에 투영)', [14, 27, 25, 27, 14], 'vertical')">
+                <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                    <span>🔍 크게 보기</span>
+                </div>
+                <p class="text-[11px] font-bold text-stone-400 mb-6 uppercase tracking-widest">Influence of Cards above on below</p>
+                <div class="flex gap-16 justify-center items-center py-4">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16"><img src="images/c (14).jpg" class="rounded shadow-sm border border-stone-200"></div>
+                        <span class="text-stone-400 text-sm">↓</span>
+                        <div class="w-16"><img src="images/c (27).jpg" class="rounded shadow-sm border border-stone-200"></div>
+                        <span class="text-[11px] font-bold text-[#b45309] mt-1">소식을 통한 기만 시도</span>
+                    </div>
+                    <div class="border-l border-stone-200 h-28"></div>
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16"><img src="images/c (27).jpg" class="rounded shadow-sm border border-stone-200"></div>
+                        <span class="text-stone-400 text-sm">↓</span>
+                        <div class="w-16"><img src="images/c (14).jpg" class="rounded shadow-sm border border-stone-200"></div>
+                        <span class="text-[11px] font-bold text-stone-600 mt-1">혼란스럽고 실수 있는 소식</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 연습 #3 실습 (Exercise Practice) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">✏️</span> 5. 연습 #3 실습 (Exercise Practice)
+            </h2>
+            <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm space-y-8">
+                <div>
+                    <h3 class="text-xs font-bold text-stone-400 tracking-wider uppercase mb-4">Part One (2-Card Pairs)</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                        <!-- a -->
+                        <div onclick="event.stopPropagation(); openZoom('연습 3. Part One (a)', [3, 18], 'horizontal')" 
+                             class="flex flex-col items-center p-3 bg-stone-50 rounded-xl border border-stone-100 cursor-zoom-in hover:border-amber-200 transition">
+                            <span class="text-[10px] font-bold text-stone-400 mb-2">A (배 + 개)</span>
+                            <div class="flex gap-1"><div class="w-9"><img src="images/c (3).jpg" class="rounded shadow-xs"></div><div class="w-9"><img src="images/c (18).jpg" class="rounded shadow-xs"></div></div>
+                        </div>
+                        <!-- b -->
+                        <div onclick="event.stopPropagation(); openZoom('연습 3. Part One (b)', [13, 8], 'horizontal')" 
+                             class="flex flex-col items-center p-3 bg-stone-50 rounded-xl border border-stone-100 cursor-zoom-in hover:border-amber-200 transition">
+                            <span class="text-[10px] font-bold text-stone-400 mb-2">B (아이 + 관)</span>
+                            <div class="flex gap-1"><div class="w-9"><img src="images/c (13).jpg" class="rounded shadow-xs"></div><div class="w-9"><img src="images/c (8).jpg" class="rounded shadow-xs"></div></div>
+                        </div>
+                        <!-- c -->
+                        <div onclick="event.stopPropagation(); openZoom('연습 3. Part One (c)', [28, 10], 'horizontal')" 
+                             class="flex flex-col items-center p-3 bg-stone-50 rounded-xl border border-stone-100 cursor-zoom-in hover:border-amber-200 transition">
+                            <span class="text-[10px] font-bold text-stone-400 mb-2">C (신사 + 낫)</span>
+                            <div class="flex gap-1"><div class="w-9"><img src="images/c (28).jpg" class="rounded shadow-xs"></div><div class="w-9"><img src="images/c (10).jpg" class="rounded shadow-xs"></div></div>
+                        </div>
+                        <!-- d -->
+                        <div onclick="event.stopPropagation(); openZoom('연습 3. Part One (d)', [14, 7], 'horizontal')" 
+                             class="flex flex-col items-center p-3 bg-stone-50 rounded-xl border border-stone-100 cursor-zoom-in hover:border-amber-200 transition">
+                            <span class="text-[10px] font-bold text-stone-400 mb-2">D (여우 + 뱀)</span>
+                            <div class="flex gap-1"><div class="w-9"><img src="images/c (14).jpg" class="rounded shadow-xs"></div><div class="w-9"><img src="images/c (7).jpg" class="rounded shadow-xs"></div></div>
+                        </div>
+                        <!-- e -->
+                        <div onclick="event.stopPropagation(); openZoom('연습 3. Part One (e)', [7, 14], 'horizontal')" 
+                             class="flex flex-col items-center p-3 bg-stone-50 rounded-xl border border-stone-100 cursor-zoom-in hover:border-amber-200 transition">
+                            <span class="text-[10px] font-bold text-stone-400 mb-2">E (뱀 + 여우)</span>
+                            <div class="flex gap-1"><div class="w-9"><img src="images/c (7).jpg" class="rounded shadow-xs"></div><div class="w-9"><img src="images/c (14).jpg" class="rounded shadow-xs"></div></div>
+                        </div>
+                        <!-- f -->
+                        <div onclick="event.stopPropagation(); openZoom('연습 3. Part One (f)', [19, 30], 'horizontal')" 
+                             class="flex flex-col items-center p-3 bg-stone-50 rounded-xl border border-stone-100 cursor-zoom-in hover:border-amber-200 transition">
+                            <span class="text-[10px] font-bold text-stone-400 mb-2">F (탑 + 백합)</span>
+                            <div class="flex gap-1"><div class="w-9"><img src="images/c (19).jpg" class="rounded shadow-xs"></div><div class="w-9"><img src="images/c (30).jpg" class="rounded shadow-xs"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-stone-100 pt-6">
+                    <h3 class="text-xs font-bold text-stone-400 tracking-wider uppercase mb-4">Part Two (Complex Spreads)</h3>
+                    <div class="space-y-4">
+                        <!-- 파트2-a -->
+                        <div onclick="openZoom('연습 3. Part Two (a)', [34, 27, 23], 'horizontal')" 
+                             class="p-4 bg-stone-50 rounded-xl border border-stone-100 flex items-center justify-between cursor-zoom-in hover:border-amber-200 transition">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono text-stone-400">a</span>
+                                <div class="flex gap-1.5"><div class="w-10"><img src="images/c (34).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (27).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (23).jpg" class="rounded shadow-sm"></div></div>
+                            </div>
+                            <span class="text-xs text-stone-400">수표 도난/분실 분실 은행내역</span>
+                        </div>
+                        <!-- 파트2-b 수직 -->
+                        <div onclick="openZoom('연습 3. Part Two (b - 수직 조합)', [18, 20], 'vertical')" 
+                             class="p-4 bg-stone-50 rounded-xl border border-stone-100 flex items-center justify-between cursor-zoom-in hover:border-amber-200 transition">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono text-stone-400">b</span>
+                                <div class="flex flex-col gap-1"><div class="w-10"><img src="images/c (18).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (20).jpg" class="rounded shadow-sm"></div></div>
+                            </div>
+                            <span class="text-xs text-stone-400">무리의 우두머리, 모임(사교)</span>
+                        </div>
+                        <!-- 파트2-c -->
+                        <div onclick="openZoom('연습 3. Part Two (c)', [29, 18, 3, 12, 28], 'horizontal')" 
+                             class="p-4 bg-stone-50 rounded-xl border border-stone-100 flex items-center justify-between cursor-zoom-in hover:border-amber-200 transition">
+                            <div class="flex items-center gap-4">
+                                <span class="text-xs font-mono text-stone-400">c</span>
+                                <div class="flex gap-1.5"><div class="w-10"><img src="images/c (29).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (18).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (3).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (12).jpg" class="rounded shadow-sm"></div><div class="w-10"><img src="images/c (28).jpg" class="rounded shadow-sm"></div></div>
+                            </div>
+                            <span class="text-xs text-stone-400">친우 동행 여행을 통한 남성 대면</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 방향 (By Direction) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">🏹</span> 6. 방향 (By Direction)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 뱀-여우 방향 -->
+                <div onclick="openZoom('방향 예제 A (기만하는 뱀의 타겟)', [14, 7], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Targeting Direction</p>
+                    <div class="flex gap-3 items-center py-4 justify-center">
+                        <div class="flex flex-col items-center w-16"><img src="images/c (14).jpg" class="rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1 text-stone-600">14. 여우</span></div>
+                        <span class="text-stone-300 font-bold">←</span>
+                        <div class="flex flex-col items-center w-16"><img src="images/c (7).jpg" class="rounded shadow-sm border border-stone-200"><span class="text-[10px] font-bold mt-1 text-stone-600">7. 뱀</span></div>
+                    </div>
+                </div>
+
+                <!-- 낫-채찍 방향 -->
+                <div onclick="openZoom('방향 예제 B (낫날 끝 위협 분석)', [18, 10, 11, 24], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Scythe Blade Orientation</p>
+                    <div class="flex gap-2 items-center py-4 justify-center">
+                        <div class="flex flex-col items-center w-14"><img src="images/c (18).jpg" class="rounded shadow-sm border border-stone-200"><span class="text-[9px] font-bold mt-1 text-stone-500">18. 개</span></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="flex flex-col items-center w-14 border-2 border-amber-500/40 p-1 rounded-lg"><img src="images/c (10).jpg" class="rounded"><span class="text-[9px] font-bold mt-1 text-stone-500">10. 낫</span></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="flex flex-col items-center w-14"><img src="images/c (11).jpg" class="rounded shadow-sm border border-stone-200"><span class="text-[9px] font-bold mt-1 text-stone-500">11. 채찍</span></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="flex flex-col items-center w-14"><img src="images/c (24).jpg" class="rounded shadow-sm border border-stone-200"><span class="text-[9px] font-bold mt-1 text-stone-500">24. 하트</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. 상관관계 - 미러링 (By Correlation - Mirroring) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">🪞</span> 7. 상관관계 - 미러링 (By Correlation - Mirroring)
+            </h2>
+            <div onclick="openZoom('상관관계 미러링 전개 (좌우 절반 대칭 해석)', [28, 27, 3, 9, 34], 'horizontal')" 
+                 class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                    <span>🔍 크게 보기</span>
+                </div>
+                <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Fold-and-Reflect rows (Cards 1 & 5 / Cards 2 & 4)</p>
+                <div class="flex flex-wrap gap-2 sm:gap-4 items-center justify-center py-4">
+                    <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-amber-500/30 rounded-lg p-1.5"><img src="images/c (28).jpg" class="rounded shadow-sm"><span class="text-[9px] text-amber-800 font-bold mt-1.5">1 (Mirror 5)</span></div>
+                    <span class="text-stone-300">|</span>
+                    <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-stone-400/30 rounded-lg p-1.5"><img src="images/c (27).jpg" class="rounded shadow-sm"><span class="text-[9px] text-stone-500 mt-1.5">2 (Mirror 4)</span></div>
+                    <span class="text-stone-300">|</span>
+                    <div class="flex flex-col items-center w-16 sm:w-20 bg-stone-50 p-1.5 rounded-lg border border-stone-100"><img src="images/c (3).jpg" class="rounded shadow-sm"><span class="text-[9px] text-stone-400 mt-1.5">3 (Hinge)</span></div>
+                    <span class="text-stone-300">|</span>
+                    <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-stone-400/30 rounded-lg p-1.5"><img src="images/c (9).jpg" class="rounded shadow-sm"><span class="text-[9px] text-stone-500 mt-1.5">4 (Mirror 2)</span></div>
+                    <span class="text-stone-300">|</span>
+                    <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-amber-500/30 rounded-lg p-1.5"><img src="images/c (34).jpg" class="rounded shadow-sm"><span class="text-[9px] text-amber-800 font-bold mt-1.5">5 (Mirror 1)</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. 테마 - 체인 (By Theme - Chain) -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-serif font-bold text-[#b45309] flex items-center gap-2">
+                <span class="text-xl">🔗</span> 8. 테마 - 체인 (By Theme - Chain)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 직업 테마 -->
+                <div onclick="openZoom('직업 연관 테마 체인 (달과 닻 경계)', [32, 12, 29, 11, 35], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Work Theme Chain (Boundary: Moon & Anchor)</p>
+                    <div class="flex flex-wrap gap-2 items-center justify-center py-4">
+                        <div class="w-12 opacity-60 ring-2 ring-amber-500/40 rounded"><img src="images/c (32).jpg" class="rounded"></div>
+                        <span class="text-stone-400 font-bold text-sm">⛓️</span>
+                        <div class="w-12"><img src="images/c (12).jpg" class="rounded"></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="w-12"><img src="images/c (29).jpg" class="rounded"></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="w-12"><img src="images/c (11).jpg" class="rounded"></div>
+                        <span class="text-stone-400 font-bold text-sm">⛓️</span>
+                        <div class="w-12 opacity-60 ring-2 ring-amber-500/40 rounded"><img src="images/c (35).jpg" class="rounded"></div>
+                    </div>
+                </div>
+
+                <!-- 애정 테마 -->
+                <div onclick="openZoom('애정 연관 테마 체인 (반지와 하트 경계)', [25, 12, 29, 11, 24], 'horizontal')" 
+                     class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
+                    <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
+                        <span>🔍 크게 보기</span>
+                    </div>
+                    <p class="text-[11px] font-bold text-stone-400 mb-4 uppercase tracking-widest">Love Theme Chain (Boundary: Ring & Heart)</p>
+                    <div class="flex flex-wrap gap-2 items-center justify-center py-4">
+                        <div class="w-12 opacity-60 ring-2 ring-amber-500/40 rounded"><img src="images/c (25).jpg" class="rounded"></div>
+                        <span class="text-stone-400 font-bold text-sm">⛓️</span>
+                        <div class="w-12"><img src="images/c (12).jpg" class="rounded"></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="w-12"><img src="images/c (29).jpg" class="rounded"></div>
+                        <span class="text-stone-300">·</span>
+                        <div class="w-12"><img src="images/c (11).jpg" class="rounded"></div>
+                        <span class="text-stone-400 font-bold text-sm">⛓️</span>
+                        <div class="w-12 opacity-60 ring-2 ring-amber-500/40 rounded"><img src="images/c (24).jpg" class="rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 풀스크린 카드 줌 오버레이 모달 -->
+    <div id="zoom-overlay" class="fixed inset-0 z-50 bg-stone-950/98 hidden flex-col justify-between p-4 md:p-6 select-none transition-all duration-300">
+        
+        <!-- 오버레이 헤더 -->
+        <div class="flex justify-between items-center w-full bg-stone-900/60 backdrop-blur-md p-4 rounded-xl border border-stone-800/80 z-10">
+            <div>
+                <span class="text-[10px] uppercase font-bold text-amber-500/90 tracking-widest block mb-0.5">상세 시뮬레이터</span>
+                <h3 id="zoom-title" class="text-base md:text-lg font-serif font-bold text-stone-100 truncate max-w-xs md:max-w-xl">스프레드 제목</h3>
+            </div>
+            <!-- 확대축소 컨트롤 및 닫기 버튼 -->
+            <div class="flex items-center gap-3 md:gap-4">
+                <div class="hidden sm:flex items-center bg-stone-850 rounded-lg p-1 border border-stone-800">
+                    <button onclick="adjustZoom(-0.2)" class="w-8 h-8 rounded hover:bg-stone-800 text-stone-300 transition font-bold text-lg focus:outline-none">-</button>
+                    <span id="zoom-percentage" class="text-xs font-mono font-bold text-stone-400 px-3 w-14 text-center">100%</span>
+                    <button onclick="adjustZoom(0.2)" class="w-8 h-8 rounded hover:bg-stone-800 text-stone-300 transition font-bold text-lg focus:outline-none">+</button>
+                    <button onclick="resetZoom()" class="text-[10px] text-amber-500 hover:text-amber-400 px-2 font-bold focus:outline-none border-l border-stone-800">리셋</button>
+                </div>
+                <button onclick="closeZoom()" class="bg-stone-800 hover:bg-stone-700 hover:text-white text-stone-300 w-10 h-10 rounded-lg flex items-center justify-center transition focus:outline-none text-lg">✖</button>
             </div>
         </div>
-    </section>
 
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">2. 어텐던스 및 명사-형용사 구조 (Attendance)</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm space-y-4">
-                <div class="flex gap-2 items-center">
-                    <div class="w-12"><img src="images/c (36).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-12"><img src="images/c (31).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-300 text-xs mx-2">|</span>
-                    <div class="w-12"><img src="images/c (31).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-12"><img src="images/c (36).jpg" class="rounded border border-stone-300"></div>
-                </div>
-                <div class="flex gap-2 items-center border-t border-stone-100 pt-3">
-                    <div class="w-12"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-12"><img src="images/c (8).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-300 text-xs mx-2">|</span>
-                    <div class="w-12"><img src="images/c (8).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-12"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                </div>
-            </div>
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm space-y-4">
-                <div class="flex flex-wrap gap-1.5 items-center">
-                    <div class="w-10"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (8).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (36).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-300 text-xs mx-2">|</span>
-                    <div class="w-10"><img src="images/c (8).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (36).jpg" class="rounded border border-stone-300"></div>
-                </div>
-                <div class="flex flex-wrap gap-1.5 items-center border-t border-stone-100 pt-3">
-                    <div class="w-10"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (8).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (36).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (17).jpg" class="rounded border border-stone-300"></div>
-                </div>
-                <div class="flex flex-wrap gap-1.5 items-center border-t border-stone-100 pt-3">
-                    <div class="w-10"><img src="images/c (8).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (36).jpg" class="rounded border border-stone-300"></div>
-                    <span class="text-stone-400">→</span>
-                    <div class="w-10"><img src="images/c (17).jpg" class="rounded border border-stone-300"></div>
-                </div>
+        <!-- 카드 대형 렌더링 캔버스 (마우스 드래그/스와이프 이동 가능) -->
+        <div id="zoom-canvas" class="flex-grow w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing relative my-4">
+            <div id="zoom-cards-container" class="flex items-center justify-center gap-4 md:gap-6 origin-center select-none" style="transform: scale(1) translate(0px, 0px);">
+                <!-- 자바스크립트에서 대형 카드 목록이 들어갑니다 -->
             </div>
         </div>
-    </section>
 
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">3. 수직 어텐던스 (Vertical Attendance)</h2>
-        <div class="flex gap-12 justify-center bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-            <div class="flex flex-col items-center gap-2">
-                <div class="w-16"><img src="images/c (14).jpg" class="rounded border border-stone-300"></div>
-                <span class="text-stone-400 text-sm">↓</span>
-                <div class="w-16"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-            </div>
-            <div class="border-l border-stone-200"></div>
-            <div class="flex flex-col items-center gap-2">
-                <div class="w-16"><img src="images/c (27).jpg" class="rounded border border-stone-300"></div>
-                <span class="text-stone-400 text-sm">↓</span>
-                <div class="w-16"><img src="images/c (14).jpg" class="rounded border border-stone-300"></div>
-            </div>
+        <!-- 오버레이 푸터 가이드 -->
+        <div class="w-full text-center bg-stone-900/40 backdrop-blur-sm py-2 px-4 rounded-lg border border-stone-800/40 z-10">
+            <p class="text-[11px] text-stone-400">
+                <span class="sm:inline hidden">마우스를 누른 채로 움직이면 위치를 탐색할 수 있습니다. </span>모바일 기기에서는 화면 터치 드래그 및 손가락 확대로 편리하게 확대축소가 가능합니다.
+            </p>
         </div>
-    </section>
+    </div>
 
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">4. 연습 #3 실습 (Exercise Practice)</h2>
-        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm space-y-6">
-            <h3 class="text-sm font-bold text-stone-400 tracking-wider uppercase">Part One (2-Card Pairs)</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">a</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (3).jpg" class="rounded"></div><div class="w-9"><img src="images/c (18).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">b</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (13).jpg" class="rounded"></div><div class="w-9"><img src="images/c (8).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">c</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (28).jpg" class="rounded"></div><div class="w-9"><img src="images/c (10).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">d</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (14).jpg" class="rounded"></div><div class="w-9"><img src="images/c (7).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">e</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (7).jpg" class="rounded"></div><div class="w-9"><img src="images/c (14).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">f</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (19).jpg" class="rounded"></div><div class="w-9"><img src="images/c (30).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">g</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (36).jpg" class="rounded"></div><div class="w-9"><img src="images/c (32).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">h</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (2).jpg" class="rounded"></div><div class="w-9"><img src="images/c (12).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">i</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (5).jpg" class="rounded"></div><div class="w-9"><img src="images/c (20).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">j</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (6).jpg" class="rounded"></div><div class="w-9"><img src="images/c (22).jpg" class="rounded"></div></div>
-                </div>
-                <div class="flex flex-col items-center p-2 bg-stone-50 rounded-lg border border-stone-100">
-                    <span class="text-[10px] font-mono text-stone-400 mb-1">k</span>
-                    <div class="flex gap-1"><div class="w-9"><img src="images/c (26).jpg" class="rounded"></div><div class="w-9"><img src="images/c (1).jpg" class="rounded"></div></div>
-                </div>
-            </div>
+    <!-- 인터랙티브 스크립트 엔진 -->
+    <script>
+        const cardNamesKo = {
+            1: "기사", 2: "클로버", 3: "배", 4: "집", 5: "나무", 6: "구름", 7: "뱀", 8: "관", 9: "꽃다발", 10: "낫",
+            11: "채찍", 12: "새", 13: "아이", 14: "여우", 15: "곰", 16: "별", 17: "황새", 18: "개", 19: "높은 탑", 20: "정원",
+            21: "산", 22: "길", 23: "쥐", 24: "하트", 25: "반지", 26: "책", 27: "편지", 28: "신사", 29: "숙녀", 30: "백합",
+            31: "태양", 32: "달", 33: "열쇠", 34: "물고기", 35: "닻", 36: "십자가"
+        };
 
-            <div class="border-t border-stone-100 my-6 pt-6"></div>
+        // 확대축소 및 패닝 상태 변수
+        let zoomScale = 1.0;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let currentX = 0, currentY = 0;
+        let panX = 0, panY = 0;
+
+        // 드래그를 수행할 캔버스 개체 수집
+        const canvas = document.getElementById('zoom-canvas');
+        const container = document.getElementById('zoom-cards-container');
+
+        // 드래그 / 스와이프 구현
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - panX;
+            startY = e.clientY - panY;
+            canvas.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            panX = e.clientX - startX;
+            panY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            canvas.style.cursor = 'grab';
+        });
+
+        // 모바일 터치 드래그 지원
+        canvas.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - panX;
+                startY = e.touches[0].clientY - panY;
+            }
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            if (!isDragging || e.touches.length !== 1) return;
+            panX = e.touches[0].clientX - startX;
+            panY = e.touches[0].clientY - startY;
+            updateTransform();
+        });
+
+        canvas.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        function adjustZoom(factor) {
+            zoomScale = Math.min(Math.max(zoomScale + factor, 0.4), 3.0);
+            updateTransform();
+        }
+
+        function resetZoom() {
+            zoomScale = window.innerWidth < 640 ? 0.75 : 1.0;
+            panX = 0;
+            panY = 0;
+            updateTransform();
+        }
+
+        function updateTransform() {
+            container.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+            document.getElementById('zoom-percentage').innerText = `${Math.round(zoomScale * 100)}%`;
+        }
+
+        // 모달 열기 함수
+        function openZoom(title, cardIds, layoutType = 'horizontal') {
+            const overlay = document.getElementById('zoom-overlay');
+            const titleEl = document.getElementById('zoom-title');
             
-            <h3 class="text-sm font-bold text-stone-400 tracking-wider uppercase mb-4">Part Two (Complex Spreads)</h3>
-            <div class="space-y-4">
-                <div class="p-3 bg-stone-50 rounded-lg border border-stone-100 flex items-center gap-4">
-                    <span class="text-xs font-mono text-stone-400">a</span>
-                    <div class="flex gap-1"><div class="w-10"><img src="images/c (34).jpg" class="rounded"></div><div class="w-10"><img src="images/c (27).jpg" class="rounded"></div><div class="w-10"><img src="images/c (23).jpg" class="rounded"></div></div>
-                </div>
-                <div class="p-3 bg-stone-50 rounded-lg border border-stone-100 flex items-center gap-4">
-                    <span class="text-xs font-mono text-stone-400">b</span>
-                    <div class="flex flex-col gap-1"><div class="w-10"><img src="images/c (18).jpg" class="rounded"></div><div class="w-10"><img src="images/c (20).jpg" class="rounded"></div></div>
-                </div>
-                <div class="p-3 bg-stone-50 rounded-lg border border-stone-100 flex items-center gap-4">
-                    <span class="text-xs font-mono text-stone-400">c</span>
-                    <div class="flex flex-wrap gap-1"><div class="w-10"><img src="images/c (29).jpg" class="rounded"></div><div class="w-10"><img src="images/c (18).jpg" class="rounded"></div><div class="w-10"><img src="images/c (3).jpg" class="rounded"></div><div class="w-10"><img src="images/c (12).jpg" class="rounded"></div><div class="w-10"><img src="images/c (28).jpg" class="rounded"></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
+            titleEl.textContent = title;
+            container.innerHTML = '';
 
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">5. 방향 (By Direction)</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex items-center gap-2">
-                <div class="w-12"><img src="images/c (14).jpg" class="rounded"></div>
-                <span class="text-stone-400">→</span>
-                <div class="w-12"><img src="images/c (7).jpg" class="rounded"></div>
-            </div>
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm flex flex-wrap items-center gap-2">
-                <div class="w-12"><img src="images/c (18).jpg" class="rounded"></div>
-                <span class="text-stone-400">→</span>
-                <div class="w-12"><img src="images/c (10).jpg" class="rounded"></div>
-                <span class="text-stone-400">→</span>
-                <div class="w-12"><img src="images/c (11).jpg" class="rounded"></div>
-                <span class="text-stone-400">→</span>
-                <div class="w-12"><img src="images/c (24).jpg" class="rounded"></div>
-            </div>
-        </div>
-    </section>
+            // 레이아웃 지정을 통한 렌더링 방향 분기
+            if (layoutType === 'vertical') {
+                container.className = "flex flex-col items-center gap-3 origin-center";
+            } else {
+                container.className = "flex flex-row flex-wrap justify-center items-center gap-4 md:gap-6 origin-center max-w-[90vw]";
+            }
 
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">6. 상관관계 - 미러링 (By Correlation - Mirroring)</h2>
-        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
-            <div class="flex flex-wrap gap-2 sm:gap-4 items-center justify-center py-4 relative">
-                <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-amber-500/30 rounded-lg p-1"><img src="images/c (28).jpg" class="rounded"><span class="text-[10px] text-stone-500 mt-1">1 (Mirror 5)</span></div>
-                <span class="text-stone-300">|</span>
-                <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-stone-400/30 rounded-lg p-1"><img src="images/c (27).jpg" class="rounded"><span class="text-[10px] text-stone-500 mt-1">2 (Mirror 4)</span></div>
-                <span class="text-stone-300">|</span>
-                <div class="flex flex-col items-center w-16 sm:w-20 bg-stone-50 p-1 rounded-lg"><img src="images/c (3).jpg" class="rounded"><span class="text-[10px] text-stone-500 mt-1">3 (Hinge)</span></div>
-                <span class="text-stone-300">|</span>
-                <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-stone-400/30 rounded-lg p-1"><img src="images/c (9).jpg" class="rounded"><span class="text-[10px] text-stone-500 mt-1">4 (Mirror 2)</span></div>
-                <span class="text-stone-300">|</span>
-                <div class="flex flex-col items-center w-16 sm:w-20 ring-2 ring-amber-500/30 rounded-lg p-1"><img src="images/c (34).jpg" class="rounded"><span class="text-[10px] text-stone-500 mt-1">5 (Mirror 1)</span></div>
-            </div>
-        </div>
-    </section>
+            // 전달받은 카드 ID 리스트를 기반으로 초정밀 고해상도 카드 조립 주입
+            cardIds.forEach((id, index) => {
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = "flex flex-col items-center shrink-0 w-28 sm:w-36 md:w-44 bg-stone-900 border border-stone-800 p-2 rounded-xl shadow-lg";
+                
+                // 구분선을 위한 특수 문자 처리 기법 (예: 25번 다음의 구분 기호)
+                if (id === 25 && index === 2 && cardIds.length > 3) {
+                    // 미러링 구분자 같은 특수 가공 필요 시 추가
+                }
 
-    <section class="space-y-4">
-        <h2 class="text-2xl font-serif font-bold text-accent border-b border-stone-200 pb-2">7. 테마 - 체인 (By Theme - Chain)</h2>
-        <div class="space-y-4">
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
-                <p class="text-xs font-serif font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded w-fit mb-4">Work Theme Chain (달 & 닻)</p>
-                <div class="flex flex-wrap gap-2 items-center">
-                    <div class="w-14 opacity-60 ring-2 ring-accent/40 rounded"><img src="images/c (32).jpg" class="rounded"></div>
-                    <span class="text-stone-400 font-bold">⛓️</span>
-                    <div class="w-14"><img src="images/c (12).jpg" class="rounded"></div>
-                    <span class="text-stone-300">·</span>
-                    <div class="w-14"><img src="images/c (29).jpg" class="rounded"></div>
-                    <span class="text-stone-300">·</span>
-                    <div class="w-14"><img src="images/c (11).jpg" class="rounded"></div>
-                    <span class="text-stone-400 font-bold">⛓️</span>
-                    <div class="w-14 opacity-60 ring-2 ring-accent/40 rounded"><img src="images/c (35).jpg" class="rounded"></div>
-                </div>
-            </div>
-            <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
-                <p class="text-xs font-serif font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded w-fit mb-4">Love Theme Chain (반지 & 하트)</p>
-                <div class="flex flex-wrap gap-2 items-center">
-                    <div class="w-14 opacity-60 ring-2 ring-accent/40 rounded"><img src="images/c (25).jpg" class="rounded"></div>
-                    <span class="text-stone-400 font-bold">⛓️</span>
-                    <div class="w-14"><img src="images/c (12).jpg" class="rounded"></div>
-                    <span class="text-stone-300">·</span>
-                    <div class="w-14"><img src="images/c (29).jpg" class="rounded"></div>
-                    <span class="text-stone-300">·</span>
-                    <div class="w-14"><img src="images/c (11).jpg" class="rounded"></div>
-                    <span class="text-stone-400 font-bold">⛓️</span>
-                    <div class="w-14 opacity-60 ring-2 ring-accent/40 rounded"><img src="images/c (24).jpg" class="rounded"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+                cardWrapper.innerHTML = `
+                    <div class="w-full aspect-[2/3] bg-stone-950 rounded-lg overflow-hidden border border-stone-700/60 relative">
+                        <img src="images/c (${id}).jpg" alt="${cardNamesKo[id] || '카드'}" draggable="false" class="w-full h-full object-cover pointer-events-none">
+                        <div class="absolute top-1 left-1 bg-black/75 px-1.5 py-0.5 rounded text-[9px] text-stone-300 font-bold border border-white/10">${id}</div>
+                    </div>
+                    <span class="text-xs font-bold text-amber-500/90 mt-2 truncate w-full text-center">${id}. ${cardNamesKo[id] || '카드'}</span>
+                `;
+                container.appendChild(cardWrapper);
+            });
 
-</main>
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+            
+            // 디바이스 가로 사이즈에 맞춰 초기 줌 비율 자동 최적화
+            resetZoom();
+        }
+
+        function closeZoom() {
+            const overlay = document.getElementById('zoom-overlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // ESC 키다운을 통한 닫기 편의성 극대화
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeZoom();
+        });
+    </script>
+</body>
+</html>
