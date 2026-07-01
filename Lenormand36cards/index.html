@@ -67,6 +67,7 @@
 </head>
 <body class="bg-parchment text-ink font-sans antialiased leading-relaxed">
 
+    <!-- 고정 상단 내비게이션 바 -->
     <nav class="sticky top-0 z-40 bg-parchment/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -79,7 +80,7 @@
                     <a href="#suits" class="hover:text-accent transition">4가지 수트</a>
                     <a href="#gallery" class="hover:text-accent transition">36장 카드 갤러리</a>
                     <span class="text-stone-300">|</span>
-                    <a href="abc.html" class="hover:text-accent transition">ABC</a>
+                    <a href="abc.html" class="hover:text-accent transition text-accent font-semibold">카드조합과 함께 읽기</a>
                     <a href="core.html" class="hover:text-accent transition">Core</a>
                     <a href="theme.html" class="hover:text-accent transition">Theme</a>
                 </div>
@@ -87,134 +88,139 @@
         </div>
     </nav>
 
-    <div id="content-container">
-        <header class="py-20 bg-stone-100 border-b border-stone-200" id="intro">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl md:text-5xl font-serif font-bold text-ink mb-6">레노먼드 오라클의 세계로</h1>
-                <p class="text-lg md:text-xl text-stone-600 mb-8 leading-relaxed">
-                    전통적인 알레만닉(Alemannic) 패턴에서 유래한 36장의 카드. 타로와 달리 즉각적이고 명료한 상징을 통해 일상의 문제부터 깊은 영적 질문까지 통찰을 제공합니다. 전통적인 레노먼드의 지혜를 담은 이 가이드를 통해 카드의 숨겨진 의미를 탐색해보세요.
-                </p>
-                <div class="flex justify-center gap-4">
-                    <a href="#gallery" class="bg-accent text-white px-6 py-3 rounded-md font-medium hover:bg-amber-800 transition shadow-md">카드 탐색하기</a>
-                    <a href="#suits" class="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded-md font-medium hover:bg-stone-50 transition shadow-sm">수트의 의미 보기</a>
+    <!-- 메인 랜딩 헤더 -->
+    <header class="py-20 bg-stone-100 border-b border-stone-200" id="intro">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-ink mb-6">레노먼드 오라클의 세계로</h1>
+            <p class="text-lg md:text-xl text-stone-600 mb-8 leading-relaxed">
+                전통적인 알레만닉(Alemannic) 패턴에서 유래한 36장의 카드. 타로와 달리 즉각적이고 명료한 상징을 통해 일상의 문제부터 깊은 영적 질문까지 통찰을 제공합니다. 전통적인 레노먼드의 지혜를 담은 이 가이드를 통해 카드의 숨겨진 의미를 탐색해보세요.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#gallery" class="bg-accent text-white px-6 py-3 rounded-md font-medium hover:bg-amber-800 transition shadow-md">카드 탐색하기</a>
+                <a href="#suits" class="bg-white text-stone-700 border border-stone-300 px-6 py-3 rounded-md font-medium hover:bg-stone-50 transition shadow-sm">수트의 의미 보기</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 본문 내용 테이블 -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- 4가지 수트 섹션 -->
+        <section id="suits" class="mb-20 scroll-mt-20">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif font-bold text-ink mb-4">4가지 수트의 고전적 의미</h2>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-stone-600 leading-relaxed text-left">
+                        이 섹션은 레노먼드 덱을 구성하는 네 가지 기둥인 하트, 스페이드, 다이아몬드, 클로버의 근본적인 의미를 다룹니다. 영미권의 일반적인 플레잉 카드 점술과는 전혀 다른 동유럽 및 중앙유럽의 전통적인 관점을 보여줍니다. 아래 카드를 클릭하여 각 수트가 삶의 어떤 영역을 지배하는지 확인하고, 차트를 통해 수트별 성향 분포를 시각적으로 파악해보세요.
+                    </p>
                 </div>
             </div>
-        </header>
 
-        <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            
-            <section id="suits" class="mb-20 scroll-mt-20">
-                <div class="mb-10 text-center">
-                    <h2 class="text-3xl font-serif font-bold text-ink mb-4">4가지 수트의 고전적 의미</h2>
-                    <div class="max-w-3xl mx-auto">
-                        <p class="text-stone-600 leading-relaxed text-left">
-                            이 섹션은 레노먼드 덱을 구성하는 네 가지 기둥인 하트, 스페이드, 다이아몬드, 클로버의 근본적인 의미를 다룹니다. 영미권의 일반적인 플레잉 카드 점술과는 전혀 다른 동유럽 및 중앙유럽의 전통적인 관점을 보여줍니다. 아래 카드를 클릭하여 각 수트가 삶의 어떤 영역을 지배하는지 확인하고, 차트를 통해 수트별 성향 분포를 시각적으로 파악해보세요.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-                    <div class="space-y-4" id="suit-cards-container">
-                        <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('hearts')">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-4 whitespace-nowrap">
-                                    <span class="text-4xl suit-hearts">♥</span>
-                                    <h3 class="text-xl font-bold font-serif">하트 (Hearts)</h3>
-                                </div>
-                                <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">가정, 애정, 일상, 소망, 봄.</span>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+                <div class="space-y-4" id="suit-cards-container">
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('hearts')">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-4 whitespace-nowrap">
+                                <span class="text-4xl suit-hearts">♥</span>
+                                <h3 class="text-xl font-bold font-serif">하트 (Hearts)</h3>
                             </div>
-                        </button>
-                        <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('spades')">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-4 whitespace-nowrap">
-                                    <span class="text-4xl suit-spades">♠</span>
-                                    <h3 class="text-xl font-bold font-serif">스페이드 (Spades)</h3>
-                                </div>
-                                <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">행복, 성장, 긍정적 관계, 희망, 가을.</span>
+                            <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">가정, 애정, 일상, 소망, 봄.</span>
+                        </div>
+                    </button>
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('spades')">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-4 whitespace-nowrap">
+                                <span class="text-4xl suit-spades">♠</span>
+                                <h3 class="text-xl font-bold font-serif">스페이드 (Spades)</h3>
                             </div>
-                        </button>
-                        <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('diamonds')">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-4 whitespace-nowrap">
-                                    <span class="text-4xl suit-diamonds">♦</span>
-                                    <h3 class="text-xl font-bold font-serif">다이아몬드 (Diamonds)</h3>
-                                </div>
-                                <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">금전(번영), 불안정성, 스트레스(걱정), 여름.</span>
+                            <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">행복, 성장, 긍정적 관계, 희망, 가을.</span>
+                        </div>
+                    </button>
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('diamonds')">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-4 whitespace-nowrap">
+                                <span class="text-4xl suit-diamonds">♦</span>
+                                <h3 class="text-xl font-bold font-serif">다이아몬드 (Diamonds)</h3>
                             </div>
-                        </button>
-                        <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('clubs')">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-4 whitespace-nowrap">
-                                    <span class="text-4xl suit-clubs">♣</span>
-                                    <h3 class="text-xl font-bold font-serif">클로버 (Clubs)</h3>
-                                </div>
-                                <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">불행(고난), 억압(권력), 기만(배신), 겨울.</span>
+                            <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">금전(번영), 불안정성, 스트레스(걱정), 여름.</span>
+                        </div>
+                    </button>
+                    <button class="w-full text-left bg-white p-6 rounded-lg shadow-sm border border-stone-200 card-hover focus:outline-none focus:ring-2 focus:ring-accent" onclick="showSuitDetail('clubs')">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-4 whitespace-nowrap">
+                                <span class="text-4xl suit-clubs">♣</span>
+                                <h3 class="text-xl font-bold font-serif">클로버 (Clubs)</h3>
                             </div>
-                        </button>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 flex flex-col h-full">
-                        <h3 class="text-lg font-bold font-serif mb-2 text-center">수트별 성향 및 길흉 분포도</h3>
-                        <p class="text-xs text-stone-500 text-center mb-4">원문 텍스트 분석에 기반한 각 수트 내 카드의 긍정/부정 비율 추정치</p>
-                        <div class="chart-container flex-grow">
-                            <canvas id="suitChart"></canvas>
+                            <span class="text-xs font-medium text-stone-500 bg-stone-100 px-3 py-1.5 rounded-md text-right break-keep">불행(고난), 억압(권력), 기만(배신), 겨울.</span>
                         </div>
-                    </div>
+                    </button>
                 </div>
 
-                <div id="suit-detail-box" class="hidden bg-highlight p-8 rounded-lg border border-amber-200 shadow-inner transition-opacity duration-300">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span id="suit-detail-icon" class="text-3xl"></span>
-                        <h3 id="suit-detail-title" class="text-2xl font-serif font-bold text-accent"></h3>
-                    </div>
-                    <p id="suit-detail-content" class="text-stone-800 leading-relaxed whitespace-pre-line"></p>
-                    
-                    <div class="border-t border-amber-300/50 mt-8 pt-6">
-                        <h4 class="text-sm font-bold text-amber-800 mb-4 flex items-center gap-2">
-                            <span class="text-lg">🎴</span> 이 수트에 속하는 카드 목록
-                        </h4>
-                        <div id="suit-detail-cards" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-4">
-                        </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 flex flex-col h-full">
+                    <h3 class="text-lg font-bold font-serif mb-2 text-center">수트별 성향 및 길흉 분포도</h3>
+                    <p class="text-xs text-stone-500 text-center mb-4">원문 텍스트 분석에 기반한 각 수트 내 카드의 긍정/부정 비율 추정치</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="suitChart"></canvas>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <section id="gallery" class="scroll-mt-20">
-                <div class="mb-10 text-center">
-                    <h2 class="text-3xl font-serif font-bold text-ink mb-4">36장 카드 갤러리</h2>
-                    <div class="max-w-3xl mx-auto">
-                        <p class="text-stone-600 leading-relaxed text-left">
-                            이 섹션은 36장의 프티 레노먼드(Petit Lenormand) 카드를 클로드 모네의 아름다운 인상주의 화풍으로 재해석한 이미지와 상세 정보를 탐색하는 핵심 도구입니다. 카드의 본질적인 핵심어와 상징은 물론, 건강과 관련된 의미까지 한눈에 확인하실 수 있습니다. 필터와 검색 기능을 통해 특정 카드를 빠르게 찾아보거나, 개별 카드를 클릭하여 아름다운 이미지와 함께 간결한 분석 내용을 확인해 보세요.
-                        </p>
-                    </div>
+            <div id="suit-detail-box" class="hidden bg-highlight p-8 rounded-lg border border-amber-200 shadow-inner transition-opacity duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <span id="suit-detail-icon" class="text-3xl"></span>
+                    <h3 id="suit-detail-title" class="text-2xl font-serif font-bold text-accent"></h3>
                 </div>
-
-                <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200 mb-8 sticky top-16 z-30">
-                    <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
-                        <div class="flex gap-2 flex-wrap">
-                            <button class="filter-btn active bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium transition" data-filter="all">전체 보기</button>
-                            <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Hearts">♥ 하트</button>
-                            <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Spades">♠ 스페이드</button>
-                            <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Diamonds">♦ 다이아몬드</button>
-                            <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Clubs">♣ 클로버</button>
-                        </div>
-                        <div class="relative w-full md:w-64">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400">🔍</span>
-                            <input type="text" id="searchInput" placeholder="카드 이름 또는 키워드 검색..." class="w-full pl-10 pr-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-stone-50">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5">
-                </div>
+                <p id="suit-detail-content" class="text-stone-800 leading-relaxed whitespace-pre-line"></p>
                 
-                <div id="no-results" class="hidden text-center py-12 text-stone-500">
-                    <span class="text-4xl block mb-2">📄</span>
-                    검색 결과가 없습니다.
+                <div class="border-t border-amber-300/50 mt-8 pt-6">
+                    <h4 class="text-sm font-bold text-amber-800 mb-4 flex items-center gap-2">
+                        <span class="text-lg">🎴</span> 이 수트에 속하는 카드 목록
+                    </h4>
+                    <div id="suit-detail-cards" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9 gap-4">
+                        <!-- JS에서 카드가 주입됩니다 -->
+                    </div>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </section>
+
+        <!-- 36장 갤러리 섹션 -->
+        <section id="gallery" class="scroll-mt-20">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-serif font-bold text-ink mb-4">36장 카드 갤러리</h2>
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-stone-600 leading-relaxed text-left">
+                        이 섹션은 36장의 프티 레노먼드(Petit Lenormand) 카드를 클로드 모네의 아름다운 인상주의 화풍으로 재해석한 이미지와 상세 정보를 탐색하는 핵심 도구입니다. 카드의 본질적인 핵심어와 상징은 물론, 건강과 관련된 의미까지 한눈에 확인하실 수 있습니다. 필터와 검색 기능을 통해 특정 카드를 빠르게 찾아보거나, 개별 카드를 클릭하여 아름다운 이미지와 함께 간결한 분석 내용을 확인해 보세요.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200 mb-8 sticky top-16 z-30">
+                <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                    <div class="flex gap-2 flex-wrap">
+                        <button class="filter-btn active bg-stone-800 text-white px-4 py-2 rounded-md text-sm font-medium transition" data-filter="all">전체 보기</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Hearts">♥ 하트</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Spades">♠ 스페이드</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Diamonds">♦ 다이아몬드</button>
+                        <button class="filter-btn bg-stone-100 text-stone-600 hover:bg-stone-200 px-4 py-2 rounded-md text-sm font-medium transition" data-filter="Clubs">♣ 클로버</button>
+                    </div>
+                    <div class="relative w-full md:w-64">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400">🔍</span>
+                        <input type="text" id="searchInput" placeholder="카드 이름 또는 키워드 검색..." class="w-full pl-10 pr-4 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-stone-50">
+                    </div>
+                </div>
+            </div>
+
+            <div id="card-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5">
+            </div>
+            
+            <div id="no-results" class="hidden text-center py-12 text-stone-500">
+                <span class="text-4xl block mb-2">📄</span>
+                검색 결과가 없습니다.
+            </div>
+        </section>
+    </main>
+
+    <!-- 상세 카드 모달 창 -->
     <div id="cardModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-stone-900 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
         
@@ -288,10 +294,6 @@
     </div>
 
     <script>
-        // 전역 SPA 상태 관리용 변수
-        let homeContent = '';
-        let currentPath = 'index.html';
-
         const suitDetails = {
             hearts: {
                 icon: '♥', colorClass: 'suit-hearts', title: '하트 (HEARTS)',
@@ -303,7 +305,7 @@
             },
             diamonds: {
                 icon: '♦', colorClass: 'suit-diamonds', title: '다이아몬드 (DIAMONDS)',
-                content: "번영과 관련된 문제를 다룰 것이라 추측하기 쉽지만, 이 수트는 삶의 불안정한 본질과 개인의 근심을 나타내기도 합니다. 재무와 관련된 핵심 카드로물고기와 관이 있습니다.\n\n관은 질병뿐 아니라 재정적 손실(죽은 돈)을 뜻하기도 합니다. 또한 낫과 새처럼 질문자에게 위험과 슬픔을 예고하는 어려운 카드들도 포함되어 있습니다."
+                content: "번영과 관련된 문제를 다룰 것이라 추측하기 쉽지만, 이 수트는 삶의 불안정한 본질과 개인의 근심을 나타내기도 합니다. 재무와 관련된 핵심 카드로 물고기와 관이 있습니다.\n\n관은 질병뿐 아니라 재정적 손실(죽은 돈)을 뜻하기도 합니다. 또한 낫과 새처럼 질문자에게 위험과 슬픔을 예고하는 어려운 카드들도 포함되어 있습니다."
             },
             clubs: {
                 icon: '♣', colorClass: 'suit-clubs', title: '클로버 (CLUBS)',
@@ -327,7 +329,7 @@
             { id: 13, name: "아이", eng: "The Child", suit: "Spades", suitDesc: "스페이드 잭", keywords: "신뢰, 작음, 아이들", orig: "The Child is the essence of simplicity. Normally, the Child card's emblem is a small, prepubescent girl, or occasionally a boy. The child can be shown holding a posy or playing with a toy. The Child shows how your friends and loved ones see you. When the Child falls close to the significator card, you are assured of the respect and assistance of your associates. When the Child falls farther away it indicates trust, but friends may not be in a position to help you should negative cards be around the Child or the significator. Progressed Meanings: Naturally, the Child card will represent the querent's children or grandchildren. When it's attended by the Birds it indicates either a pregnancy or news (often anxious in nature) about a pregnancy or child. For this reason, careful attention should be paid to the cards around the Child in terms of problems or issues. There is a naiveté about a person described by the Child card. She can be innocent, overly trusting, or unprepared for some of the issues of everyday life. However, she is normally very kind and helpful. The 'little' can be literal. A person might be short in stature or younger than the querent. When the Child follows the Fish it can indicate a little money. Depending on context this can mean that the querent is poor – he only has that little bit. Health: This card indicates traditional childhood illnesses and ailments such as chicken pox, growing pains or whooping cough.", trans: "'단순함'은 아이 카드의 본질입니다. 이 카드는 주로 친구나 사랑하는 사람들이 당신을 어떻게 바라보는지를 나타냅니다. 지시자 카드와 가까이 있으면 지인들의 존중과 실질적인 도움을 보장받습니다. 반면 멀리 떨어져 있으면 신뢰를 의미하지만, 주변에 부정적인 카드가 있을 경우 친구들이 당신을 도울 수 없는 상황일 수 있습니다.\n\n질문자의 실제 자녀나 손주를 상징하기도 하며, 새 카드와 만나면 임신 소식을 뜻합니다. 이 카드가 나타내는 인물은 대체로 친절하지만, 때로는 세상물정에 어둡고 지나치게 남을 믿는 순진한 성향을 지닙니다.", health: "수두, 성장통, 백일해 등 전통적인 어린 시절의 질환과 병을 나타냅니다." },
             { id: 14, name: "여우", eng: "The Fox", suit: "Clubs", suitDesc: "클로버 9", keywords: "기만, 잘못된, 사기", orig: "Wrongness is the essence of the Fox card. The Fox symbolises that something is wrong in the querent’s life and that he needs to take care. Theft and fraud are frequently augured by this card. Primarily, the Fox’s keyword is ‘wrong’. The card that falls after it is worth close attention as it shows something that should not be taken at face value. The Fox points towards cheats and thefts, and professional sabotage. Alone, however, the Fox has nothing to do with work save commenting on someone’s work ethic. In certain contexts the Fox can say your approach, or idea, is wrong. Health: The Fox symbolises the nose and indicates a need for caution (misdiagnosis).", trans: "'잘못됨'은 여우 카드의 본질입니다. 질문자의 삶에 무언가 잘못되었으며 도난이나 사기, 직장 내 방해 공작(사보타주)을 조심해야 함을 상징합니다. 여우 다음에 오는 카드는 액면 그대로 받아들여서는 안 되는 무언가를 보여줍니다. 프랑스계 서적에서는 여우를 '직장 생활'로 해석하기도 하지만, 전통적으로 여우는 누군가의 직업 윤리 결여를 언급하는 것을 제외하면 업무와는 무관합니다. 상황에 따라 당신의 생각이나 접근법이 '틀렸음'을 말해주기도 합니다. 고양이를 뜻하기도 합니다.", health: "코를 상징하며, 다른 문제에 가려진 오진 가능성이나 치료 재검토의 필요성을 경고합니다." },
             { id: 15, name: "곰", eng: "The Bear", suit: "Clubs", suitDesc: "클로버 10", keywords: "힘, 보호, 질투", orig: "The Bear’s essence is power. Power is good only for those who have it, but it also brings enemies and breeds envy. The Bear is a dichotomy: on one hand it promises you good fortune, but it also warns you against those who might abuse or resent your good luck. The Bear often stands for a person – usually a woman – who holds some influence over you (mother, grandmother). In the context of work, the Bear represents the person you report to. The Bear indicates good luck in financial dealings. Health: Anatomically, the Bear stands for the stomach and eating habits. It symbolises hair.", trans: "곰의 본질은 '힘(권력)'입니다. 힘은 보호와 번영을 약속하지만 적을 불러들이고 질투를 낳기도 합니다. 곰 카드는 아군의 보호를 뜻하면서도 당신의 행운을 시기하는 자를 조심하라는 경고이기도 합니다. 주로 당신에게 영향력을 가진 여성(어머니, 할머니 등)이나 직장의 직속 상사를 상징합니다. 신체적·정신적으로 위풍당당한 인물을 묘사하며, 금융 거래(저축, 연금 등)에서의 행운과 자금 융통을 나타냅니다.", health: "위장과 식습관을 나타내며, 머리카락을 상징하기도 합니다." },
-            { id: 16, name: "별", eng: "The Stars", suit: "Hearts", suitDesc: "하트 6", keywords: "성공, 밤, 북쪽", orig: "The essence of the Stars is good luck. The Stars promises success in your endeavours. The cards that touch the Stars should prove successful and lucky. I see the Stars as a card of guidance that tells me where best to concentrate my efforts. In certain contexts, the Stars can indicate both science and fortune-telling. The Stars can indicate the human mind as a whole. It can reflect how happy and clear-sighted you are. In terms of timing, the Stars stands for night. Health: The Stars represents the skin and issues involving sleep.", trans: "별의 본질은 '행운'입니다. 진행 중인 프로젝트에서의 성공을 약속합니다. \"별 없는 하늘 아래에서는 캠프를 치지 마라\"는 격언처럼, 별 카드는 나의 노력을 어디에 집중하는 것이 최선인지 알려주는 '안내'의 카드입니다. 별 옆에 있는 분야에 집중하면 실질적이고 정서적인 혜택을 얻습니다. 과학자나 수치에 밝은 사람, 혹은 점성가나 영매를 나타냅니다. 또한 인간의 마음 전체와 통찰력을 반영합니다. 시기적으로는 밤과 북쪽을 뜻합니다.", health: "피부를 나타내며, 뇌 기능의 문제나 수면과 관련된 이슈를 나타냅니다." },
+            { id: 16, name: "별", eng: "The Stars", suit: "Hearts", suitDesc: "하트 6", keywords: "성공, 행운, 낙관주의", orig: "The essence of the Stars is good luck. The Stars promises success in your endeavours. The cards that touch the Stars should prove successful and lucky. I see the Stars as a card of guidance that tells me where best to concentrate my efforts. In certain contexts, the Stars can indicate both science and fortune-telling. The Stars can indicate the human mind as a whole. It can reflect how happy and clear-sighted you are. In terms of timing, the Stars stands for night. Health: The Stars represents the skin and issues involving sleep.", trans: "별의 본질은 '행운'입니다. 진행 중인 프로젝트에서의 성공을 약속합니다. \"별 없는 하늘 아래에서는 캠프를 치지 마라\"는 격언처럼, 별 카드는 나의 노력을 어디에 집중하는 것이 최선인지 알려주는 '안내'의 카드입니다. 별 옆에 있는 분야에 집중하면 실질적이고 정서적인 혜택을 얻습니다. 과학자나 수치에 밝은 사람, 혹은 점성가나 영매를 나타냅니다. 또한 인간의 마음 전체와 통찰력을 반영합니다. 시기적으로는 밤과 북쪽을 뜻합니다.", health: "피부를 나타내며, 뇌 기능의 문제나 수면과 관련된 이슈를 나타냅니다." },
             { id: 17, name: "황새", eng: "The Storks", suit: "Hearts", suitDesc: "하트 퀸", keywords: "변화, 이전(이사), 출생", orig: "The Storks’ essence is change, particularly in relation to your domestic life. When the Storks falls very close to the querent’s card it augurs changes and improvements. Traditionally, it forecasts relocation to a new address. Primarily, the Storks talks about a change which will be towards something better. When the Storks follows the Child it can indicate the forthcoming birth of a child. The Storks can stand for a woman. Health: The Storks is a card of improvement and upturn in health problems. It stands for the legs and mobility.", trans: "황새 카드의 본질은 가정 생활과 관련된 '변화'입니다. 질문자와 가까우면 새로운 집으로의 이사나 환경의 긍정적인 개선을 예고합니다. 더 나은 방향으로의 진전, 심지어 승진을 나타냅니다. 아이 카드 뒤에 오면 예상된 아이의 출산을 나타냅니다(반면 예상치 못한 임신은 새 카드). 키가 크고 야심 있거나 여행 업계에서 일하는 여성을 상징할 수 있습니다. 탑 카드와 만나면 중대한 인생의 변화를 뜻합니다.", health: "건강 문제의 호전과 개선을 나타내며, 다리와 전반적인 가동성(움직임)을 상징합니다." },
             { id: 18, name: "개", eng: "The Dog", suit: "Hearts", suitDesc: "하트 10", keywords: "우정, 신뢰성, 남성", orig: "Loyalty is the essence the Dog brings. This card speaks of faithful friendships that can aid you. When the Dog is close to the querent’s card it promises good, faithful and lasting friendships. When surrounded by the Clouds, the Dog is a warning not to readily trust those you are unsure of. The Dog can stand for any friend, but it is also a card that can represent a man. If the Fox is our work rivals, the Dog is our work allies. Health: The Dog stands for a carer. Anatomically it represents the mouth, tongue and teeth.", trans: "충성심은 개 카드의 본질입니다. 도움을 줄 수 있는 충실하고 변함없는 우정과 동맹을 약속합니다. 하지만 부정적인 카드와 함께라면 확신 없는 사람을 쉽게 믿지 말라는 경고가 됩니다. 친구뿐만 아니라, 친절하고 충실한 남성(때로는 전 파트너)을 상징하기도 합니다. 여우가 직장의 라이벌이라면 개는 직장의 든든한 동료(아군)를 의미합니다. 실제 반려동물을 뜻하기도 합니다.", health: "의사나 간호사 등 '간병인(조력자)'을 의미하며, 해부학적으로는 입, 혀, 치아를 나타냅니다." },
             { id: 19, name: "높은 탑", eng: "The 'High' Tower", suit: "Spades", suitDesc: "스페이드 6", keywords: "장수, 공식적인(공무), 고립", orig: "The Tower is a symbol of the essence of longevity. The Tower is a card of longevity and old age. Surrounded by good cards it promises you a happy, healthy and long retirement. This card can indicate periods of solitary life. Near to the Heart, it indicates a period of loneliness through separation or divorce. The Tower can stand for buildings of high importance: a courthouse, government building or university. This card can represent a man, frequently the querent's father or grandfather. Health: The card stands for longevity. Anatomically, the Tower stands for the spine.", trans: "탑은 장수와 노년을 상징하는 카드입니다. 긍정적인 카드들과 함께라면 안전하고 행복한 긴 은퇴 생활을 약속하지만, 부정적인 카드와 만나면 심신이 쇠약해지는 만성 질환을 경고합니다. 이 카드는 고독한 삶의 시기(별거, 이혼 등)를 나타낼 수 있습니다. 법원, 정부 기관, 대학교 등 중요한 공식 건물을 상징하기도 합니다. 아버지나 조부처럼 야심 차고 냉담한 성격의 권위 있는 남성을 나타내기도 합니다. 이 카드가 주는 행복은 타인과 나누지 않는 '자기중심적인' 행복입니다.", health: "장수 혹은 오래 지속되는 질환을 의미하며, 해부학적으로는 척추를 상징합니다." },
@@ -335,7 +337,7 @@
             { id: 21, name: "산", eng: "The Mountain", suit: "Clubs", suitDesc: "클로버 8", keywords: "방해물, 적, 장벽", orig: "The Mountain card is the essence of obstacles. When the Mountain is located close to the significator it indicates that the querent has a rival or opponent who will hinder or attack. Frequently, the Mountain will either manifest as a barrier to a goal or as an actual enemy. As a blockage or an enemy the Mountain is not insurmountable, but the challenge to climb it is often doubtful and lengthy. The Mountain can also indicate another country. Health: Often the Mountain indicates calcification, sclerosis or stenosis. It represents the skull.", trans: "산 카드는 '장애물'의 본질입니다. 지시자와 가까이 있다면 질문자를 방해하거나 공격하려는 경쟁자/적대자가 있음을 나타내며 정체와 문제를 예상해야 합니다. 멀리 떨어져 있다면 역설적으로 위기 때 도와줄 강력한 조력자가 될 수 있습니다. 산은 목표를 막는 장벽이거나 실제의 적(직장 동료, 괴롭히는 사람, 혹은 금연 시도의 담배 등)입니다. 극복이 불가능하지는 않으나 불확실하고 오래 걸립니다. 국경을 맞댄 다른 나라를 상징하기도 합니다.", health: "석회화, 경화증(단단해짐), 협착증(좁아짐) 등 신체 기능의 막힘을 뜻하며, 두개골을 상징합니다." },
             { id: 22, name: "길", eng: "The Paths", suit: "Diamonds", suitDesc: "다이아몬드 퀸", keywords: "선택, 교차로, 위기", orig: "The essence of the Paths card is choice. Free from negative influence, the Paths indicates that anxious times will soon present themselves. A problem or important intersection on the querent's life journey will manifest; however, the worries will pass when a decision is made. Most of the time, the Paths indicates that the querent has options and choices. Near the Clouds this card is particularly malefic as it indicates several problems converging. The Paths can be a literal road. Health: The Paths is one of the cards that can mitigate the Tree. Anatomically, it relates to the arteries and veins.", trans: "길 카드의 본질은 '선택'입니다. 질문자에게 여러 옵션과 선택권이 주어지는 인생의 중요한 기로를 나타냅니다. 결정을 내리고 나면 불안은 지나가겠지만, 한 번 선택하면 되돌리기 어렵습니다. 구름 카드 옆에서는 여러 문제가 한데 모이는 매우 불길한 위기(격변과 고통스러운 선택)를 상징합니다. 실제 도로를 의미하여 정기적인 통근이나 출장을 나타내기도 합니다. 한 여성을 상징할 수 있습니다.", health: "의학적으로 여러 선택지를 신중하게 탐색해야 하며 치료법을 찾게 됨을 의미합니다. 동맥과 정맥에 해당합니다." },
             { id: 23, name: "쥐", eng: "The Mice", suit: "Clubs", suitDesc: "클로버 7", keywords: "도난, 손실, 불안감", orig: "The Mice carries the essence of erosion. The Mice symbolises a loss, sometimes through theft, but also through carelessness. The card to the left of the Mice is what is set to be soiled or destroyed, and the card to the right is what that will cause you to lose out on. The Mice close to the significator points to some anxiety for the querent, which may indicate a lasting dispiritedness and passive-aggressive tendencies. Health: Anatomically, the Mice can be an ulcer, necrotic tissue, a tumour or parasites, but it can also indicate stress and alopecia.", trans: "쥐 카드는 서서히 갉아먹히는 '침식'의 본질을 담고 있습니다. 도난이나 부주의로 인한 손실을 상징합니다. 쥐의 왼쪽에 있는 카드는 파괴될 대상을, 오른쪽에 있는 카드는 손해를 볼 원인을 나타냅니다. 지시자 근처의 쥐는 단기적이지 않은 지속적인 의욕 상실이나 수동적-공격적 성향, 불안감을 나타냅니다. 기운을 빼앗는 사람을 묘사하기도 합니다. 실제 설치류 동물들을 나타냅니다.", health: "궤양, 괴사 조직, 종양, 기생충처럼 몸을 갉아먹는 질환이나 스트레스성 원형 탈모증을 나타냅니다." },
-            { id: 24, name: "하트", eng: "The Heart", suit: "Hearts", suitDesc: "하트 잭", keywords: "사랑, 애정, 따스함", orig: "Affection is the essence of the Heart card. If free from negative cards, the Heart promises happiness and love. When the Heart is near the querent's card, his romantic life will come under the spotlight. New love is around the corner. When the Heart is far away, it can show platonic love or simply strong friendships. Love doesn't always need to be romantic. Near the cards of home, work or money, the Heart signifies a sense of love and happiness in these respective areas. Health: The Heart symbolises the cardiopulmonary and circulatory systems.", trans: "애정은 하트 카드의 본질입니다. 질문자 가까이에 있으면 새로운 로맨스가 오거나 기존 관계가 깊어지는 등 연애 생활이 주목받습니다. 멀리 떨어져 있으면 깊은 우정이나 플라토닉한 사랑을 나타냅니다. 구름, 관, 낫 등과 만나면 고통스러운 깊은 실망을 예고합니다. 연애뿐만 아니라 집, 직장, 금전 카드 옆에 있으면 해당 분야에서 느끼는 애정과 행복감을 뜻합니다.", health: "심장 및 심폐/순환기 계통을 상징하며, 새 카드 근처에 있으면 고혈압이나 두근거림을 의미합니다." },
+            { id: 24, name: "하트", eng: "The Heart", suit: "Hearts", suitDesc: "하트 잭", keywords: "사랑, 애정, 따스함", orig: "Affection is the essence of the Heart card. If free from negative cards, the Heart promises happiness and love. When the Heart is near the querent's card, his romantic life will come under the spotlight. New love is around the corner. When the Heart is far away, it can show platonic love or simply strong friendships. Love doesn't always need to be romantic. Near the cards of home, work or money, the Heart signifies a sense of love and happiness in these respective areas. Health: The Heart symbolises the cardiopulmonary and circulatory systems.", trans: "애정은 하트 카드의 본질입니다. 질문자 가까이에 있으면 로맨스가 오거나 기존 관계가 깊어지는 등 연애 생활이 주목받습니다. 멀리 떨어져 있으면 깊은 우정이나 플라토닉한 사랑을 나타냅니다. 구름, 관, 낫 등과 만나면 고통스러운 깊은 실망을 예고합니다. 연애뿐만 아니라 집, 직장, 금전 카드 옆에 있으면 해당 분야에서 느끼는 애정과 행복감을 뜻합니다.", health: "심장 및 심폐/순환기 계통을 상징하며, 새 카드 근처에 있으면 고혈압이나 두근거림을 의미합니다." },
             { id: 25, name: "반지", eng: "The Ring", suit: "Clubs", suitDesc: "클로버 에이스", keywords: "결혼, 계약, 연결(관계)", orig: "The essence of the Ring card is ties. The Ring’s meaning is determined by which side of the querent’s card it falls on. To the left of the significator, it augurs the possibility of a separation. To the right of the querent’s card it indicates a lasting relationship. Another meaning of the Ring is contracts of all kinds. Frequently this will mean employment, but it can also be a mortgage. Health: The Ring stands for illnesses which can be progressive and debilitating, and co-morbidity.", trans: "반지 카드의 본질은 '유대(결속)'입니다. 지시자의 오른쪽에 놓이면 지속적인 로맨틱한 관계나 새롭고 진지한 사랑을 나타냅니다. 반면 왼쪽에 놓이고 멀어질수록 가혹한 이별을 예고합니다. (다만 닻 카드와 함께라면 관계 유지 의지를 나타냄). 반지는 모든 종류의 '계약'을 의미하여 취업, 담보 대출, 임대차 계약 등을 상징합니다.", health: "점진적으로 심신을 쇠약하게 만드는 만성/불치병을 상징하며, 두 가지 질병이 동시에 존재하는 '공존 이환'을 자주 나타냅니다." },
             { id: 26, name: "책", eng: "The Book", suit: "Diamonds", suitDesc: "다이아몬드 10", keywords: "비밀, 교육, 미지의 것", orig: "The Book represents the essence of the unknown. When the Book falls near the significator it indicates that something important will be revealed. The Book often simply means that the querent doesn't know something. Thus, she needs to do her research or wait for events to unfold. The 'unknown' nature of the Book means it frequently appears as education. When the Book falls before a person card it normally indicates you do not yet know that person. Health: The Book represents the brain and cognition.", trans: "책 카드는 '미지의 것'을 상징하며 본래 이름은 마법서(Grimoire)였습니다. 질문자 근처에 있으면 중요하고 때론 당혹스러운 비밀이 드러남을 의미합니다. 질문자가 무언가를 모른다는 뜻이므로, 섣부른 행동 대신 연구하고 때를 기다려야 합니다. 이 미지의 속성 때문에 교육, 학업, 구직자의 자격 요건 보강 등을 상징합니다. 인물 카드 앞에 오면 아직 당신이 알지 못하는 사람을, 인물 카드 뒤에 오면 지적이고 학구적인 사람을 나타냅니다.", health: "뇌와 인지 능력을 상징하며 아직 진단되지 외학적 문제를 나타냅니다." },
             { id: 27, name: "편지", eng: "The Letter", suit: "Spades", suitDesc: "스페이드 7", keywords: "전화 통화, 종이(문서), 피상성", orig: "The Letter symbolises the essence of communication. Wherever the Letter falls it denotes the arrival of news, rarely in person. It is the card of communication that occurs without being face-to-face. Thus it augurs telephone calls, SMS, emails and letters. Positive cards indicate news or replies, negative cards indicate bad news (e.g. rejection letter). The Letter stands for all paper and card items. Before a person card it means the person is superficial. Health: The Letter can stand for letters from a doctor, pamphlets and prescriptions. It stands for fingers.", trans: "편지 카드는 '통신'의 본질을 상징합니다. 직접 대면하지 않고 전해지는 소식, 즉 전화 통화, 문자(SMS), 이메일, 편지 등을 예고합니다. 편지가 인물 카드 오른쪽에 있으면 연락을 받는 것이고, 왼쪽에 있으면 거는 것입니다. 긍정적 카드와 함께면 좋은 소식을, 관 등과 함께면 거절 통지서를 뜻합니다. 모든 종이/카드 형태의 물품을 상징합니다. 사람 앞에 오면 겉치레만 중시하는 피상적인 사람을, 하트나 닻 앞에 오면 일시적이고 덧없는 속성을 부여합니다.", health: "의사 소견서, 처방전, 안내 책자 등을 의미하며 해부학적으로는 손가락을 상징합니다." },
@@ -473,8 +475,6 @@
         function renderCards(cardsToRender) {
             const grid = document.getElementById('card-grid');
             const noResults = document.getElementById('no-results');
-            if(!grid) return;
-            
             grid.innerHTML = '';
             
             if(cardsToRender.length === 0) {
@@ -522,7 +522,7 @@
         function filterCards() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const activeFilterBtn = document.querySelector('.filter-btn.active');
-            const suitFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'all';
+            const suitFilter = activeFilterBtn.dataset.filter;
 
             const filtered = cardData.filter(card => {
                 const matchesSearch = card.name.toLowerCase().includes(searchTerm) || 
@@ -593,6 +593,7 @@
             }
         }
 
+        // 터치 스와이프 기능 변수
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -615,61 +616,11 @@
             }
         }
 
-        // --- SPA 라우터 엔진 핵심 로직 ---
-
-        // 1. 메인 가이드(홈) 화면 로드/복원 함수
-        function loadHomePage(targetAnchor = null) {
-            document.getElementById('content-container').innerHTML = homeContent;
+        document.addEventListener('DOMContentLoaded', () => {
             initChart();
             renderCards(cardData);
-            bindHomeEvents();
 
-            if (targetAnchor) {
-                setTimeout(() => {
-                    const el = document.getElementById(targetAnchor.replace('#', ''));
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 50);
-            }
-            currentPath = 'index.html';
-        }
-
-        // 2. 외부 서브 페이지(abc, core, theme) 비동기 로드 함수
-        async function loadSubPage(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Page not found');
-                const html = await response.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // 불러온 파일에 content-container나 main 태그가 있다면 그 알맹이만 추출
-                const incomingContent = doc.getElementById('content-container') || doc.querySelector('main') || doc.body;
-                
-                if (incomingContent) {
-                    document.getElementById('content-container').innerHTML = incomingContent.innerHTML;
-                } else {
-                    document.getElementById('content-container').innerHTML = html;
-                }
-                
-                currentPath = url;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('content-container').innerHTML = `
-                    <main class="max-w-6xl mx-auto px-4 py-20 text-center">
-                        <h2 class="text-2xl font-bold text-stone-800 mb-4">🔮 페이지 준비 중</h2>
-                        <p class="text-stone-500 mb-8">가이드 파일(${url})을 생성하지 않았거나 경로가 잘못되었습니다.</p>
-                        <button onclick="loadHomePage()" class="bg-accent text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-amber-800 transition">메인 가이드로 돌아가기</button>
-                    </main>
-                `;
-            }
-        }
-
-        // 3. 홈 화면 이벤트 바인딩 함수 (DOM이 새로 교체될 때마다 재연결 필요)
-        function bindHomeEvents() {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) searchInput.addEventListener('input', filterCards);
+            document.getElementById('searchInput').addEventListener('input', filterCards);
 
             const imageContainer = document.getElementById('modal-image-container');
             if (imageContainer) {
@@ -692,54 +643,6 @@
                     filterCards();
                 });
             });
-        }
-
-        // 4. 내비게이션 바 링크 클릭 가로채기(인터셉터) 설정
-        function initSPARouter() {
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    
-                    // 앵커 링크 처리 (#intro, #suits, #gallery)
-                    if (href.startsWith('#')) {
-                        if (currentPath !== 'index.html') {
-                            e.preventDefault();
-                            history.pushState({ path: 'index.html', anchor: href }, '', 'index.html' + href);
-                            loadHomePage(href);
-                        }
-                        return; // 이미 홈 화면인 경우 원래 부드러운 스크롤 작동됨
-                    }
-                    
-                    // 외부 html 페이지 연결 가로채기
-                    e.preventDefault();
-                    history.pushState({ path: href }, '', href);
-                    loadSubPage(href);
-                });
-            });
-
-            // 브라우저 뒤로가기/앞으로가기 동기화
-            window.addEventListener('popstate', (e) => {
-                const path = window.location.pathname.split('/').pop() || 'index.html';
-                const hash = window.location.hash;
-                
-                if (path === 'index.html' || path === '') {
-                    loadHomePage(hash);
-                } else {
-                    loadSubPage(path);
-                }
-            });
-        }
-
-        // 첫 진입 시 구동
-        document.addEventListener('DOMContentLoaded', () => {
-            // 원본 홈 내용 원본 스냅샷 복사
-            homeContent = document.getElementById('content-container').innerHTML;
-            
-            initChart();
-            renderCards(cardData);
-            bindHomeEvents();
-            initSPARouter(); // 라우터 활성화
         });
     </script>
 </body>
