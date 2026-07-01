@@ -101,7 +101,7 @@
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- 2장 기본 대조군 -->
-                <div onclick="openZoom('어텐던스 예제 (십자가와 태양의 순서 의미 반전)', [36, 31, 31, 36], 'horizontal')" 
+                <div onclick="openZoom('어텐던스 예제 (십자가와 태양의 순서 의미 반전)', [[36, 31], [31, 36]], 'horizontal-contrast')" 
                      class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
                     <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
                         <span>🔍 크게 보기</span>
@@ -124,7 +124,7 @@
                 </div>
 
                 <!-- 명사형용사 순서 반전 예시 -->
-                <div onclick="openZoom('명사-형용사 순서 변경 (편지와 관)', [27, 8, 8, 27], 'horizontal')" 
+                <div onclick="openZoom('명사-형용사 순서 변경 (편지와 관)', [[27, 8], [8, 27]], 'horizontal-contrast')" 
                      class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
                     <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
                         <span>🔍 크게 보기</span>
@@ -155,7 +155,7 @@
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- 3장 체인 예시 -->
-                <div onclick="openZoom('3장 조합 확장 예제', [27, 8, 36, 8, 27, 36], 'horizontal')" 
+                <div onclick="openZoom('3장 조합 확장 예제', [[27, 8, 36], [8, 27, 36]], 'horizontal-contrast')" 
                      class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
                     <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
                         <span>🔍 크게 보기</span>
@@ -178,7 +178,7 @@
                 </div>
 
                 <!-- 4장 체인 예시 -->
-                <div onclick="openZoom('4장 확장 예제 (황새의 변화 영향력 추가)', [27, 8, 36, 17, 8, 27, 36, 17], 'horizontal')" 
+                <div onclick="openZoom('4장 확장 예제 (황새의 변화 영향력 추가)', [[27, 8, 36, 17], [8, 27, 36, 17]], 'horizontal-contrast')" 
                      class="card-container-active bg-white p-6 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative">
                     <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
                         <span>🔍 크게 보기</span>
@@ -210,7 +210,7 @@
                 <span class="text-xl">↕️</span> 4. 수직 어텐던스 (Vertical Attendance)
             </h2>
             <div class="bg-white p-8 rounded-2xl border border-stone-200 shadow-sm cursor-zoom-in group select-none relative"
-                 onclick="openZoom('수직 어텐던스 상호 비교 (위의 카드가 아래에 투영)', [14, 27, 27, 14], 'vertical')">
+                 onclick="openZoom('수직 어텐던스 상호 비교 (위의 카드가 아래에 투영)', [[14, 27], [27, 14]], 'vertical-contrast')">
                 <div class="absolute top-4 right-4 text-xs font-bold text-stone-400 group-hover:text-[#b45309] transition flex items-center gap-1">
                     <span>🔍 크게 보기</span>
                 </div>
@@ -294,7 +294,7 @@
                             <span class="text-sm font-semibold text-stone-600">물고기 + 편지 + 쥐</span>
                         </div>
                         <!-- 파트2-b 수직 -->
-                        <div onclick="openZoom('연습 3. Part Two (b - 수직 조합)', [18, 20], 'vertical')" 
+                        <div onclick="openZoom('연습 3. Part Two (b - 수직 조합)', [[18, 20]], 'vertical-contrast')" 
                              class="p-4 bg-stone-50 rounded-xl border border-stone-100 flex items-center justify-between cursor-zoom-in hover:border-amber-200 transition">
                             <div class="flex items-center gap-4">
                                 <span class="text-xs font-mono text-stone-400">b</span>
@@ -529,11 +529,11 @@
         });
 
         function adjustZoom(factor) {
-            zoomScale = Math.min(Math.max(zoomScale + factor, 0.2), 3.0);
+            zoomScale = Math.min(Math.max(zoomScale + factor, 0.15), 3.0);
             updateTransform();
         }
 
-        // 화면 해상도 및 카드 수에 맞춰 조합 전체가 화면 안에 가득 차도록 계산하는 알고리즘
+        // 화면 해상도 및 카드 수에 맞춰 조합 전체가 화면 안에 가득 차도록 계산하는 수학적 반응형 알고리즘
         function resetZoom() {
             // 연산하기 전 일시적으로 트랜스폼 리셋 후 스크롤 사이즈 측정
             container.style.transform = 'scale(1) translate(0px, 0px)';
@@ -559,7 +559,7 @@
                 panX = 0;
                 panY = 0;
                 updateTransform();
-            }, 50); // DOM이 카드를 렌더링하고 여백을 측정하기 위한 유예시간 부여
+            }, 50); // DOM이 카드를 완전히 렌더링하고 여백을 측정하기 위한 유예시간 부여
         }
 
         function updateTransform() {
@@ -567,41 +567,88 @@
             document.getElementById('zoom-percentage').innerText = `${Math.round(zoomScale * 100)}%`;
         }
 
-        // 모달 열기 함수
-        function openZoom(title, cardIds, layoutType = 'horizontal') {
+        // 카드 단일 템플릿 생성기
+        function createCardDOM(id) {
+            return `
+                <div class="flex flex-col items-center shrink-0 w-24 sm:w-32 md:w-36 bg-stone-900 border border-stone-850 p-2 rounded-xl shadow-lg">
+                    <div class="w-full aspect-[2/3] bg-stone-950 rounded-lg overflow-hidden border border-stone-700/60 relative">
+                        <img src="images/c (${id}).jpg" alt="${cardNamesKo[id] || '카드'}" draggable="false" class="w-full h-full object-cover pointer-events-none">
+                        <div class="absolute top-1 left-1 bg-black/75 px-1.5 py-0.5 rounded text-[9px] text-stone-300 font-bold border border-white/10">${id}</div>
+                    </div>
+                    <span class="text-[11px] font-bold text-amber-500/90 mt-2 truncate w-full text-center">${id}. ${cardNamesKo[id] || '카드'}</span>
+                </div>
+            `;
+        }
+
+        // 모달 열기 함수 (대조군/비교군 다차원 레이아웃 처리 지원)
+        function openZoom(title, cards, layoutType = 'horizontal') {
             const overlay = document.getElementById('zoom-overlay');
             const titleEl = document.getElementById('zoom-title');
             
             titleEl.textContent = title;
             container.innerHTML = '';
 
-            // 레이아웃 지정을 통한 렌더링 방향 분기
-            if (layoutType === 'vertical') {
-                container.className = "flex flex-col items-center gap-3 origin-center shrink-0";
+            if (layoutType === 'horizontal-contrast') {
+                // 가로 대조군 레이아웃: 여러 줄을 위아래로 쌓고 그 사이에 세련된 디바이더 배치
+                container.className = "flex flex-col gap-6 items-center justify-center shrink-0";
+                
+                cards.forEach((row, rowIndex) => {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = "flex flex-row flex-nowrap gap-4 md:gap-6 items-center justify-center";
+                    row.forEach(id => {
+                        rowDiv.innerHTML += createCardDOM(id);
+                    });
+                    container.appendChild(rowDiv);
+                    
+                    if (rowIndex < cards.length - 1) {
+                        const divider = document.createElement('div');
+                        divider.className = "w-full flex items-center justify-center py-2";
+                        divider.innerHTML = `<span class="text-[10px] font-bold text-amber-500/90 tracking-widest bg-stone-900 border border-stone-800/80 px-4 py-1.5 rounded-full uppercase shadow-sm">VS</span>`;
+                        container.appendChild(divider);
+                    }
+                });
+
+            } else if (layoutType === 'vertical-contrast') {
+                // 세로 대조군 레이아웃: 여러 열을 좌우로 나란히 세우고 사이에 점선 구분선 배치
+                container.className = "flex flex-row flex-nowrap items-center justify-center gap-8 sm:gap-16 shrink-0";
+                
+                cards.forEach((col, colIndex) => {
+                    const colDiv = document.createElement('div');
+                    colDiv.className = "flex flex-col gap-3 items-center justify-center";
+                    col.forEach((id, cardIndex) => {
+                        colDiv.innerHTML += createCardDOM(id);
+                        if (cardIndex < col.length - 1) {
+                            colDiv.innerHTML += `<span class="text-stone-500 font-bold text-xs select-none">↓</span>`;
+                        }
+                    });
+                    container.appendChild(colDiv);
+                    
+                    if (colIndex < cards.length - 1) {
+                        const divider = document.createElement('div');
+                        divider.className = "h-48 border-l border-stone-800 border-dashed mx-2";
+                        container.appendChild(divider);
+                    }
+                });
+
+            } else if (layoutType === 'vertical') {
+                // 세로형 한 줄 정렬
+                container.className = "flex flex-col items-center gap-3 shrink-0";
+                cards.forEach(id => {
+                    container.innerHTML += createCardDOM(id);
+                });
             } else {
-                container.className = "flex flex-row flex-nowrap justify-center items-center gap-4 md:gap-6 origin-center shrink-0";
+                // 기본 가로형 한 줄 정렬 (nowrap 유지하여 줄바꿈 오동작 방지)
+                container.className = "flex flex-row flex-nowrap justify-center items-center gap-4 md:gap-6 shrink-0";
+                cards.forEach(id => {
+                    container.innerHTML += createCardDOM(id);
+                });
             }
-
-            // 고정 축소하지 않은 본래 카드의 크기를 여유 있게 키워 둠 (w-32 ~ w-48)
-            cardIds.forEach((id) => {
-                const cardWrapper = document.createElement('div');
-                cardWrapper.className = "flex flex-col items-center shrink-0 w-28 sm:w-36 md:w-44 bg-stone-900 border border-stone-800 p-2 rounded-xl shadow-lg";
-
-                cardWrapper.innerHTML = `
-                    <div class="w-full aspect-[2/3] bg-stone-950 rounded-lg overflow-hidden border border-stone-700/60 relative">
-                        <img src="images/c (${id}).jpg" alt="${cardNamesKo[id] || '카드'}" draggable="false" class="w-full h-full object-cover pointer-events-none">
-                        <div class="absolute top-1 left-1 bg-black/75 px-1.5 py-0.5 rounded text-[9px] text-stone-300 font-bold border border-white/10">${id}</div>
-                    </div>
-                    <span class="text-xs font-bold text-amber-500/90 mt-2 truncate w-full text-center">${id}. ${cardNamesKo[id] || '카드'}</span>
-                `;
-                container.appendChild(cardWrapper);
-            });
 
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
             document.body.classList.add('overflow-hidden');
             
-            // 디바이스 가로 사이즈에 맞춰 초기 줌 비율 자동 최적화 실행
+            // 디바이스 가로 사이즈 및 카드 면적에 맞춰 자동 줌 레이아웃 비율 피팅 실행
             resetZoom();
         }
 
