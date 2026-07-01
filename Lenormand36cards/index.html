@@ -67,11 +67,6 @@
 </head>
 <body class="bg-parchment text-ink font-sans antialiased leading-relaxed">
 
-    <!-- Chosen Palette: Warm Neutrals (Parchment background, dark brown/charcoal text, amber accents) -->
-    <!-- Application Structure Plan: The SPA is divided into three main logical sections. 1) 'Introduction' sets the context and history based on the book's prefaces. 2) 'The Four Suits' uses a dashboard approach with an interactive Chart.js visualization to explain the foundational elemental meanings and their sentiment distribution, providing a macro-view. 3) 'The 36 Cards Gallery' is a highly interactive, filterable grid that acts as a digital reference tool. Clicking a card opens a modal with deep qualitative data (translation, health). This structure moves the user from macro (history/suits) to micro (individual cards), making the dense text highly explorable. -->
-    <!-- Visualization & Content Choices: 1. Suit Sentiment -> Goal: Compare the emotional weight of the 4 suits -> Viz: Chart.js Bar Chart -> Interaction: Hover tooltips -> Justification: The text specifically highlights that Clubs are negative and Spades are positive (contrary to popular belief); a chart makes this counter-intuitive data instantly understandable. 2. 36 Cards Data -> Goal: Organize and Inform -> Viz: Filterable Grid & Detail Modal -> Interaction: Click, Filter, Search, Swipe -> Justification: Allows users to quickly find specific cards or browse by suit without overwhelming them with a massive wall of text. Confirmed NO SVG/Mermaid. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <nav class="sticky top-0 z-40 bg-parchment/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -79,10 +74,14 @@
                     <span class="text-2xl mr-2 text-accent">🎴</span>
                     <span class="font-serif font-bold text-xl tracking-tight text-ink">레노먼드 오라클 가이드</span>
                 </div>
-                <div class="hidden md:flex space-x-8 items-center font-medium text-sm text-stone-600">
+                <div class="hidden md:flex space-x-6 items-center font-medium text-sm text-stone-600">
                     <a href="#intro" class="hover:text-accent transition">소개 및 역사</a>
                     <a href="#suits" class="hover:text-accent transition">4가지 수트</a>
                     <a href="#gallery" class="hover:text-accent transition">36장 카드 갤러리</a>
+                    <span class="text-stone-300">|</span>
+                    <a href="abc.html" class="hover:text-accent transition">ABC</a>
+                    <a href="core.html" class="hover:text-accent transition">Core</a>
+                    <a href="theme.html" class="hover:text-accent transition">Theme</a>
                 </div>
             </div>
         </div>
@@ -345,7 +344,7 @@
             { id: 33, name: "열쇠", eng: "The Key", suit: "Diamonds", suitDesc: "다이아몬드 8", keywords: "예(긍정), 확실성, 섭리", orig: "The Key's essence is providence. When the Key falls very close to the querent's card, it's a sign that ventures will go well and aspirations are within reach. providence is on his side. The Key is a very positive card in and of itself. As a rule, it says 'yes' to whatever is to its left, so negative cards become more certain. Obviously the Key can also be real keys or passwords. Health: The Key stands for tests and diagnoses, such as MRIs, bone density scans.", trans: "열쇠의 본질은 '신의 섭리'입니다. 질문자 가까이에 있으면 섭리가 그의 편이 되어 추진하는 사업이 잘 풀리고 포부가 실현될 것임을 알립니다. 이 자체로 매우 긍정적인 카드이지만, 열쇠의 왼쪽에 위치한 그 어떤 내용이든 '예(Yes)'라고 응답하여 기정사실화하므로 부정적인 카드가 왼쪽에 있으면 그 불운이 확실히 일어납니다. 집 열쇠, 자동차 열쇠 등의 실제 열쇠나 비밀번호를 상징하기도 합니다.", health: "MRI, 골밀도 검사, 자폐 진단 등 전문가의 '검사와 진단'을 상징합니다. (낫과 함께면 내시경 등 최소 침습 수술)" },
             { id: 34, name: "물고기", eng: "The Fish", suit: "Diamonds", suitDesc: "다이아몬드 킹", keywords: "수입, 금융 사업, 비즈니스", orig: "The Fish symbolises the essence affluence. When the Fish is close by, the querent can expect an upturn in her financial circumstances. 'Income' is the word most used to describe this card. It shows whatever money you have that comes in regularly. If the Stars are by the Fish it can show a windfall. Another meaning of the Fish is depth (deep feelings). The Fish card symbolises liquid. Health: The Fish stands for the urinary system, and potency. It can show liquids (alcohol abuse).", trans: "물고기는 '풍요'의 본질입니다. 질문자와 가까이 있으면 월급, 연금 등 정기적으로 들어오는 '수입'의 증가와 재정적 호전을 기대할 수 있습니다. 별 카드가 함께면 뜻밖의 횡재를 의미합니다. 물고기가 멀리 있으면 사업적 시련을 겪는 궁핍한 시기를 예견합니다. 이 카드는 하트와 함께 깊은 감정의 '깊이'를 나타내거나, 상류층 생활에 대한 사랑을 의미할 수 있습니다. 바다, 수영장, 음료 등 '액체'를 상징합니다.", health: "비뇨기 계통과 남성의 정력을 뜻하며, 구름과 결합 시 알코올 남용(액체)을 나타낼 수 있습니다." },
             { id: 35, name: "닻", eng: "The Anchor", suit: "Spades", suitDesc: "스페이드 9", keywords: "희망, 토대(기반), 안정적인", orig: "The Anchor is the essence of hope. When the Anchor is with good cards, it promises that your relationships and professional life are being built on strong foundations. The Anchor stands for stability. This is the card that shows something lasting: your relationships, your business, your job security. The closer the Anchor falls to the querent's card, the stronger it is. Health: The Anchor denotes how stable a recovery is. Anatomically, it stands for the hips and pelvic bones.", trans: "닻 카드는 '희망'과 '안정성'의 본질을 띱니다. 인간관계, 비즈니스, 고용 안정성 등 무언가가 튼튼한 토대 위에서 '오래 지속됨'을 보여줍니다. 좋은 카드들과 함께라면 애정운에서 평생 함께할 좋은 사람을 얻었음을 뜻하지만, 부정적인 카드와 만나면 유동적인 모래 위에 성을 쌓듯 모든 것이 변덕스럽고 좌절될 수 있음을 보여줍니다. 질문자에게 가까울수록 힘이 강해집니다.", health: "순조롭고 안정적인 회복 여부를 나타냅니다. 해부학적으로 골반뼈와 고관절을 상징합니다." },
-            { id: 36, name: "십자가", eng: "The Cross", suit: "Clubs", suitDesc: "클로버 6", keywords: "고난, 운명, 신념(믿음)", orig: "The Cross's essence is suffering. This is one of the most negative cards in the deck. It stands for testing times of grief and pain wherever it falls. It's a fateful card. Whatever the Cross is touching becomes burdensome. In select situations the trials of the Cross can mean an actual test (a performance review, driving exam). The Cross stands for religion of any denomination. Health: The Cross indicates being spent. It's a debilitating card. In terms of anatomy it stands for the lower back and lumbar discs.", trans: "십자가 카드의 본질은 '고통'입니다. 덱에서 가장 부정적인 카드 중 하나이며 슬픔과 고통의 숙명적 시련기를 뜻합니다. 십자가가 닿는 모든 영역은 짐스러워지며 피할 방법이 많지 않습니다. 질문자 카드와 아주 가까울 때만 고통의 기간이 짧아지는 것으로 의미가 완화됩니다. 인사 고과나 운전면허 시험 등 치르기 싫은 벅찬 '실제 시험'을 뜻하기도 합니다. 종파를 불문하고 종교, 종교인, 추모 장소 등을 상징합니다. 십자가의 오른쪽 카드는 의미가 강해지고, 왼쪽은 약해집니다.", health: "에너지가 다 소진되어 쇠약해진 상태와 통증을 의미합니다. 해부학적으로 요추(허리 아래)와 디스크를 뜻합니다." }
+            { id: 36, name: "십자가", eng: "The Cross", suit: "Clubs", suitDesc: "클로버 6", keywords: "고난, 운명, 신념(믿음)", orig: "The Cross's essence is suffering. This is one of the most negative cards in the deck. It stands for testing times of grief and pain wherever it falls. It's a fateful card. Whatever the Cross is touching becomes burdensome. In select situations the trials of the Cross can mean an actual test (a performance review, driving exam). The Cross stands for religion of any denomination. Health: The Cross indicates being spent. It's a debilitating card. In terms of anatomy it stands for the lower back and lumbar discs.", trans: "십자가 카드의 본질은 '고통'입니다. 덱에서 가장 부정적인 카드 중 하나이며 슬픔และ고통의 숙명적 시련기를 뜻합니다. 십자가가 닿는 모든 영역은 짐스러워지며 피할 방법이 많지 않습니다. 질문자 카드와 아주 가까울 때만 고통의 기간이 짧아지는 것으로 의미가 완화됩니다. 인사 고과나 운전면허 시험 등 치르기 싫은 벅찬 '실제 시험'을 뜻하기도 합니다. 종파를 불문하고 종교, 종교인, 추모 장소 등을 상징합니다. 십자가의 오른쪽 카드는 의미가 강해지고, 왼쪽은 약해집니다.", health: "에너지가 다 소진되어 쇠약해진 상태와 통증을 의미합니다. 해부학적으로 요추(허리 아래)와 디스크를 뜻합니다." }
         ];
 
         const suitIcons = {
@@ -589,7 +588,6 @@
             }
         }
 
-        // 터치 스와이프 기능 변수
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -642,4 +640,4 @@
         });
     </script>
 </body>
-</html>//
+</html>
