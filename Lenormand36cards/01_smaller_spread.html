@@ -3,554 +3,329 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>앤디 레노먼드 비쥬얼 스터디 보드</title>
+  <title>레노먼드 소규모 스프레드</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            serif: ['Cinzel', 'serif'],
-            sans: ['Noto Sans KR', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              gold: '#D4AF37',
-              goldLight: '#F3E5AB',
-              dark: '#070a10',
-              surface: '#101622',
-              surfaceAlt: '#182030',
-              border: '#232d3f',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #070a10;
-      color: #e2e8f0;
+      background-color: #090d16;
+      color: #f1f5f9;
       font-family: 'Noto Sans KR', sans-serif;
     }
     .custom-scrollbar::-webkit-scrollbar {
-      height: 4px;
-      width: 4px;
+      height: 6px;
+      width: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: #0b0f19;
+      background: #0d1322;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #232d3f;
+      background: #25334d;
       border-radius: 9999px;
     }
     .card-mirror-active {
-      box-shadow: 0 0 0 2.5px #38bdf8, 0 0 25px rgba(56, 189, 248, 0.4);
-      transform: translateY(-4px);
+      box-shadow: 0 0 0 3px #38bdf8, 0 0 20px rgba(56, 189, 248, 0.5);
+      transform: translateY(-6px);
     }
     .card-dimmed {
       opacity: 0.25;
-      filter: grayscale(80%);
+      filter: grayscale(85%);
       transform: scale(0.96);
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col custom-scrollbar select-none text-slate-100">
+<body class="min-h-screen flex flex-col justify-between custom-scrollbar select-none">
 
-  <header class="border-b border-brand-border bg-brand-surface/95 sticky top-0 z-40 px-3 sm:px-6 py-2.5">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold font-serif font-bold text-base shadow shrink-0">
-          ⚜
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="font-serif text-sm sm:text-base font-bold tracking-wide text-white">ANDY BOROVESHENGRA LENORMAND</h1>
-            <span class="text-[10px] sm:text-[11px] px-2 py-0.5 rounded bg-brand-gold/15 text-amber-300 font-semibold border border-brand-gold/30">
-              비쥬얼 스터디
-            </span>
-          </div>
-          <p class="text-[11px] text-slate-400">교재 순차 스프레드 독해 및 미러링 구조 시각화</p>
-        </div>
+  <!-- Top Minimal Header -->
+  <header class="border-b border-slate-800 bg-[#0d1322]/95 sticky top-0 z-40 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-amber-400 border border-slate-700 bg-slate-800/80 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1">
+          <span>←</span> 메인
+        </a>
+        <h1 class="text-base sm:text-lg font-bold text-white tracking-wide">
+          레노먼드 소규모 스프레드
+        </h1>
       </div>
 
-      <!-- GitHub Status & Direct Image Explorer -->
-      <div class="flex items-center gap-2">
-        <div id="repoStatusBadge" class="flex items-center gap-1.5 bg-brand-surfaceAlt px-2.5 py-1 rounded-lg border border-brand-border text-xs">
-          <span id="repoStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span class="text-slate-400 text-[11px]">깃허브 덱:</span>
-          <span id="repoStatusText" class="font-mono text-brand-gold text-[11px] max-w-[210px] truncate">
-            johnnydaman / Lenormand36cards
-          </span>
+      <!-- Spread Navigation Tabs -->
+      <div class="flex items-center gap-1 sm:gap-2">
+        <div id="stepNav" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1">
+          <!-- Injected dynamically via JS -->
         </div>
-        <button id="toggleImgConfigBtn" title="이미지 경로 확인 / 수정" class="px-2 py-1 bg-brand-surfaceAlt hover:bg-brand-border text-slate-300 text-xs rounded border border-brand-border flex items-center gap-1 transition">
-          ⚙️ <span>경로</span>
-        </button>
+        <div class="flex items-center gap-1 shrink-0 ml-2">
+          <button id="prevBtn" class="p-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded border border-slate-700 transition" title="이전">
+            ◀
+          </button>
+          <button id="nextBtn" class="p-1.5 px-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded transition" title="다음">
+            ▶
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <nav class="border-b border-brand-border bg-[#090d16] px-3 sm:px-6 py-2">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
-      <!-- Spread Step Pills -->
-      <div id="stepNavContainer" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-0.5">
-        <!-- Injected dynamically via JS -->
-      </div>
-      <!-- Prev / Next Navigation -->
-      <div class="flex items-center gap-1.5 shrink-0 ml-2">
-        <button id="prevBtn" class="px-2.5 py-1 bg-brand-surfaceAlt hover:bg-brand-border text-slate-300 text-xs rounded border border-brand-border flex items-center gap-1 transition">
-          ◀ <span class="hidden sm:inline">이전</span>
-        </button>
-        <button id="nextBtn" class="px-2.5 py-1 bg-brand-gold hover:bg-amber-400 text-slate-950 font-bold text-xs rounded flex items-center gap-1 transition">
-          <span class="hidden sm:inline">다음</span> ▶
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <main class="flex-1 max-w-7xl mx-auto w-full px-3 sm:px-6 py-4 flex flex-col gap-4">
-
-    <!-- SPREAD TITLE & MIRROR BUTTONS -->
-    <div class="bg-brand-surface border border-brand-border rounded-xl p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-md">
-      <div>
-        <div class="flex items-center gap-2">
-          <span id="stepIndexTag" class="text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono">
-            STEP 1
-          </span>
-          <h2 id="stepTitle" class="text-sm sm:text-base font-bold text-white">
-            <!-- Step Title -->
-          </h2>
-        </div>
-        <p id="stepSubtitle" class="text-xs text-slate-300 mt-1">
-          <!-- Step Subtitle -->
-        </p>
+  <!-- Main Visual Spread Stage -->
+  <main class="flex-1 max-w-6xl mx-auto w-full px-3 sm:px-6 py-6 flex flex-col justify-center gap-4">
+    
+    <!-- Title and Mirror Toggle Bar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#111827] border border-slate-800 rounded-xl px-4 py-3 shadow-lg">
+      <div class="flex items-center gap-2.5">
+        <span id="stepTag" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          STEP 1
+        </span>
+        <h2 id="spreadTitle" class="text-base sm:text-lg font-bold text-white tracking-tight">
+          <!-- Spread Title -->
+        </h2>
       </div>
 
-      <!-- Mirroring & Highlighting Action Toolbar -->
-      <div id="mirrorToolbar" class="flex flex-wrap items-center gap-1.5">
+      <!-- Mirroring Controls -->
+      <div id="mirrorControls" class="flex items-center gap-1.5 flex-wrap">
         <!-- Injected via JS -->
       </div>
     </div>
 
-    <!-- MAIN CARDS VIEWPORT CONTAINER (Always fits 100% inside screen width) -->
-    <div class="relative w-full bg-brand-dark border border-brand-border rounded-2xl p-2.5 sm:p-5 flex flex-col items-center justify-between min-h-[310px] sm:min-h-[380px] shadow-2xl overflow-hidden">
+    <!-- Cards Stage Viewport (Always fits within container) -->
+    <div class="relative w-full bg-[#070b12] border border-slate-800 rounded-2xl p-4 sm:p-8 flex flex-col items-center justify-center min-h-[360px] sm:min-h-[440px] shadow-2xl overflow-hidden">
       
       <!-- SVG Connecting Arcs for Mirroring -->
       <svg id="arcsSvg" class="absolute inset-0 w-full h-full pointer-events-none z-10"></svg>
 
-      <!-- CARDS ROW: Flex items with min-w-0 and responsive flex-1 so all 9 cards fit on screen -->
-      <div id="cardsRowContainer" class="w-full relative z-20 flex items-stretch justify-center gap-1 sm:gap-2.5 my-auto py-2">
+      <!-- Cards Row -->
+      <div id="cardsRow" class="w-full relative z-20 flex items-stretch justify-center gap-1.5 sm:gap-3 py-4">
         <!-- Injected via JS -->
-      </div>
-
-      <!-- Linear Reading Story Summary Flow -->
-      <div id="flowSummaryBar" class="w-full mt-3 pt-2.5 border-t border-brand-border/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-300">
-        <!-- Injected via JS -->
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <!-- Andy's Core Rule -->
-      <div class="bg-brand-surface border border-brand-border rounded-xl p-3.5 space-y-1.5">
-        <div class="flex items-center gap-1.5 text-xs font-bold text-brand-gold uppercase tracking-wider">
-          <span>📖</span> 앤디의 핵심 리딩 원칙
-        </div>
-        <div id="andyRuleBox" class="text-xs text-slate-300 leading-relaxed">
-          <!-- Text -->
-        </div>
-      </div>
-
-      <!-- Syntax Breakdown -->
-      <div class="bg-brand-surface border border-brand-border rounded-xl p-3.5 space-y-1.5">
-        <div class="flex items-center gap-1.5 text-xs font-bold text-sky-400 uppercase tracking-wider">
-          <span>🔗</span> 구문 결합 및 의미 (Syntax)
-        </div>
-        <div id="syntaxBox" class="text-xs text-slate-300 leading-relaxed">
-          <!-- Text -->
-        </div>
-      </div>
-
-      <!-- Practice Tip -->
-      <div class="bg-brand-surface border border-brand-border rounded-xl p-3.5 space-y-1.5">
-        <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wider">
-          <span>💡</span> 비주얼 관전 포인트
-        </div>
-        <div id="studyTipBox" class="text-xs text-slate-300 leading-relaxed">
-          <!-- Text -->
-        </div>
       </div>
     </div>
 
   </main>
 
-  <div id="imgConfigModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 hidden">
-    <div class="bg-brand-surface border border-brand-border rounded-xl p-5 max-w-md w-full shadow-2xl space-y-3">
-      <div class="flex items-center justify-between border-b border-brand-border pb-2">
-        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-          <span>🖼️</span> 깃허브 카드 이미지 연결 설정
-        </h3>
-        <button id="closeConfigModalBtn" class="text-slate-400 hover:text-white text-base">✕</button>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">
-        기본 등록된 주소:
-        <br><code class="text-amber-300 font-mono text-[11px] block mt-1 break-all bg-black/50 p-1.5 rounded border border-brand-border">https://johnnydaman.github.io/Tarot/Lenormand36cards/</code>
-      </p>
-      <div class="space-y-1 text-xs">
-        <label class="text-slate-400">커스텀 URL 직접 지정 (필요 시):</label>
-        <input 
-          type="text" 
-          id="customBaseInput" 
-          class="w-full bg-brand-dark border border-brand-border text-xs px-2.5 py-1.5 rounded text-white focus:outline-none focus:border-brand-gold font-mono"
-          placeholder="https://johnnydaman.github.io/Tarot/Lenormand36cards/"
-        />
-      </div>
-      <div class="flex justify-end gap-2 pt-2">
-        <button id="resetDefaultBtn" class="px-3 py-1.5 bg-brand-surfaceAlt text-slate-300 text-xs rounded border border-brand-border hover:text-white">
-          기본 주소 복원
-        </button>
-        <button id="saveConfigBtn" class="px-3 py-1.5 bg-brand-gold text-slate-950 font-bold text-xs rounded hover:bg-amber-400">
-          적용 및 다시 로드
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-brand-surfaceAlt border border-brand-gold text-amber-200 text-xs px-3.5 py-2 rounded-lg shadow-xl opacity-0 pointer-events-none transition duration-300">
-    알림
-  </div>
+  <!-- Minimal Clean Footer -->
+  <footer class="border-t border-slate-800/80 bg-[#0a0e1a] py-3 text-center text-xs text-slate-500">
+    <p>레노먼드 36장 카드 소규모 배열 스터디 보드</p>
+  </footer>
 
   <script>
-    const LENORMAND_CARDS = [
-      { id: 1, nameEn: "The Rider", nameKo: "기수 (라이더)", pip: "9♥", polarity: "positive", icon: "🏇", keywords: "새로운 소식, 신속한 메신저, 빠른 전개" },
-      { id: 2, nameEn: "The Clover", nameKo: "클로버", pip: "6♦", polarity: "positive", icon: "☘️", keywords: "가벼운 행운, 뜻밖의 기회, 수월함" },
-      { id: 3, nameEn: "The Ship", nameKo: "배 (선박)", pip: "10♠", polarity: "neutral", icon: "⛵", keywords: "원거리, 여행, 해외, 비즈니스 확장" },
-      { id: 4, nameEn: "The House", nameKo: "집 (하우스)", pip: "K♥", polarity: "positive", icon: "🏠", keywords: "가정, 가족, 안정된 사적 공간, 부동산" },
-      { id: 5, nameEn: "The Tree", nameKo: "나무 (트리)", pip: "7♥", polarity: "neutral", icon: "🌳", keywords: "건강, 뿌리, 장기적 성장, 혈통, 활력" },
-      { id: 6, nameEn: "The Clouds", nameKo: "구름 (클라우드)", pip: "K♣", polarity: "negative", icon: "☁️", keywords: "의혹, 혼란, 불확실성, 일시적 방황" },
-      { id: 7, nameEn: "The Snake", nameKo: "뱀 (스네이크)", pip: "Q♣", polarity: "negative", icon: "🐍", keywords: "기만, 우회로, 복잡한 문제, 라이벌" },
-      { id: 8, nameEn: "The Coffin", nameKo: "관 (코핀)", pip: "9♦", polarity: "negative", icon: "⚰️", keywords: "완전한 종결, 중단, 환멸, 질병" },
-      { id: 9, nameEn: "The Bouquet", nameKo: "꽃다발 (부케)", pip: "Q♠", polarity: "positive", icon: "💐", keywords: "선물, 초대, 기쁨, 아름다움, 인정" },
-      { id: 10, nameEn: "The Scythe", nameKo: "낫 (사이즈)", pip: "J♦", polarity: "negative", icon: "🌾", keywords: "돌발 절단, 위험, 급작스러운 분리, 수확" },
-      { id: 11, nameEn: "The Whip", nameKo: "채찍 / 회초리", pip: "J♣", polarity: "negative", icon: "🦯", keywords: "반복 갈등, 논쟁, 마찰, 신체 단련" },
-      { id: 12, nameEn: "The Birds", nameKo: "새 (버즈)", pip: "7♦", polarity: "neutral", icon: "🕊️", keywords: "통화, 대화, 수다, 짧은 불안, 바쁨" },
-      { id: 13, nameEn: "The Child", nameKo: "아이 (차일드)", pip: "J♠", polarity: "positive", icon: "👶", keywords: "새로운 시작, 순수함, 미숙함, 작은 것" },
-      { id: 14, nameEn: "The Fox", nameKo: "여우 (폭스)", pip: "9♣", polarity: "negative", icon: "🦊", keywords: "교활함, 속임수, 생계/직업, 눈치" },
-      { id: 15, nameEn: "The Bear", nameKo: "곰 (베어)", pip: "10♣", polarity: "neutral", icon: "🐻", keywords: "재정적 권력, 든든한 자산, 보호자, 어머니" },
-      { id: 16, nameEn: "The Stars", nameKo: "별 (스타즈)", pip: "6♥", polarity: "positive", icon: "⭐", keywords: "명료함, 영감, 야망, 가이드라인, 희망" },
-      { id: 17, nameEn: "The Stork", nameKo: "황새 (스토크)", pip: "Q♥", polarity: "positive", icon: "🪶", keywords: "개선, 긍정적 변화, 이동, 탄생" },
-      { id: 18, nameEn: "The Dog", nameKo: "개 (도그)", pip: "10♥", polarity: "positive", icon: "🐕", keywords: "충성, 신뢰하는 친구, 지속적인 우정" },
-      { id: 19, nameEn: "The Tower", nameKo: "탑 (타워)", pip: "6♠", polarity: "neutral", icon: "🏰", keywords: "공공기관, 격리, 경계, 공식 규범" },
-      { id: 20, nameEn: "The Garden", nameKo: "정원 (가든)", pip: "8♠", polarity: "positive", icon: "⛲", keywords: "대중, 모임, 사교 네트워크, 열린 장소" },
-      { id: 21, nameEn: "The Mountain", nameKo: "산 (마운틴)", pip: "8♣", polarity: "negative", icon: "⛰️", keywords: "거대한 장애물, 긴 지연, 꽉 막힘, 장벽" },
-      { id: 22, nameEn: "The Crossroad", nameKo: "갈림길 (패스)", pip: "Q♦", polarity: "neutral", icon: "🛣️", keywords: "선택의 갈림길, 복수의 대안, 결단" },
-      { id: 23, nameEn: "The Mice", nameKo: "쥐 (마이스)", pip: "7♣", polarity: "negative", icon: "🐀", keywords: "점진적 침식, 손실, 분실, 소모성 스트레스" },
-      { id: 24, nameEn: "The Heart", nameKo: "하트 (심장)", pip: "J♥", polarity: "positive", icon: "❤️", keywords: "사랑, 따뜻한 애정, 열정, 진심 어린 호의" },
-      { id: 25, nameEn: "The Ring", nameKo: "반지 (링)", pip: "A♣", polarity: "positive", icon: "💍", keywords: "약속, 계약, 결속, 파트너십, 순환" },
-      { id: 26, nameEn: "The Book", nameKo: "책 (북)", pip: "10♦", polarity: "neutral", icon: "📖", keywords: "비밀, 학문, 아직 밝혀지지 않은 정보, 공부" },
-      { id: 27, nameEn: "The Letter", nameKo: "편지 (레터)", pip: "7♠", polarity: "neutral", icon: "✉️", keywords: "서신, 서류, 문서, 공식 연락, 계약서" },
-      { id: 28, nameEn: "The Gentleman", nameKo: "신사 (젠틀맨)", pip: "A♥", polarity: "neutral", icon: "🎩", keywords: "남성 질문자 / 리딩의 중심 남성 인물" },
-      { id: 29, nameEn: "The Lady", nameKo: "숙녀 (레이디)", pip: "A♠", polarity: "neutral", icon: "👒", keywords: "여성 질문자 / 리딩의 중심 여성 인물" },
-      { id: 30, nameEn: "The Lilies", nameKo: "백합 (릴리즈)", pip: "K♠", polarity: "positive", icon: "⚜️", keywords: "평화, 성숙함, 오랜 안정, 노년, 순수함" },
-      { id: 31, nameEn: "The Sun", nameKo: "태양 (선)", pip: "A♦", polarity: "positive", icon: "☀️", keywords: "위대한 성공, 승리, 생명력, 확고한 긍정" },
-      { id: 32, nameEn: "The Moon", nameKo: "달 (문)", pip: "8♥", polarity: "positive", icon: "🌙", keywords: "명예, 사회적 인정, 감수성, 깊은 정서" },
-      { id: 33, nameEn: "The Key", nameKo: "열쇠 (키)", pip: "8♦", polarity: "positive", icon: "🔑", keywords: "확실성, 성공의 열쇠, 필연적 해결책" },
-      { id: 34, nameEn: "The Fish", nameKo: "물고기 (피쉬)", pip: "K♦", polarity: "positive", icon: "🐟", keywords: "자금 흐름, 재물, 비즈니스 활동, 풍요" },
-      { id: 35, nameEn: "The Anchor", nameKo: "닻 (앵커)", pip: "9♠", polarity: "positive", icon: "⚓", keywords: "장기적 안정, 고정된 기반, 영구직, 안착" },
-      { id: 36, nameEn: "The Cross", nameKo: "십자가 (크로스)", pip: "6♣", polarity: "negative", icon: "✝️", keywords: "무거운 짐, 시련, 운명적 고난, 슬픔" }
+    // 36 Cards metadata (Korean names & suits)
+    const CARDS = [
+      { id: 1, name: "기수", pip: "9♥" },
+      { id: 2, name: "클로버", pip: "6♦" },
+      { id: 3, name: "배", pip: "10♠" },
+      { id: 4, name: "집", pip: "K♥" },
+      { id: 5, name: "나무", pip: "7♥" },
+      { id: 6, name: "구름", pip: "K♣" },
+      { id: 7, name: "뱀", pip: "Q♣" },
+      { id: 8, name: "관", pip: "9♦" },
+      { id: 9, name: "꽃다발", pip: "Q♠" },
+      { id: 10, name: "낫", pip: "J♦" },
+      { id: 11, name: "채찍", pip: "J♣" },
+      { id: 12, name: "새", pip: "7♦" },
+      { id: 13, name: "아이", pip: "J♠" },
+      { id: 14, name: "여우", pip: "9♣" },
+      { id: 15, name: "곰", pip: "10♣" },
+      { id: 16, name: "별", pip: "6♥" },
+      { id: 17, name: "황새", pip: "Q♥" },
+      { id: 18, name: "개", pip: "10♥" },
+      { id: 19, name: "탑", pip: "6♠" },
+      { id: 20, name: "정원", pip: "8♠" },
+      { id: 21, name: "산", pip: "8♣" },
+      { id: 22, name: "갈림길", pip: "Q♦" },
+      { id: 23, name: "쥐", pip: "7♣" },
+      { id: 24, name: "하트", pip: "J♥" },
+      { id: 25, name: "반지", pip: "A♣" },
+      { id: 26, name: "책", pip: "10♦" },
+      { id: 27, name: "편지", pip: "7♠" },
+      { id: 28, name: "신사", pip: "A♥" },
+      { id: 29, name: "숙녀", pip: "A♠" },
+      { id: 30, name: "백합", pip: "K♠" },
+      { id: 31, name: "태양", pip: "A♦" },
+      { id: 32, name: "달", pip: "8♥" },
+      { id: 33, name: "열쇠", pip: "8♦" },
+      { id: 34, name: "물고기", pip: "K♦" },
+      { id: 35, name: "닻", pip: "9♠" },
+      { id: 36, name: "십자가", pip: "6♣" }
     ];
 
-    /* 
-     * Andy Boroveshengra Textbook Sequential Spreads (From Intro to Line of 9)
-     */
-    const ANDY_STUDY_STEPS = [
+    // Spreads without redundant text
+    const SPREADS = [
       {
-        id: "step1",
         name: "데일리 2장",
-        title: "데일리 2장 결합 (Daily Pair)",
-        subtitle: "1번 카드가 주어(주제), 2번 카드가 수식어/서술어로 직접 결합합니다.",
+        title: "데일리 2장 스프레드 (Daily Pair)",
         cards: [4, 18], // House + Dog
-        cardRoles: ["1. 주어 (가정/사적 공간)", "2. 서술 (신뢰하는 친구)"],
-        andyRule: "앤디 레노먼드의 가장 기본 문법 단위는 2장의 직접 결합입니다. 앞 카드는 '명사(무엇에 관한 일인가)', 뒤 카드는 '형용사/서술어(어떠한 상태인가)'로 읽습니다.",
-        syntax: "<strong>[4. 집] + [18. 개]</strong> = '충실하고 평화로운 가정', '집에 찾아오는 믿을 수 있는 오랜 친구', '가족 같은 반려동물'.",
-        studyTip: "순서가 바뀌어 [18. 개] + [4. 집]이 되면 주어가 바뀌어 '친구가 사는 집' 또는 '친구가 마련한 거처'가 됩니다.",
+        roles: ["1. 주어", "2. 서술"],
         mirrors: []
       },
       {
-        id: "step2",
         name: "데일리 3장",
-        title: "데일리 3장 서사 (Daily Triad)",
-        subtitle: "선형 3장의 서사 전개: [원인/시작] ➔ [핵심 행동] ➔ [귀결/결과]",
+        title: "데일리 3장 스프레드 (Daily Triad)",
         cards: [1, 24, 27], // Rider + Heart + Letter
-        cardRoles: ["1. 전개 (소식/도착)", "2. 감정 (사랑/따뜻함)", "3. 매체 (서신/문서)"],
-        andyRule: "3장 라인은 왼쪽에서 오른쪽으로 자연스러운 한 문장의 이야기를 만듭니다. 중심 카드(24 하트)는 1번과 3번을 이어주는 핵심 감정 모티프입니다.",
-        syntax: "<strong>[1. 기수] ➔ [24. 하트] ➔ [27. 편지]</strong> = '기쁜 마음을 전하는 애정 어린 메시지나 서신이 신속하게 당도함'.",
-        studyTip: "데일리 스프레드는 아침에 뽑아 그날의 흐름을 마치 이야기처럼 순차적으로 읽어내는 연습에 가장 적합합니다.",
+        roles: ["1. 원인", "2. 중심", "3. 결과"],
         mirrors: []
       },
       {
-        id: "step3",
-        name: "Yes/No 3장",
-        title: "예 / 아니오 3장 (Yes or No - 3 Cards)",
-        subtitle: "앤디의 극성(Polarity) 개수 판별 및 최종 카드의 결정력 확인",
-        cards: [31, 14, 33], // Sun(+) + Fox(-) + Key(+)
-        cardRoles: ["1. 긍정 (+)", "2. 부정 (-)", "3. 긍정 (+) 결론"],
-        andyRule: "앤디의 Yes/No 판별법: 긍정(+)/부정(-)/중립(○)의 개수 우위를 먼저 계산하고, 마지막 카드가 주는 결정적 메시지를 확인합니다.",
-        syntax: "<strong>긍정 2장 (태양, 열쇠) vs 부정 1장 (여우)</strong> = 명백한 <strong>YES</strong>. 가운데 여우는 일이나 요령을 필요로 함을 뜻하나, 열쇠와 태양이 성공을 확정합니다.",
-        studyTip: "홀수 스프레드는 무승부가 없다는 장점이 있습니다. 마지막 카드가 강한 긍정(열쇠/태양)이면 결과는 매우 확고합니다.",
+        name: "Yes or No (3장)",
+        title: "Yes or No 3장 스프레드",
+        cards: [31, 14, 33], // Sun + Fox + Key
+        roles: ["1", "2", "3 (결정 카드)"],
         mirrors: []
       },
       {
-        id: "step4",
-        name: "Yes/No 5장",
-        title: "예 / 아니오 5장 심화 (Yes or No - 5 Cards)",
-        subtitle: "단순 찬반을 넘어 질문 과정의 우여곡절(극성 변화)과 최종 목적지 분석",
-        cards: [2, 10, 24, 23, 31], // Clover(+) + Scythe(-) + Heart(+) + Mice(-) + Sun(+)
-        cardRoles: ["1. 긍정 (+)", "2. 부정 (-)", "3. 긍정 (+) 중심", "4. 부정 (-)", "5. 긍정 (+) 결말"],
-        andyRule: "5장 Yes/No는 결과뿐 아니라 사건의 전개 과정을 보여줍니다. 낫(10)의 돌발 정리와 쥐(23)의 스트레스가 있으나 최종 카드인 태양(31)이 결실을 맺습니다.",
-        syntax: "<strong>긍정 3장 (2, 24, 31) vs 부정 2장 (10, 23)</strong> = 전체 판정은 <strong>YES</strong>. 단, 중간 과정에서 낭비나 스트레스를 겪은 뒤 해소됩니다.",
-        studyTip: "미러링 [2 클로버 ⟷ 31 태양]은 행운과 대성공의 조화로 최종적인 성취를 더욱 굳건하게 뒷받침합니다.",
-        mirrors: [[0, 4], [1, 3]]
-      },
-      {
-        id: "step5",
         name: "5장 라인",
-        title: "5장 라인 스프레드 (Line of Five Cards)",
-        subtitle: "가운데 3번 피벗(Pivot)을 축으로 원인(1, 2)과 미래(4, 5), 그리고 미러링 대칭 독해",
+        title: "5장 라인 스프레드 (Line of 5)",
         cards: [1, 25, 2, 24, 18], // Rider + Ring + Clover + Heart + Dog
-        cardRoles: ["1. 다가온 원인", "2. 결속/계약", "★ 3. 중심 피벗", "4. 감정/호의", "5. 신뢰/귀결"],
-        andyRule: "가운데 3번 카드(클로버)가 전체 스프레드의 핵심 테마(기회, 가벼운 행운)를 결정합니다. 1-2번은 이 기회가 온 배경, 4-5번은 이후 전개될 지속적인 신뢰입니다.",
-        syntax: "<strong>선형 스토리:</strong> 기수와 반지가 합의를 가져오고 ➔ 행운의 전환점을 맞아 ➔ 애정과 신뢰로 공고해짐.<br><strong>미러링 [1 ⟷ 5]:</strong> 기수 + 개 = 신뢰할 수 있는 소식.<br><strong>미러링 [2 ⟷ 4]:</strong> 반지 + 하트 = 사랑의 결합 / 따뜻한 서약.",
-        studyTip: "우측 상단 '미러링 [1 ⟷ 5]', '[2 ⟷ 4]' 버튼을 누르면 대칭되는 카드 쌍의 연결선이 시각화됩니다.",
+        roles: ["1", "2", "★ 피벗 (3)", "4", "5"],
         mirrors: [[0, 4], [1, 3]]
       },
       {
-        id: "step6",
         name: "9장 라인",
-        title: "9장 라인 스프레드 (Line of Nine Cards)",
-        subtitle: "중심 인물(5번 시그니피케이터), 원근 거리법(Method of Distance), 4중 미러링",
-        cards: [3, 27, 4, 1, 28, 25, 24, 31, 33], // Ship, Letter, House, Rider, Gentleman, Ring, Heart, Sun, Key
-        cardRoles: [
-          "1. 먼 배경 (D4)",
-          "2. 과거 문서 (D3)",
-          "3. 기반 (D2)",
-          "4. 직전 원인 (D1)",
-          "★ 5. 시그니피케이터",
-          "6. 직후 행동 (D1)",
-          "7. 가까운 미래 (D2)",
-          "8. 확장 결과 (D3)",
-          "9. 궁극적 결말 (D4)"
-        ],
-        andyRule: "앤디의 9장 라인 핵심은 '원근 거리법(Method of Distance)'입니다. 시그니피케이터(5번 신사) 바로 옆의 4번(기수)과 6번(반지)이 가장 직접적인 현실적 영향력을 행사하며, 가장 먼 1번과 9번은 근본 배경과 최종 목적지입니다.",
-        syntax: "<strong>인접 핵심 [4 + 5 + 6]:</strong> 기수 + 신사 + 반지 = 신사가 직접 약속이나 계약을 체결하기 위해 발 빠르게 움직임.<br><strong>외곽 미러링 [1 ⟷ 9]:</strong> 배 + 열쇠 = 원거리 이동이나 사업의 성공적 매듭.<br><strong>[2 ⟷ 8]:</strong> 편지 + 태양 = 성공적인 서면 통보.<br><strong>[3 ⟷ 7]:</strong> 집 + 하트 = 가정 내의 깊은 애정.<br><strong>[4 ⟷ 6]:</strong> 기수 + 반지 = 신속한 계약 체결.",
-        studyTip: "9장의 카드가 한눈에 들어오도록 설계되었습니다. 각 미러링 버튼을 눌러 양 날개의 대칭 구도를 직접 비교해 보세요.",
+        title: "9장 라인 스프레드 (Line of 9)",
+        cards: [3, 27, 4, 1, 28, 25, 24, 31, 33], // Ship, Letter, House, Rider, Man, Ring, Heart, Sun, Key
+        roles: ["1 (D4)", "2 (D3)", "3 (D2)", "4 (D1)", "★ 시그니피케이터", "6 (D1)", "7 (D2)", "8 (D3)", "9 (D4)"],
         mirrors: [[0, 8], [1, 7], [2, 6], [3, 5]]
       }
     ];
 
-    const DEFAULT_BASE = "https://johnnydaman.github.io/Tarot/Lenormand36cards/";
-    const State = {
-      stepIndex: 0,
-      activeMirror: null,
-      githubBase: localStorage.getItem('andy_github_base') || DEFAULT_BASE,
-      confirmedPrefix: localStorage.getItem('andy_confirmed_prefix') || null
-    };
+    let currentStep = 0;
+    let activeMirror = null;
 
-    const UI = {
-      stepNavContainer: document.getElementById('stepNavContainer'),
-      prevBtn: document.getElementById('prevBtn'),
-      nextBtn: document.getElementById('nextBtn'),
-      stepIndexTag: document.getElementById('stepIndexTag'),
-      stepTitle: document.getElementById('stepTitle'),
-      stepSubtitle: document.getElementById('stepSubtitle'),
-      mirrorToolbar: document.getElementById('mirrorToolbar'),
-      cardsRowContainer: document.getElementById('cardsRowContainer'),
-      flowSummaryBar: document.getElementById('flowSummaryBar'),
-      andyRuleBox: document.getElementById('andyRuleBox'),
-      syntaxBox: document.getElementById('syntaxBox'),
-      studyTipBox: document.getElementById('studyTipBox'),
-      arcsSvg: document.getElementById('arcsSvg'),
-      repoStatusBadge: document.getElementById('repoStatusBadge'),
-      repoStatusDot: document.getElementById('repoStatusDot'),
-      repoStatusText: document.getElementById('repoStatusText'),
-      toggleImgConfigBtn: document.getElementById('toggleImgConfigBtn'),
-      imgConfigModal: document.getElementById('imgConfigModal'),
-      closeConfigModalBtn: document.getElementById('closeConfigModalBtn'),
-      customBaseInput: document.getElementById('customBaseInput'),
-      resetDefaultBtn: document.getElementById('resetDefaultBtn'),
-      saveConfigBtn: document.getElementById('saveConfigBtn'),
-      toast: document.getElementById('toast')
-    };
+    const stepNav = document.getElementById('stepNav');
+    const stepTag = document.getElementById('stepTag');
+    const spreadTitle = document.getElementById('spreadTitle');
+    const mirrorControls = document.getElementById('mirrorControls');
+    const cardsRow = document.getElementById('cardsRow');
+    const arcsSvg = document.getElementById('arcsSvg');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
-    function showToast(msg) {
-      UI.toast.innerText = msg;
-      UI.toast.classList.remove('opacity-0', 'pointer-events-none');
-      setTimeout(() => {
-        UI.toast.classList.add('opacity-0', 'pointer-events-none');
-      }, 2200);
+    function getImageCandidates(cardId) {
+      return [
+        `images/c (${cardId}).jpg`,
+        `c (${cardId}).jpg`,
+        `c%20(${cardId}).jpg`,
+        `images/c%20(${cardId}).jpg`,
+        `https://raw.githubusercontent.com/JohnnyDaMan/Tarot/main/Lenormand36cards/images/c%20(${cardId}).jpg`,
+        `https://raw.githubusercontent.com/JohnnyDaMan/Tarot/main/Lenormand36cards/c%20(${cardId}).jpg`
+      ];
     }
 
-    /* Build candidate image URLs for any card */
-    function getCardCandidates(cardId) {
-      const id = cardId;
-      let base = State.githubBase.trim();
-      if (!base.endsWith('/')) base += '/';
-
-      const candidates = [];
-
-      // 1. Exact confirmed filename pattern: 'c (1).jpg' to 'c (36).jpg'
-      const exactEncoded = `c%20(${id}).jpg`;
-      const exactRaw = `c (${id}).jpg`;
-
-      candidates.push(`${base}${exactEncoded}`);
-      candidates.push(`${base}${exactRaw}`);
-      candidates.push(`${base}images/${exactEncoded}`);
-      candidates.push(`${base}images/${exactRaw}`);
-
-      // GitHub raw content direct fallback with exact filename
-      candidates.push(`https://raw.githubusercontent.com/johnnydaman/Tarot/main/Lenormand36cards/${exactEncoded}`);
-      candidates.push(`https://raw.githubusercontent.com/johnnydaman/Tarot/master/Lenormand36cards/${exactEncoded}`);
-      candidates.push(`https://raw.githubusercontent.com/johnnydaman/Tarot/main/Lenormand36cards/images/${exactEncoded}`);
-
-      // Case variations (.JPG, .png)
-      candidates.push(`${base}c%20(${id}).JPG`);
-      candidates.push(`${base}c%20(${id}).png`);
-
-      // 2. If we already established a confirmed working prefix, try it
-      if (State.confirmedPrefix) {
-        candidates.push(`${State.confirmedPrefix}${exactEncoded}`);
-        candidates.push(`${State.confirmedPrefix}${id}.png`);
-        candidates.push(`${State.confirmedPrefix}${id}.jpg`);
-      }
-
-      // 3. Fallback standard patterns
-      candidates.push(`${base}${id}.jpg`);
-      candidates.push(`${base}${id}.png`);
-
-      return Array.from(new Set(candidates));
-    }
-    function renderStepNav() {
-      UI.stepNavContainer.innerHTML = '';
-      ANDY_STUDY_STEPS.forEach((step, idx) => {
+    function renderNav() {
+      stepNav.innerHTML = '';
+      SPREADS.forEach((spread, idx) => {
         const btn = document.createElement('button');
-        const isActive = idx === State.stepIndex;
-        btn.className = `px-2.5 py-1 rounded text-xs whitespace-nowrap transition border ${
+        const isActive = idx === currentStep;
+        btn.className = `px-2.5 py-1 text-xs whitespace-nowrap rounded-lg font-medium transition border ${
           isActive 
-            ? 'bg-brand-gold text-slate-950 font-bold border-brand-gold shadow' 
-            : 'bg-brand-surfaceAlt text-slate-300 border-brand-border hover:border-slate-500'
+            ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm' 
+            : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
         }`;
-        btn.innerHTML = `${idx + 1}. ${step.name}`;
+        btn.innerText = `${idx + 1}. ${spread.name}`;
         btn.onclick = () => {
-          State.stepIndex = idx;
-          State.activeMirror = null;
-          renderCurrentSpread();
+          currentStep = idx;
+          activeMirror = null;
+          renderSpread();
         };
-        UI.stepNavContainer.appendChild(btn);
+        stepNav.appendChild(btn);
       });
     }
 
     function drawMirrorArcs() {
-      UI.arcsSvg.innerHTML = '';
-      if (!State.activeMirror) return;
+      arcsSvg.innerHTML = '';
+      if (!activeMirror) return;
 
-      const [a, b] = State.activeMirror;
-      const cardElements = document.querySelectorAll('#cardsRowContainer > div');
-      if (!cardElements[a] || !cardElements[b]) return;
+      const [a, b] = activeMirror;
+      const cardEls = cardsRow.children;
+      if (!cardEls[a] || !cardEls[b]) return;
 
-      const svgBox = UI.arcsSvg.getBoundingClientRect();
-      const r1 = cardElements[a].getBoundingClientRect();
-      const r2 = cardElements[b].getBoundingClientRect();
+      const svgBox = arcsSvg.getBoundingClientRect();
+      const r1 = cardEls[a].getBoundingClientRect();
+      const r2 = cardEls[b].getBoundingClientRect();
 
-      const p1 = { x: r1.left + r1.width / 2 - svgBox.left, y: r1.top - svgBox.top + 6 };
-      const p2 = { x: r2.left + r2.width / 2 - svgBox.left, y: r2.top - svgBox.top + 6 };
+      const p1 = { x: r1.left + r1.width / 2 - svgBox.left, y: r1.top - svgBox.top + 4 };
+      const p2 = { x: r2.left + r2.width / 2 - svgBox.left, y: r2.top - svgBox.top + 4 };
 
       const midX = (p1.x + p2.x) / 2;
       const dist = Math.abs(p2.x - p1.x);
-      const curveY = Math.max(6, p1.y - Math.min(60, dist * 0.2));
+      const curveY = Math.max(8, p1.y - Math.min(50, dist * 0.18));
 
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', `M ${p1.x} ${p1.y} Q ${midX} ${curveY} ${p2.x} ${p2.y}`);
       path.setAttribute('fill', 'none');
       path.setAttribute('stroke', '#38bdf8');
-      path.setAttribute('stroke-width', '3');
+      path.setAttribute('stroke-width', '2.5');
       path.setAttribute('stroke-dasharray', '5 3');
 
       const dot1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       dot1.setAttribute('cx', p1.x);
       dot1.setAttribute('cy', p1.y);
-      dot1.setAttribute('r', '4.5');
+      dot1.setAttribute('r', '4');
       dot1.setAttribute('fill', '#38bdf8');
 
       const dot2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       dot2.setAttribute('cx', p2.x);
       dot2.setAttribute('cy', p2.y);
-      dot2.setAttribute('r', '4.5');
+      dot2.setAttribute('r', '4');
       dot2.setAttribute('fill', '#38bdf8');
 
-      UI.arcsSvg.appendChild(path);
-      UI.arcsSvg.appendChild(dot1);
-      UI.arcsSvg.appendChild(dot2);
+      arcsSvg.appendChild(path);
+      arcsSvg.appendChild(dot1);
+      arcsSvg.appendChild(dot2);
     }
-    function renderCurrentSpread() {
-      const step = ANDY_STUDY_STEPS[State.stepIndex];
-      renderStepNav();
 
-      UI.stepIndexTag.innerText = `STEP ${State.stepIndex + 1} / ${ANDY_STUDY_STEPS.length}`;
-      UI.stepTitle.innerText = step.title;
-      UI.stepSubtitle.innerText = step.subtitle;
-      UI.andyRuleBox.innerHTML = step.andyRule;
-      UI.syntaxBox.innerHTML = step.syntax;
-      UI.studyTipBox.innerHTML = step.studyTip;
+    function renderSpread() {
+      const spread = SPREADS[currentStep];
+      renderNav();
 
-      // Render Toolbar (Mirror Buttons)
-      UI.mirrorToolbar.innerHTML = '';
-      if (step.mirrors && step.mirrors.length > 0) {
-        const mirrorLabel = document.createElement('span');
-        mirrorLabel.className = 'text-[11px] text-slate-400 font-bold mr-1';
-        mirrorLabel.innerText = '미러링 대칭:';
-        UI.mirrorToolbar.appendChild(mirrorLabel);
+      stepTag.innerText = `STEP ${currentStep + 1} / ${SPREADS.length}`;
+      spreadTitle.innerText = spread.title;
 
-        step.mirrors.forEach(pair => {
-          const isSelected = State.activeMirror && State.activeMirror[0] === pair[0] && State.activeMirror[1] === pair[1];
+      // Mirror Buttons
+      mirrorControls.innerHTML = '';
+      if (spread.mirrors && spread.mirrors.length > 0) {
+        const label = document.createElement('span');
+        label.className = 'text-xs text-slate-400 font-semibold mr-1';
+        label.innerText = '미러링:';
+        mirrorControls.appendChild(label);
+
+        spread.mirrors.forEach(pair => {
+          const isSelected = activeMirror && activeMirror[0] === pair[0] && activeMirror[1] === pair[1];
           const mBtn = document.createElement('button');
-          mBtn.className = `px-2 py-0.5 rounded text-[11px] font-semibold border transition ${
+          mBtn.className = `px-2 py-0.5 rounded text-xs font-semibold border transition ${
             isSelected 
               ? 'bg-sky-500 text-slate-950 border-sky-400 shadow' 
-              : 'bg-brand-surfaceAlt text-sky-300 border-brand-border hover:border-sky-400'
+              : 'bg-slate-800 text-sky-300 border-slate-700 hover:border-sky-400'
           }`;
           mBtn.innerText = `[${pair[0] + 1} ⟷ ${pair[1] + 1}]`;
           mBtn.onclick = () => {
-            State.activeMirror = isSelected ? null : pair;
-            renderCurrentSpread();
+            activeMirror = isSelected ? null : pair;
+            renderSpread();
           };
-          UI.mirrorToolbar.appendChild(mBtn);
+          mirrorControls.appendChild(mBtn);
         });
 
         const resetBtn = document.createElement('button');
-        resetBtn.className = 'px-2 py-0.5 rounded text-[11px] text-slate-400 bg-brand-surfaceAlt border border-brand-border hover:text-white';
+        resetBtn.className = 'px-2 py-0.5 rounded text-xs text-slate-400 bg-slate-800 border border-slate-700 hover:text-white';
         resetBtn.innerText = '전체 보기';
         resetBtn.onclick = () => {
-          State.activeMirror = null;
-          renderCurrentSpread();
+          activeMirror = null;
+          renderSpread();
         };
-        UI.mirrorToolbar.appendChild(resetBtn);
+        mirrorControls.appendChild(resetBtn);
       }
 
-      // Render Cards in Container (NO horizontal overflow, all fit smoothly)
-      UI.cardsRowContainer.innerHTML = '';
-      const totalCards = step.cards.length;
+      // Render Cards
+      cardsRow.innerHTML = '';
+      const totalCards = spread.cards.length;
 
-      step.cards.forEach((cardId, idx) => {
-        const card = LENORMAND_CARDS.find(c => c.id === cardId) || LENORMAND_CARDS[0];
-        const roleLabel = step.cardRoles[idx] || `Card ${idx + 1}`;
-        const candidates = getCardCandidates(card.id);
+      spread.cards.forEach((cardId, idx) => {
+        const card = CARDS.find(c => c.id === cardId) || CARDS[0];
+        const roleLabel = spread.roles[idx] || `${idx + 1}`;
+        const candidates = getImageCandidates(card.id);
 
         let isDimmed = false;
         let isMirrorActive = false;
-        if (State.activeMirror) {
-          if (State.activeMirror.includes(idx)) {
+        if (activeMirror) {
+          if (activeMirror.includes(idx)) {
             isMirrorActive = true;
           } else {
             isDimmed = true;
@@ -559,184 +334,107 @@
 
         const isCenter = (totalCards === 5 && idx === 2) || (totalCards === 9 && idx === 4);
 
-        const cardWrapper = document.createElement('div');
-        cardWrapper.className = `flex-1 min-w-0 max-w-[125px] flex flex-col items-center gap-1 sm:gap-1.5 transition-all duration-200 ${
+        const cardCol = document.createElement('div');
+        cardCol.className = `flex-1 min-w-0 max-w-[130px] flex flex-col items-center gap-1.5 transition-all duration-200 ${
           isMirrorActive ? 'card-mirror-active' : ''
         } ${isDimmed ? 'card-dimmed' : ''}`;
 
-        cardWrapper.innerHTML = `
-          <!-- Slot Role Tag -->
+        cardCol.innerHTML = `
+          <!-- Role Label -->
           <div class="w-full text-center px-0.5">
-            <span class="inline-block w-full truncate text-[9px] sm:text-xs font-semibold py-0.5 px-1 rounded border ${
+            <span class="inline-block w-full truncate text-[10px] sm:text-xs font-semibold py-0.5 px-1 rounded border ${
               isCenter 
-                ? 'bg-amber-500/25 text-amber-300 border-brand-gold ring-1 ring-brand-gold/40' 
-                : (card.polarity === 'positive' ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40' : (card.polarity === 'negative' ? 'bg-rose-950/60 text-rose-300 border-rose-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-600/40'))
+                ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 ring-1 ring-amber-500/30' 
+                : 'bg-slate-800/80 text-slate-300 border-slate-700'
             }">
               ${roleLabel}
             </span>
           </div>
 
-          <!-- Card Graphic Frame -->
+          <!-- Card Image Frame -->
           <div class="w-full aspect-[2/3] rounded-lg overflow-hidden border ${
-            isCenter ? 'border-brand-gold ring-1 ring-brand-gold shadow-lg' : 'border-brand-border'
-          } bg-gradient-to-b from-[#182030] to-[#0b0e17] flex flex-col justify-between relative shadow-md">
+            isCenter ? 'border-amber-400 ring-1 ring-amber-400/40 shadow-lg' : 'border-slate-700'
+          } bg-[#111624] relative shadow-md">
             
-            <!-- Real Card Image Element with Multi-Fallback Handler -->
             <img 
-              id="card-img-${idx}"
+              id="img-${idx}"
               src="${candidates[0]}" 
-              alt="${card.nameEn}" 
+              alt="${card.name}" 
               data-candidates='${JSON.stringify(candidates)}'
-              data-try-index="0"
-              class="w-full h-full object-cover rounded absolute inset-0 z-0 transition duration-150"
+              data-try="0"
+              class="w-full h-full object-cover rounded"
             />
 
-            <!-- High-Quality Fallback Vector Graphic (Visible if image cannot be loaded) -->
-            <div id="card-fallback-${idx}" class="w-full h-full flex flex-col justify-between p-1.5 sm:p-2 relative z-10 hidden bg-gradient-to-b from-[#161d2b] to-[#0a0d15]">
-              <div class="flex items-center justify-between">
-                <span class="font-serif font-black text-xs sm:text-sm text-brand-gold">#${card.id}</span>
-                <span class="font-bold text-[9px] sm:text-xs text-amber-200 bg-black/60 px-1 rounded border border-brand-border">${card.pip}</span>
+            <!-- Fallback if missing -->
+            <div id="fb-${idx}" class="w-full h-full flex flex-col justify-between p-2 absolute inset-0 bg-slate-900 hidden">
+              <div class="flex justify-between text-xs font-bold text-amber-400">
+                <span>#${card.id}</span>
+                <span>${card.pip}</span>
               </div>
-              <div class="text-center my-auto py-1">
-                <div class="text-xl sm:text-2xl filter drop-shadow mb-0.5">${card.icon}</div>
-                <div class="font-serif text-[10px] sm:text-xs font-bold text-white truncate px-0.5">${card.nameEn}</div>
-                <div class="text-[9px] sm:text-[10px] text-amber-200/90 truncate">${card.nameKo.split(' ')[0]}</div>
+              <div class="text-center font-bold text-sm text-white">
+                ${card.name}
               </div>
-              <div class="text-center text-[9px] font-semibold ${
-                card.polarity === 'positive' ? 'text-emerald-400' : (card.polarity === 'negative' ? 'text-rose-400' : 'text-slate-400')
-              }">
-                ${card.polarity.toUpperCase()}
-              </div>
+              <div class="text-[10px] text-slate-500 text-center">Card ${card.id}</div>
             </div>
           </div>
 
-          <!-- Position Index Indicator -->
-          <span class="text-[9px] sm:text-[10px] font-mono text-slate-400">[${idx + 1}]</span>
+          <!-- Card Name / Number -->
+          <span class="text-[11px] sm:text-xs font-semibold text-slate-300 truncate text-center w-full">
+            ${card.id}. ${card.name}
+          </span>
         `;
 
-        UI.cardsRowContainer.appendChild(cardWrapper);
+        cardsRow.appendChild(cardCol);
 
-        // Bind image load events
-        const imgEl = cardWrapper.querySelector(`#card-img-${idx}`);
-        const fallbackEl = cardWrapper.querySelector(`#card-fallback-${idx}`);
-
-        imgEl.onload = function() {
-          fallbackEl.classList.add('hidden');
-          imgEl.classList.remove('hidden');
-
-          // Update Status Badge
-          UI.repoStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
-          UI.repoStatusText.innerText = '이미지 정상 연동됨';
-
-          // Extract working prefix
-          const currentSrc = imgEl.src;
-          const match = currentSrc.match(/^(.*\/)(\d+)\.(png|jpg|jpeg|webp)$/i);
-          if (match && !State.confirmedPrefix) {
-            State.confirmedPrefix = match[1];
-            localStorage.setItem('andy_confirmed_prefix', match[1]);
-          }
-        };
+        // Image error handling with fallback candidates
+        const imgEl = cardCol.querySelector(`#img-${idx}`);
+        const fbEl = cardCol.querySelector(`#fb-${idx}`);
 
         imgEl.onerror = function() {
-          let tryIdx = parseInt(imgEl.getAttribute('data-try-index') || '0', 10);
+          let tryIdx = parseInt(imgEl.getAttribute('data-try') || '0', 10);
           tryIdx++;
           if (tryIdx < candidates.length) {
-            imgEl.setAttribute('data-try-index', tryIdx);
+            imgEl.setAttribute('data-try', tryIdx);
             imgEl.src = candidates[tryIdx];
           } else {
-            // All candidates exhausted -> show vector fallback
             imgEl.classList.add('hidden');
-            fallbackEl.classList.remove('hidden');
+            fbEl.classList.remove('hidden');
           }
         };
       });
-
-      // Bottom flow summary
-      UI.flowSummaryBar.innerHTML = `
-        <div class="flex items-center gap-1.5 overflow-x-auto">
-          <span class="font-bold text-brand-gold shrink-0">카드 순서:</span>
-          <span>${step.cards.map(id => {
-            const c = LENORMAND_CARDS.find(x => x.id === id);
-            return `<span class="font-semibold text-white">${c.nameKo.split(' ')[0]}</span>`;
-          }).join(' <span class="text-amber-400">➔</span> ')}</span>
-        </div>
-        <div class="text-slate-400 text-[11px] shrink-0">
-          ※ 9장의 카드가 화면 너비에 맞춰 100% 자동 스케일링됩니다.
-        </div>
-      `;
 
       requestAnimationFrame(() => {
         drawMirrorArcs();
       });
     }
-    function init() {
-      // Step Navigation Buttons
-      UI.prevBtn.onclick = () => {
-        if (State.stepIndex > 0) {
-          State.stepIndex--;
-          State.activeMirror = null;
-          renderCurrentSpread();
-        } else {
-          showToast('첫 번째 예시 스프레드입니다.');
-        }
-      };
 
-      UI.nextBtn.onclick = () => {
-        if (State.stepIndex < ANDY_STUDY_STEPS.length - 1) {
-          State.stepIndex++;
-          State.activeMirror = null;
-          renderCurrentSpread();
-        } else {
-          showToast('마지막 예시 스프레드입니다.');
-        }
-      };
+    prevBtn.onclick = () => {
+      if (currentStep > 0) {
+        currentStep--;
+        activeMirror = null;
+        renderSpread();
+      }
+    };
 
-      // Modal Triggers
-      UI.toggleImgConfigBtn.onclick = () => {
-        UI.customBaseInput.value = State.githubBase;
-        UI.imgConfigModal.classList.remove('hidden');
-      };
-      UI.closeConfigModalBtn.onclick = () => {
-        UI.imgConfigModal.classList.add('hidden');
-      };
-      UI.resetDefaultBtn.onclick = () => {
-        State.githubBase = DEFAULT_BASE;
-        State.confirmedPrefix = null;
-        localStorage.removeItem('andy_confirmed_prefix');
-        localStorage.setItem('andy_github_base', DEFAULT_BASE);
-        UI.customBaseInput.value = DEFAULT_BASE;
-        renderCurrentSpread();
-        UI.imgConfigModal.classList.add('hidden');
-        showToast('기본 주소로 재설정되었습니다.');
-      };
-      UI.saveConfigBtn.onclick = () => {
-        const val = UI.customBaseInput.value.trim();
-        if (val) {
-          State.githubBase = val;
-          State.confirmedPrefix = null;
-          localStorage.removeItem('andy_confirmed_prefix');
-          localStorage.setItem('andy_github_base', val);
-          renderCurrentSpread();
-          UI.imgConfigModal.classList.add('hidden');
-          showToast('설정된 주소로 이미지를 다시 불러옵니다.');
-        }
-      };
+    nextBtn.onclick = () => {
+      if (currentStep < SPREADS.length - 1) {
+        currentStep++;
+        activeMirror = null;
+        renderSpread();
+      }
+    };
 
-      // Keyboard arrow shortcuts
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') UI.prevBtn.click();
-        else if (e.key === 'ArrowRight') UI.nextBtn.click();
-      });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
 
-      // Window resize re-draws mirror arcs
-      window.addEventListener('resize', () => {
-        drawMirrorArcs();
-      });
+    window.addEventListener('resize', () => {
+      drawMirrorArcs();
+    });
 
-      renderCurrentSpread();
-    }
-
-    window.addEventListener('DOMContentLoaded', init);
+    // Boot
+    renderSpread();
   </script>
 </body>
 </html>
