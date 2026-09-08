@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>레노먼드 소규모 스프레드</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #090d16;
       color: #f1f5f9;
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
     }
     .custom-scrollbar::-webkit-scrollbar {
       height: 6px;
@@ -26,11 +23,11 @@
       border-radius: 9999px;
     }
     .card-mirror-active {
-      box-shadow: 0 0 0 3px #38bdf8, 0 0 20px rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 0 3px #38bdf8, 0 0 20px rgba(56, 189, 248, 0.6);
       transform: translateY(-6px);
     }
     .card-dimmed {
-      opacity: 0.25;
+      opacity: 0.22;
       filter: grayscale(85%);
       transform: scale(0.96);
     }
@@ -38,28 +35,28 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between custom-scrollbar select-none">
 
-  <!-- Top Minimal Header -->
-  <header class="border-b border-slate-800 bg-[#0d1322]/95 sticky top-0 z-40 px-4 py-3">
-    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <a href="index.html" class="text-xs text-slate-400 hover:text-amber-400 border border-slate-700 bg-slate-800/80 px-2.5 py-1.5 rounded-lg transition flex items-center gap-1">
-          <span>←</span> 메인
+  <!-- Minimal Header -->
+  <header class="border-b border-slate-800 bg-[#0d1322]/95 sticky top-0 z-40 px-3 sm:px-5 py-2.5">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="text-xs text-slate-400 hover:text-amber-400 border border-slate-700 bg-slate-800/80 px-2 py-1 rounded transition">
+          ← 메인
         </a>
-        <h1 class="text-base sm:text-lg font-bold text-white tracking-wide">
-          레노먼드 소규모 스프레드
+        <h1 class="text-sm sm:text-base font-bold text-white tracking-wide">
+          소규모 스프레드
         </h1>
       </div>
 
-      <!-- Spread Navigation Tabs -->
+      <!-- Navigation Tabs -->
       <div class="flex items-center gap-1 sm:gap-2">
-        <div id="stepNav" class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1">
+        <div id="stepNav" class="flex items-center gap-1 overflow-x-auto custom-scrollbar py-1">
           <!-- Injected dynamically via JS -->
         </div>
-        <div class="flex items-center gap-1 shrink-0 ml-2">
-          <button id="prevBtn" class="p-1.5 px-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded border border-slate-700 transition" title="이전">
+        <div class="flex items-center gap-1 shrink-0 ml-1">
+          <button id="prevBtn" class="p-1 px-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded border border-slate-700 transition" title="이전">
             ◀
           </button>
-          <button id="nextBtn" class="p-1.5 px-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded transition" title="다음">
+          <button id="nextBtn" class="p-1 px-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded transition" title="다음">
             ▶
           </button>
         </div>
@@ -68,15 +65,15 @@
   </header>
 
   <!-- Main Visual Spread Stage -->
-  <main class="flex-1 max-w-6xl mx-auto w-full px-3 sm:px-6 py-6 flex flex-col justify-center gap-4">
+  <main class="flex-1 max-w-6xl mx-auto w-full px-3 sm:px-6 py-4 sm:py-6 flex flex-col justify-center gap-3">
     
     <!-- Title and Mirror Toggle Bar -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#111827] border border-slate-800 rounded-xl px-4 py-3 shadow-lg">
-      <div class="flex items-center gap-2.5">
-        <span id="stepTag" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-          STEP 1
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-[#111827] border border-slate-800 rounded-xl px-4 py-2.5 shadow-lg">
+      <div class="flex items-center gap-2">
+        <span id="stepTag" class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          STEP 1 / 8
         </span>
-        <h2 id="spreadTitle" class="text-base sm:text-lg font-bold text-white tracking-tight">
+        <h2 id="spreadTitle" class="text-sm sm:text-base font-bold text-white tracking-tight">
           <!-- Spread Title -->
         </h2>
       </div>
@@ -87,101 +84,152 @@
       </div>
     </div>
 
-    <!-- Cards Stage Viewport (Always fits within container) -->
-    <div class="relative w-full bg-[#070b12] border border-slate-800 rounded-2xl p-4 sm:p-8 flex flex-col items-center justify-center min-h-[360px] sm:min-h-[440px] shadow-2xl overflow-hidden">
+    <!-- Cards Stage Viewport (Always fits within container without overflow) -->
+    <div class="relative w-full bg-[#070b12] border border-slate-800 rounded-2xl p-3 sm:p-6 flex flex-col items-center justify-center min-h-[340px] sm:min-h-[420px] shadow-2xl overflow-hidden">
       
       <!-- SVG Connecting Arcs for Mirroring -->
       <svg id="arcsSvg" class="absolute inset-0 w-full h-full pointer-events-none z-10"></svg>
 
       <!-- Cards Row -->
-      <div id="cardsRow" class="w-full relative z-20 flex items-stretch justify-center gap-1.5 sm:gap-3 py-4">
+      <div id="cardsRow" class="w-full relative z-20 flex items-stretch justify-center gap-1.5 sm:gap-2.5 py-4">
         <!-- Injected via JS -->
       </div>
     </div>
 
   </main>
 
-  <!-- Minimal Clean Footer -->
-  <footer class="border-t border-slate-800/80 bg-[#0a0e1a] py-3 text-center text-xs text-slate-500">
+  <!-- Minimal Footer -->
+  <footer class="border-t border-slate-800/80 bg-[#0a0e1a] py-2.5 text-center text-xs text-slate-500">
     <p>레노먼드 36장 카드 소규모 배열 스터디 보드</p>
   </footer>
 
   <script>
-    // 36 Cards metadata (Korean names & suits)
+    // 36 Petit Lenormand Cards
     const CARDS = [
-      { id: 1, name: "기수", pip: "9♥" },
-      { id: 2, name: "클로버", pip: "6♦" },
-      { id: 3, name: "배", pip: "10♠" },
-      { id: 4, name: "집", pip: "K♥" },
-      { id: 5, name: "나무", pip: "7♥" },
-      { id: 6, name: "구름", pip: "K♣" },
-      { id: 7, name: "뱀", pip: "Q♣" },
-      { id: 8, name: "관", pip: "9♦" },
-      { id: 9, name: "꽃다발", pip: "Q♠" },
-      { id: 10, name: "낫", pip: "J♦" },
-      { id: 11, name: "채찍", pip: "J♣" },
-      { id: 12, name: "새", pip: "7♦" },
-      { id: 13, name: "아이", pip: "J♠" },
-      { id: 14, name: "여우", pip: "9♣" },
-      { id: 15, name: "곰", pip: "10♣" },
-      { id: 16, name: "별", pip: "6♥" },
-      { id: 17, name: "황새", pip: "Q♥" },
-      { id: 18, name: "개", pip: "10♥" },
-      { id: 19, name: "탑", pip: "6♠" },
-      { id: 20, name: "정원", pip: "8♠" },
-      { id: 21, name: "산", pip: "8♣" },
-      { id: 22, name: "갈림길", pip: "Q♦" },
-      { id: 23, name: "쥐", pip: "7♣" },
-      { id: 24, name: "하트", pip: "J♥" },
-      { id: 25, name: "반지", pip: "A♣" },
-      { id: 26, name: "책", pip: "10♦" },
-      { id: 27, name: "편지", pip: "7♠" },
-      { id: 28, name: "신사", pip: "A♥" },
-      { id: 29, name: "숙녀", pip: "A♠" },
-      { id: 30, name: "백합", pip: "K♠" },
-      { id: 31, name: "태양", pip: "A♦" },
-      { id: 32, name: "달", pip: "8♥" },
-      { id: 33, name: "열쇠", pip: "8♦" },
-      { id: 34, name: "물고기", pip: "K♦" },
-      { id: 35, name: "닻", pip: "9♠" },
-      { id: 36, name: "십자가", pip: "6♣" }
+      { id: 1, name: "기수 (Cavalier)", pip: "9♥" },
+      { id: 2, name: "클로버 (Clover)", pip: "6♦" },
+      { id: 3, name: "배 (Ship)", pip: "10♠" },
+      { id: 4, name: "집 (House)", pip: "K♥" },
+      { id: 5, name: "나무 (Tree)", pip: "7♥" },
+      { id: 6, name: "구름 (Clouds)", pip: "K♣" },
+      { id: 7, name: "뱀 (Snake)", pip: "Q♣" },
+      { id: 8, name: "관 (Coffin)", pip: "9♦" },
+      { id: 9, name: "꽃다발 (Bouquet)", pip: "Q♠" },
+      { id: 10, name: "낫 (Scythe)", pip: "J♦" },
+      { id: 11, name: "채찍 (Rod/Whip)", pip: "J♣" },
+      { id: 12, name: "새 (Birds)", pip: "7♦" },
+      { id: 13, name: "아이 (Child)", pip: "J♠" },
+      { id: 14, name: "여우 (Fox)", pip: "9♣" },
+      { id: 15, name: "곰 (Bear)", pip: "10♣" },
+      { id: 16, name: "별 (Stars)", pip: "6♥" },
+      { id: 17, name: "황새 (Storks)", pip: "Q♥" },
+      { id: 18, name: "개 (Dog)", pip: "10♥" },
+      { id: 19, name: "탑 (Tower)", pip: "6♠" },
+      { id: 20, name: "정원 (Garden)", pip: "8♠" },
+      { id: 21, name: "산 (Mountain)", pip: "8♣" },
+      { id: 22, name: "갈림길 (Paths)", pip: "Q♦" },
+      { id: 23, name: "쥐 (Mice)", pip: "7♣" },
+      { id: 24, name: "하트 (Heart)", pip: "J♥" },
+      { id: 25, name: "반지 (Ring)", pip: "A♣" },
+      { id: 26, name: "책 (Book)", pip: "10♦" },
+      { id: 27, name: "편지 (Letter)", pip: "7♠" },
+      { id: 28, name: "신사 (Lord)", pip: "A♥" },
+      { id: 29, name: "숙녀 (Lady)", pip: "A♠" },
+      { id: 30, name: "백합 (Lily)", pip: "K♠" },
+      { id: 31, name: "태양 (Sun)", pip: "A♦" },
+      { id: 32, name: "달 (Moon)", pip: "8♥" },
+      { id: 33, name: "열쇠 (Key)", pip: "8♦" },
+      { id: 34, name: "물고기 (Fish)", pip: "K♦" },
+      { id: 35, name: "닻 (Anchor)", pip: "9♠" },
+      { id: 36, name: "십자가 (Cross)", pip: "6♣" }
     ];
 
-    // Spreads without redundant text
+    /* 
+     * Exact examples from the text up to Line of Nine:
+     * 1. Daily 1: Lord(28) - Scythe(10) - Bear(15)
+     * 2. Daily 2: Dog(18) - Paths(22) - Garden(20)
+     * 3. Yes/No 1: Cross(36) - Book(26) - Lady(29)
+     * 4. Yes/No 2: Letter(27) - Fish(34) - Stars(16)
+     * 5. 5-Card 1: Birds(12) - Lady(29) - Dog(18) - Child(13) - Garden(20)
+     * 6. 5-Card 2: Mice(23) - Ship(3) - Book(26) - Lily(30) - Garden(20)
+     * 7. 9-Card 1: Dog(18) - Ring(25) - Snake(7) - Clouds(6) - Heart(24) - Lady(29) - Moon(32) - Lord(28) - Bouquet(9)
+     * 8. 9-Card 2: Cross(36) - Lord(28) - Ring(25) - Fish(34) - Birds(12) - Letter(27) - Ship(3) - Cavalier(1) - Sun(31)
+     */
     const SPREADS = [
       {
-        name: "데일리 2장",
-        title: "데일리 2장 스프레드 (Daily Pair)",
-        cards: [4, 18], // House + Dog
-        roles: ["1. 주어", "2. 서술"],
+        tab: "데일리 1",
+        title: "데일리 3장 (예시 1): 신사 ➔ 낫 ➔ 곰",
+        cards: [28, 10, 15],
+        roles: ["1. 주제 (신사)", "2. 행동 (낫)", "3. 서술 (곰)"],
         mirrors: []
       },
       {
-        name: "데일리 3장",
-        title: "데일리 3장 스프레드 (Daily Triad)",
-        cards: [1, 24, 27], // Rider + Heart + Letter
-        roles: ["1. 원인", "2. 중심", "3. 결과"],
+        tab: "데일리 2",
+        title: "데일리 3장 (예시 2): 개 ➔ 갈림길 ➔ 정원",
+        cards: [18, 22, 20],
+        roles: ["1. 주제 (개)", "2. 행동 (갈림길)", "3. 목적지 (정원)"],
         mirrors: []
       },
       {
-        name: "Yes or No (3장)",
-        title: "Yes or No 3장 스프레드",
-        cards: [31, 14, 33], // Sun + Fox + Key
-        roles: ["1", "2", "3 (결정 카드)"],
+        tab: "Yes/No 1",
+        title: "Yes or No 3장 (예시 1: 조셉이 나를 사랑하는가?): 십자가 ➔ 책 ➔ 숙녀",
+        cards: [36, 26, 29],
+        roles: ["1. 부정 (-)", "2. 중립-부정 (-)", "3. 중립 (0) = [NO]"],
         mirrors: []
       },
       {
-        name: "5장 라인",
-        title: "5장 라인 스프레드 (Line of 5)",
-        cards: [1, 25, 2, 24, 18], // Rider + Ring + Clover + Heart + Dog
-        roles: ["1", "2", "★ 피벗 (3)", "4", "5"],
+        tab: "Yes/No 2",
+        title: "Yes or No 3장 (예시 2: 오늘 복권운이 따를까?): 편지 ➔ 물고기 ➔ 별",
+        cards: [27, 34, 16],
+        roles: ["1. 중립 (0)", "2. 긍정 (+)", "3. 긍정 (+) = [YES]"],
+        mirrors: []
+      },
+      {
+        tab: "5장 라인 1",
+        title: "5장 라인 (예시 1: 로스의 마음): 새 ➔ 숙녀 ➔ 개 ➔ 아이 ➔ 정원",
+        cards: [12, 29, 18, 13, 20],
+        roles: ["1. 동요 (새)", "2. 대상 (숙녀)", "★ 피벗 (개)", "4. 우호 (아이)", "5. 대중 (정원)"],
         mirrors: [[0, 4], [1, 3]]
       },
       {
-        name: "9장 라인",
-        title: "9장 라인 스프레드 (Line of 9)",
-        cards: [3, 27, 4, 1, 28, 25, 24, 31, 33], // Ship, Letter, House, Rider, Man, Ring, Heart, Sun, Key
-        roles: ["1 (D4)", "2 (D3)", "3 (D2)", "4 (D1)", "★ 시그니피케이터", "6 (D1)", "7 (D2)", "8 (D3)", "9 (D4)"],
+        tab: "5장 라인 2",
+        title: "5장 라인 (예시 2: 취업을 막는 원인): 쥐 ➔ 배 ➔ 책 ➔ 백합 ➔ 정원",
+        cards: [23, 3, 26, 30, 20],
+        roles: ["1. 손실 (쥐)", "2. 기회 (배)", "★ 피벗 (책)", "4. 멘토 (백합)", "5. 직장 (정원)"],
+        mirrors: [[0, 4], [1, 3]]
+      },
+      {
+        tab: "9장 라인 1",
+        title: "9장 라인 (예시 1: 연애운 흐름)",
+        cards: [18, 25, 7, 6, 24, 29, 32, 28, 9],
+        roles: [
+          "1. 개", 
+          "2. 반지", 
+          "3. 뱀", 
+          "4. 구름", 
+          "★ 포커스 (하트)", 
+          "6. 숙녀", 
+          "7. 달", 
+          "8. 신사", 
+          "9. 꽃다발"
+        ],
+        mirrors: [[0, 8], [1, 7], [2, 6], [3, 5]]
+      },
+      {
+        tab: "9장 라인 2",
+        title: "9장 라인 (예시 2: 재정 회복 전망)",
+        cards: [36, 28, 25, 34, 12, 27, 3, 1, 31],
+        roles: [
+          "1. 십자가", 
+          "2. 신사", 
+          "3. 반지", 
+          "4. 물고기", 
+          "★ 포커스 (새)", 
+          "6. 편지", 
+          "7. 배", 
+          "8. 기수", 
+          "9. 태양"
+        ],
         mirrors: [[0, 8], [1, 7], [2, 6], [3, 5]]
       }
     ];
@@ -202,10 +250,8 @@
       return [
         `images/c (${cardId}).jpg`,
         `c (${cardId}).jpg`,
-        `c%20(${cardId}).jpg`,
         `images/c%20(${cardId}).jpg`,
-        `https://raw.githubusercontent.com/JohnnyDaMan/Tarot/main/Lenormand36cards/images/c%20(${cardId}).jpg`,
-        `https://raw.githubusercontent.com/JohnnyDaMan/Tarot/main/Lenormand36cards/c%20(${cardId}).jpg`
+        `c%20(${cardId}).jpg`
       ];
     }
 
@@ -214,12 +260,12 @@
       SPREADS.forEach((spread, idx) => {
         const btn = document.createElement('button');
         const isActive = idx === currentStep;
-        btn.className = `px-2.5 py-1 text-xs whitespace-nowrap rounded-lg font-medium transition border ${
+        btn.className = `px-2 py-1 text-xs whitespace-nowrap rounded-lg font-medium transition border ${
           isActive 
             ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-sm' 
             : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
         }`;
-        btn.innerText = `${idx + 1}. ${spread.name}`;
+        btn.innerText = spread.tab;
         btn.onclick = () => {
           currentStep = idx;
           activeMirror = null;
@@ -313,7 +359,7 @@
         mirrorControls.appendChild(resetBtn);
       }
 
-      // Render Cards
+      // Render Cards Row
       cardsRow.innerHTML = '';
       const totalCards = spread.cards.length;
 
@@ -340,7 +386,7 @@
         } ${isDimmed ? 'card-dimmed' : ''}`;
 
         cardCol.innerHTML = `
-          <!-- Role Label -->
+          <!-- Role Tag -->
           <div class="w-full text-center px-0.5">
             <span class="inline-block w-full truncate text-[10px] sm:text-xs font-semibold py-0.5 px-1 rounded border ${
               isCenter 
@@ -365,7 +411,7 @@
               class="w-full h-full object-cover rounded"
             />
 
-            <!-- Fallback if missing -->
+            <!-- Clean Vector Fallback if image load fails -->
             <div id="fb-${idx}" class="w-full h-full flex flex-col justify-between p-2 absolute inset-0 bg-slate-900 hidden">
               <div class="flex justify-between text-xs font-bold text-amber-400">
                 <span>#${card.id}</span>
@@ -378,7 +424,7 @@
             </div>
           </div>
 
-          <!-- Card Name / Number -->
+          <!-- Card Name Label -->
           <span class="text-[11px] sm:text-xs font-semibold text-slate-300 truncate text-center w-full">
             ${card.id}. ${card.name}
           </span>
@@ -386,7 +432,6 @@
 
         cardsRow.appendChild(cardCol);
 
-        // Image error handling with fallback candidates
         const imgEl = cardCol.querySelector(`#img-${idx}`);
         const fbEl = cardCol.querySelector(`#fb-${idx}`);
 
